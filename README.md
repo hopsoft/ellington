@@ -45,6 +45,6 @@ Ellington exposes a logger that logs all of the following at each station.
 - Route
 - Line
 - Station
-- Transition - *The __state transition__ that was performed on the context.*
+- Transition
 
 ![Ellington Diagram](https://raw.github.com/hopsoft/ellington/master/doc/diagram.png)
