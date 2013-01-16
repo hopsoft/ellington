@@ -9,7 +9,7 @@ Ellington's nomenclature is taken from [New York's subway system](http://en.wiki
 We've found that drawing parallels to the physical world helps us reason 
 more clearly about the complexities of software.
 
-The subway analagy isn't perfect but does provide enough terminology to express the major architectural components.
+The subway analogy isn't perfect but does provide enough terminology to express the major architectural components.
 
 ### Lexicon
 
