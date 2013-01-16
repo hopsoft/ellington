@@ -1,4 +1,12 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in ellington.gemspec
-gemspec
+gem "hero"
+gem "state_jacket"
+gem "yell"
+
+group :development, :test do
+  gem "pry"
+  gem "pry-stack_explorer"
+  gem "micro_test"
+  gem "micro_mock"
+end
