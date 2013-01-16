@@ -36,5 +36,14 @@ The subway analogy isn't perfect but does provide enough terminology to express 
 - Any station may perform a transfer to another route if all lines and stations after it are skipped.
 - Any station may invoke a new route for a different context.
 
+### Logging
+
+Ellington exposes a logger that logs all of the following at each station.
+
+- Context
+- Route
+- Line
+- Station
+- Transition - The state transition that was made on the context.
 
 ![Ellington Diagram](https://raw.github.com/hopsoft/ellington/master/doc/diagram.png)
