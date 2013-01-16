@@ -50,4 +50,7 @@ Ellington exposes a logger that logs all of the following at each station.
 
 Its also possible to extract additional info from the context and append it to the log output.
 
+*The log output coupled with technologies like [map/reduce](http://en.wikipedia.org/wiki/MapReduce) 
+or [Goldmine](https://github.com/hopsoft/goldmine) provides powerful analytics capabilities.*
+
 ![Ellington Diagram](https://raw.github.com/hopsoft/ellington/master/doc/diagram.png)
