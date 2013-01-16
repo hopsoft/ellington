@@ -9,6 +9,8 @@ Ellington's nomenclature is taken from [New York's subway system](http://en.wiki
 We've found that drawing parallels to the physical world helps us reason 
 more clearly about the complexities of software.
 
+The subway analagy isn't perfect but does provide enough terminology to express the major architectural components.
+
 ### Lexicon
 
 - **Context** - The passenger that will be riding our virtual subway.
@@ -17,19 +19,22 @@ more clearly about the complexities of software.
                 The context's state can change once per stop.
                 Note: A station may be skipped depending upon the context's state.
 - **Line** - A rigid track that moves the context from point A to point B.
+- **Sub Line** - A line invoked by a station owned by another line within the same route.
 - **Connection** - A link between lines.
 - **Route** - A collection of lines and their connections.
+              Routes are synonymous with projects 
+              (e.g. a physical collection of lines into a single repo).
 - **Transfer** - A link between routes.
-- **Network** - An entire system.
+- **Network** - An entire system of routes & transfers designed to work together.
 
 ### Rules
 
 - The context's state may only change once per station.
 - A station may be skipped depending upon the context's state. 
-  Stations are responsible for determining whether or not they should be skipped.
-- Any station may perform a connection to another line.
-  This means that lines may be invoked in a non-linear fashion.
-- Any station may perform a transfer to any route.
-  This means that routes may be invoked in a non-linear fashion.
+- A station may invoke a sub-line that operates on the same context.
+- Any station may perform a connection to another line if all stations after it are skipped.
+- Any station may perform a transfer to another route if all lines and stations after it are skipped.
+- Any station may invoke a new route for a different context.
+
 
 ![Ellington Diagram](https://raw.github.com/hopsoft/ellington/master/doc/diagram.png)
