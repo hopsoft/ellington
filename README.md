@@ -41,10 +41,11 @@ The subway analogy isn't perfect but does provide enough terminology to express 
 
 Ellington exposes a logger that logs all of the following at each station.
 
+- Date/Time
 - Context
+- Transition
 - Route
 - Line
 - Station
-- Transition
 
 ![Ellington Diagram](https://raw.github.com/hopsoft/ellington/master/doc/diagram.png)
