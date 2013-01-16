@@ -48,4 +48,6 @@ Ellington exposes a logger that logs all of the following at each station.
 - Line
 - Station
 
+Its also possible to extract additional info from the context and append it to the log output.
+
 ![Ellington Diagram](https://raw.github.com/hopsoft/ellington/master/doc/diagram.png)
