@@ -11,13 +11,19 @@ more clearly about the complexities of software.
 
 ### Lexicon
 
-- **Context/Passenger** - The passenger that will be riding on our virtual subway.
-- **State** - The status or disposition assigned to the passenger.
-- Network
-- Route
-- Line
-- Station
-- Connection
-- Transfer
+- **Context** - The passenger that will be riding our virtual subway.
+- **State** - The status or disposition assigned to the context.
+- **Station** - A stop where business logic is applied. 
+                The context's state can change once per stop.
+                Note: A station may be skipped depending upon the context's state.
+- **Line** - A rigid track that moves the context from point A to point B.
+- **Connection** - A link between lines.
+- **Route** - A collection of lines and their connections.
+- **Transfer** - A link between routes.
+- **Network** - An entire system.
+
+### Rules
+
+Coming soon...
 
 ![Ellington Diagram](https://raw.github.com/hopsoft/ellington/master/doc/diagram.png)
