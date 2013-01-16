@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = Ellington::VERSION
   gem.authors       = ["Nathan Hopkins"]
   gem.email         = ["natehop@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{Write a gem description}
+  gem.summary       = %q{Write a gem summary}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)
