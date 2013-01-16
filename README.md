@@ -24,6 +24,12 @@ more clearly about the complexities of software.
 
 ### Rules
 
-Coming soon...
+- The context's state may only change once per station.
+- A station may be skipped depending upon the context's state. 
+  Stations are responsible for determining whether or not they should be skipped.
+- Any station may perform a connection to another line.
+  This means that lines may be invoked in a non-linear fashion.
+- Any station may perform a transfer to any route.
+  This means that routes may be invoked in a non-linear fashion.
 
 ![Ellington Diagram](https://raw.github.com/hopsoft/ellington/master/doc/diagram.png)
