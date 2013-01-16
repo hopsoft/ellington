@@ -15,6 +15,7 @@ The subway analogy isn't perfect but does provide enough terminology to express 
 
 - **Context** - The passenger that will be riding our virtual subway.
 - **State** - The status or disposition assigned to the context.
+- **State Transition** - The transition, *performed on the context*, from one state to another state.
 - **Station** - A stop where business logic is applied. 
                 The context's state can change once per stop.
                 Note: A station may be skipped depending upon the context's state.
@@ -29,7 +30,7 @@ The subway analogy isn't perfect but does provide enough terminology to express 
 
 ### Rules
 
-- The context's state may only change once per station.
+- The context's state may only transition once per station.
 - A station may be skipped depending upon the context's state. 
 - A station may invoke a sub-line that operates on the same context.
 - Any station may perform a connection to another line if all stations after it are skipped.
@@ -44,6 +45,6 @@ Ellington exposes a logger that logs all of the following at each station.
 - Route
 - Line
 - Station
-- Transition - The state transition that was made on the context.
+- Transition - *The **state transition** that was performed on the context.*
 
 ![Ellington Diagram](https://raw.github.com/hopsoft/ellington/master/doc/diagram.png)
