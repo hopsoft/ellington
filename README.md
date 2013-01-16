@@ -11,8 +11,8 @@ more clearly about the complexities of software.
 
 ### Lexicon
 
-- **Context/Passenger** - The passenger that will be riding through our virtual subway.
-- State
+- **Context/Passenger** - The passenger that will be riding on our virtual subway.
+- **State** - The status or disposition assigned to the passenger.
 - Network
 - Route
 - Line
