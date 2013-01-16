@@ -7,6 +7,17 @@ The song was written about [New York City's A train](http://en.wikipedia.org/wik
 
 Ellington's nomenclature is taken from New York's subway system.
 We've found that drawing parallels to the physical world helps us reason 
-more clearly about the complexities of the software we write.
+more clearly about the complexities of software.
+
+### Lexicon
+
+- Context
+- State
+- Network
+- Route
+- Line
+- Station
+- Connection
+- Transfer
 
 ![Ellington Diagram](https://raw.github.com/hopsoft/ellington/master/doc/diagram.png)
