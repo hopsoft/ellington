@@ -3,6 +3,8 @@
 Named after [Duke Ellington](http://www.dukeellington.com/) whose signature tune was ["Take the 'A' Train"](http://en.wikipedia.org/wiki/Take_the_%22A%22_Train).
 The song was written about [New York City's A train](http://en.wikipedia.org/wiki/A_%28New_York_City_Subway_service%29).
 
+![Subway Tunnel](https://raw.github.com/hopsoft/ellington/master/doc/tunnel.jpg)
+
 ## Decomposing complex business processes
 
 Ellington's nomenclature is taken from [New York's subway system](http://en.wikipedia.org/wiki/New_York_City_Subway).
@@ -14,7 +16,7 @@ The subway analogy isn't perfect but does provide enough terminology to express 
 ## Goals
 
 - Provide a nomenclature simple enough to be shared by engineering and business folks.
-- Establish the constraints needed for complex projects to be easy to manage, develop, and maintain.
+- Establish constraints to ensure that complex projects are easy to manage, develop, and maintain.
 
 ### Lexicon
 
