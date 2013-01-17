@@ -11,7 +11,7 @@ Ellington's nomenclature is taken from [New York's subway system](http://en.wiki
 We've found that drawing parallels to the physical world helps us reason 
 more clearly about the complexities of software.
 
-The subway analogy isn't perfect but does provide enough terminology to express the major architectural components.
+The subway analogy isn't perfect but gets pretty close.
 
 ## Goals
 
@@ -22,7 +22,7 @@ The subway analogy isn't perfect but does provide enough terminology to express 
 
 - **Context** - The passenger that will be riding our virtual subway.
 - **State** - The status or disposition assigned to the context.
-- **State Transition** - The transition, *performed on the context*, from one state to another state.
+- **State Transition** - The transition, performed on the context, from one state to another state.
 - **Station** - A stop where business logic is applied. 
                 The context's state can change once per stop.
                 Note: A station may be skipped depending upon the context's state.
