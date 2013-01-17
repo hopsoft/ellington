@@ -43,6 +43,10 @@ more clearly about the complexities of software.
 - Any station may perform a transfer to another route if all lines and stations after it are skipped.
 - Any station may invoke a new route for a different context.
 
+## Visualizations
+
+![Ellington Diagram](https://raw.github.com/hopsoft/ellington/master/doc/diagram.png)
+
 ## Implementation
 
 ### Logging
@@ -61,4 +65,3 @@ Its also possible to extract additional info from the context and append it to t
 *The log output coupled with technologies like [map/reduce](http://en.wikipedia.org/wiki/MapReduce) 
 or [Goldmine](https://github.com/hopsoft/goldmine) provides powerful analytics capabilities.*
 
-![Ellington Diagram](https://raw.github.com/hopsoft/ellington/master/doc/diagram.png)
