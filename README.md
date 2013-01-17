@@ -18,7 +18,7 @@ The subway analogy isn't perfect but gets pretty close.
 - Provide a nomenclature simple enough to be shared by engineering and business folks.
 - Establish constraints to ensure that complex projects are easy to manage, develop, and maintain.
 
-### Lexicon
+## Lexicon
 
 - **Context** - The passenger that will be riding our virtual subway.
 - **State** - The status or disposition assigned to the context.
@@ -35,7 +35,7 @@ The subway analogy isn't perfect but gets pretty close.
 - **Transfer** - A link between routes.
 - **Network** - An entire system of routes & transfers designed to work together.
 
-### Rules
+## Rules
 
 - The context's state may only transition once per station.
 - A station may be skipped depending upon the context's state. 
@@ -43,6 +43,8 @@ The subway analogy isn't perfect but gets pretty close.
 - Any station may perform a connection to another line if all stations after it are skipped.
 - Any station may perform a transfer to another route if all lines and stations after it are skipped.
 - Any station may invoke a new route for a different context.
+
+## Implementation
 
 ### Logging
 
