@@ -54,14 +54,12 @@ more clearly about the complexities of software.
 Ellington exposes a logger that logs all of the following at each station.
 
 - Date/Time
-- Context
+- Context - *Its possible to customize what gets logged from the context.*
 - Transition
 - Route
 - Line
 - Station
 
-Its also possible to extract additional info from the context and append it to the log output.
-
-*The log output coupled with technologies like [map/reduce](http://en.wikipedia.org/wiki/MapReduce) 
-or [Goldmine](https://github.com/hopsoft/goldmine) provides powerful analytics capabilities.*
+*The log output coupled with technologies like [map/reduce](http://en.wikipedia.org/wiki/MapReduce)
+provides powerful analytics capabilities.*
 
