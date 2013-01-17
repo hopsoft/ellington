@@ -5,7 +5,7 @@ The song was written about [New York City's A train](http://en.wikipedia.org/wik
 
 ![Subway Tunnel](https://raw.github.com/hopsoft/ellington/master/doc/tunnel.jpg)
 
-## Decomposing complex business processes
+### Decomposing complex business processes
 
 Ellington's nomenclature is taken from [New York's subway system](http://en.wikipedia.org/wiki/New_York_City_Subway).
 We've found that drawing parallels to the physical world helps us reason 
