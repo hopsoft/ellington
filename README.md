@@ -10,8 +10,7 @@ The song was written about [New York City's A train](http://en.wikipedia.org/wik
 Ellington's nomenclature is taken from [New York's subway system](http://en.wikipedia.org/wiki/New_York_City_Subway).
 We've found that drawing parallels to the physical world helps us reason 
 more clearly about the complexities of software.
-
-The subway analogy isn't perfect but gets pretty close.
+*The subway analogy isn't perfect but gets pretty close.*
 
 ## Goals
 
