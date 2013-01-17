@@ -11,6 +11,11 @@ more clearly about the complexities of software.
 
 The subway analogy isn't perfect but does provide enough terminology to express the major architectural components.
 
+## Goals
+
+- Provide a nomenclature simple enough to be shared by engineering and business folks.
+- Establish the constraints needed for complex projects to be easy to manage, develop, and maintain.
+
 ### Lexicon
 
 - **Context** - The passenger that will be riding our virtual subway.
