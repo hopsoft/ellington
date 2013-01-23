@@ -20,8 +20,10 @@ more clearly about the complexities of software.
 ## Lexicon
 
 - **Context** - The passenger that will be riding our virtual subway.
+- **Ticket** - An authorization token that indicates the passenger can ride a specific route.
 - **State** - The status or disposition assigned to the context.
 - **State Transition** - The transition, performed on the context, from one state to another state.
+- **Conductor** - A supervisor responsible assembling passengers and putting them on a route.
 - **Station** - A stop where business logic is applied. 
                 The context's state can change once per stop.
                 Note: A station may be skipped depending upon the context's state.
