@@ -38,7 +38,7 @@ more clearly about the complexities of software.
 
 ## Rules
 
-- The passenger's state must transition at each station.
+- The passenger's state must transition at each station if the station's logic runs.
 - The passenger's state may only transition once per station.
 
 ## Visualizations
