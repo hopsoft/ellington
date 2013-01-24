@@ -24,6 +24,7 @@ more clearly about the complexities of software.
 - **State** - The status or disposition assigned to the context.
 - **State Transition** - The transition, performed on the context, from one state to another state.
 - **Conductor** - A supervisor responsible assembling passengers and putting them on a route.
+- **Attendant** - A helper that determines whether or not a station's logic should run for a given passenger.
 - **Station** - A stop where business logic is applied. 
                 The context's state can change once per stop.
                 Note: A station may be skipped depending upon the context's state.
