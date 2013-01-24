@@ -19,16 +19,16 @@ more clearly about the complexities of software.
 
 ## Lexicon
 
-- **Context** - The passenger that will be riding our virtual subway.
+- **Passenger** - The stateful context or passenger that will be riding our virtual subway.
 - **Ticket** - An authorization token that indicates the passenger can ride a specific route.
-- **State** - The status or disposition assigned to the context.
-- **State Transition** - The transition, performed on the context, from one state to another state.
+- **State** - The status or disposition assigned to the passenger.
+- **State Transition** - The transition, performed on the passenger, from one state to another state.
 - **Conductor** - A supervisor responsible assembling passengers and putting them on a route.
 - **Attendant** - A helper that determines whether or not a station's logic should run for a given passenger.
 - **Station** - A stop where business logic is applied. 
-                The context's state can change once per stop.
-                Note: A station may be skipped depending upon the context's state.
-- **Line** - A rigid track that moves the context from point A to point B.
+                The passenger's state can change once per stop.
+                Note: A station may be skipped depending upon the passenger's state.
+- **Line** - A rigid track that moves the passenger from point A to point B.
 - **Sub Line** - A line invoked by a station owned by another line within the same route.
 - **Connection** - A link between lines.
 - **Route** - A collection of lines and their connections.
@@ -39,12 +39,12 @@ more clearly about the complexities of software.
 
 ## Rules
 
-- The context's state may only transition once per station.
-- A station may be skipped depending upon the context's state. 
-- A station may invoke a sub-line that operates on the same context.
+- The passenger's state may only transition once per station.
+- A station may be skipped depending upon the passenger's state. 
+- A station may invoke a sub-line that tranports the same type of passenger.
 - Any station may perform a connection to another line if all stations after it are skipped.
 - Any station may perform a transfer to another route if all lines and stations after it are skipped.
-- Any station may invoke a new route for a different context.
+- Any station may invoke a new route for a different passenger.
 
 ## Visualizations
 
@@ -57,7 +57,9 @@ more clearly about the complexities of software.
 Ellington exposes a logger that logs all of the following at each station.
 
 - Date/Time
-- Context - *Its possible to customize what gets logged from the context.*
+- Ticket
+- Passenger - *Its possible to customize what properties get logged from the passenger.*
+- State
 - Transition
 - Route
 - Line
