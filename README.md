@@ -27,7 +27,6 @@ more clearly about the complexities of software.
 - **Attendant** - A helper that determines whether or not a station's logic should run for a given passenger.
 - **Station** - A stop where business logic is applied. 
                 The passenger's state can change once per stop.
-                Note: A station may be skipped depending upon the passenger's state.
 - **Line** - A rigid track that moves the passenger from point A to point B.
 - **Sub Line** - A line invoked by a station owned by another line within the same route.
 - **Connection** - A link between lines.
@@ -40,11 +39,6 @@ more clearly about the complexities of software.
 ## Rules
 
 - The passenger's state may only transition once per station.
-- A station may be skipped depending upon the passenger's state. 
-- A station may invoke a sub-line that tranports the same type of passenger.
-- Any station may perform a connection to another line if all stations after it are skipped.
-- Any station may perform a transfer to another route if all lines and stations after it are skipped.
-- Any station may invoke a new route for a different passenger.
 
 ## Visualizations
 
@@ -57,8 +51,8 @@ more clearly about the complexities of software.
 Ellington exposes a logger that logs all of the following at each station.
 
 - Date/Time
-- Ticket
 - Passenger - *Its possible to customize what properties get logged from the passenger.*
+- Ticket
 - State
 - Transition
 - Route
