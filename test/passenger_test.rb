@@ -4,7 +4,7 @@ class PassengerTest < MicroTest::Test
 
   before do
     context = {}
-    ticket = Ellington::Ticket.new
+    ticket = Ellington::Ticket.new nil
     states = StateJacket::Catalog.new
     states.add :happy => [:sad, :error]
     states.add :sad => [:happy, :error]
