@@ -13,14 +13,6 @@ module Ellington
       @states = states
     end
 
-    def can_travel?
-      false
-    end
-
-    def effective_travel?(line, station)
-      false
-    end
-
     def lock
       @locked = true
     end
