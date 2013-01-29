@@ -3,14 +3,12 @@ require_relative "test_helper"
 class PassengerTest < MicroTest::Test
 
   before do
-    context = {}
-    ticket = Ellington::Ticket.new nil
     states = StateJacket::Catalog.new
     states.add :happy => [:sad, :error]
     states.add :sad => [:happy, :error]
     states.add :error
     states.lock
-    @passenger = Ellington::Passenger.new(context, ticket, states)
+    @passenger = Ellington::Passenger.new(nil, states)
   end
 
   test "lock" do

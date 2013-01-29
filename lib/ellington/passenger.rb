@@ -1,28 +1,41 @@
-require "delegate"
+require "forwardable"
 require "observer"
 
 module Ellington
   class Passenger < SimpleDelegator
     include Observable
-    attr_accessor :current_state
+    attr_accessor :context, :ticket
     attr_reader :states
 
-    def initialize(context, ticket, states)
-      super context
+    def initialize(context, states)
+      @context = context
       @ticket = ticket
       @states = states
     end
 
     def lock
+      return context.lock if context.respond_to?(:lock)
       @locked = true
     end
 
     def unlock
+      return context.unlock if context.respond_to?(:unlock)
       @locked = false
     end
 
     def locked?
+      return context.locked? if context.respond_to?(:"locked?")
       @locked
+    end
+
+    def current_state
+      return context.current_state if context.respond_to?(:current_state)
+      @current_state
+    end
+
+    def current_state=(value)
+      return context.current_state=(value) if context.respond_to?(:"current_state=")
+      @current_state = value
     end
 
     def transition_to(new_state)
@@ -37,10 +50,16 @@ module Ellington
       end
 
       old_state = current_state
-      self.current_state = new_state
+
+      if context.respond_to?(:transition_to)
+        return_value = context.transition_to(new_state) 
+      else
+        self.current_state = new_state
+      end
+
       changed
       notify_observers self, old_state, new_state
-      new_state
+      return_value || new_state
     end
 
   end
