@@ -4,16 +4,17 @@ module Ellington
 
   # Superclass for all stations.
   #
-  # A station performs business logic and transitions the passenger's state
-  # 1 time based on the outcome.
+  # A station performs business logic and transitions 
+  # the passenger's state 1 time based on the outcome.
   #
-  # The possible states a station transitions to should include:
+  # The states should include:
   #
   # * a passing state - indicates everything worked as expected
   # * a failing state - indicates the requirements to pass were not met
   # * an error state - indicates an error occured
   #
   # @example Example subclass
+  #
   #   class LastNameStation < Ellington::Station
   #     def initialize(line)
   #       state = {
@@ -37,6 +38,7 @@ module Ellington
   #       passenger.transition_to(:last_name_error)
   #     end
   #   end
+  #
   class Station
     include Observable
     attr_reader :line, :state
