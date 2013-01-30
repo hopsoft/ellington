@@ -1,3 +1,5 @@
+require "observer"
+
 module Ellington
 
   # Superclass for all stations.
@@ -36,6 +38,7 @@ module Ellington
   #     end
   #   end
   class Station
+    include Observable
     attr_reader :line, :state
 
     def initialize(line, state)
@@ -62,6 +65,8 @@ module Ellington
         engage passenger, options
         passenger.delete_observer attendant
         raise Ellington::StateTransitionLimitExceeded unless attendant.approve?
+        changed
+        notify_observers self, passenger, attendant.passenger_transitions
       end
       passenger
     end
