@@ -15,16 +15,19 @@ module Ellington
 
     # abstract method
     def open_doors(passenger, options={})
-      message = "#{self.class.name}#open_doors has not been implemented in the subclass."
+      message = "#{self.class.name}#open_doors has not been implemented."
       raise Ellington::NotImplementedError.new(message)
     end
 
     def call(passenger, options={})
-      # TODO: ask attendant if the doors should open
+      return unless attendant.verify?(self, passenger)
 
       open_doors(passenger, options)
 
-      # TODO: verify that the passenger has only transitioned once
+      if attendant.passenger_transitions.size > 1
+        message = "Station #{self.class.name} transitioned the passenger [#{attendant.passenger_transitions.size}] times."
+        raise Ellington::StateTransitionLimitExceeded.new(message)
+      end
     end
   end
 
