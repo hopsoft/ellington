@@ -56,12 +56,12 @@ module Ellington
 
     # Wraps #engage and is for internal use only.
     def call(passenger, options={})
-      passenger.delete_observers
       if can_engage?(passenger)
         attendant = Ellington::Attendant.new(passenger)
         passenger.add_observer attendant
         engage passenger, options
-        raise Ellington::StateTransitionLimitExceeded unless attendant.approves?
+        passenger.delete_observer attendant
+        raise Ellington::StateTransitionLimitExceeded unless attendant.approve?
       end
       passenger
     end
