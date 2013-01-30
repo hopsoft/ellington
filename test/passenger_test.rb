@@ -8,7 +8,7 @@ class PassengerTest < MicroTest::Test
     states.add :sad => [:happy, :error]
     states.add :error
     states.lock
-    @passenger = Ellington::Passenger.new(nil, states)
+    @passenger = Ellington::Passenger.new({}, states)
   end
 
   test "lock" do
@@ -65,11 +65,9 @@ class PassengerTest < MicroTest::Test
 
   test "observers are notified on transition" do
     watcher = MicroMock.make.new
-    watcher.attrs(:passenger, :old_state, :new_state)
-    watcher.def(:update) do |p, o, n|
-      self.passenger = p
-      self.old_state = o
-      self.new_state = n
+    watcher.attrs(:info)
+    watcher.def(:update) do |info|
+      self.info = info 
     end
 
     @passenger.add_observer(watcher)
@@ -78,9 +76,9 @@ class PassengerTest < MicroTest::Test
     @passenger.transition_to :sad
     @passenger.unlock
 
-    assert watcher.passenger == @passenger
-    assert watcher.old_state == :happy
-    assert watcher.new_state == :sad
+    assert watcher.info.passenger == @passenger
+    assert watcher.info.old_state == :happy
+    assert watcher.info.new_state == :sad
   end
 
 end

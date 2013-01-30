@@ -10,8 +10,8 @@ module Ellington
       @passenger_transitions = []
     end
 
-    def update(passenger, old_state, new_state)
-      passenger_transitions << TransitionInfo.new(passenger, old_state, new_state)
+    def update(transition_info)
+      passenger_transitions << transition_info
     end
 
     def approve?
