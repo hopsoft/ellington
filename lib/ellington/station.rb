@@ -60,7 +60,7 @@ module Ellington
     # Wraps #engage and is for internal use only.
     def call(passenger, options={})
       if can_engage?(passenger)
-        attendant = Ellington::Attendant.new(passenger)
+        attendant = Ellington::Attendant.new
         passenger.add_observer attendant
         engage passenger, options
         passenger.delete_observer attendant

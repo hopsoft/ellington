@@ -6,7 +6,7 @@ module Ellington
   class Attendant
     attr_reader :passenger_transitions
 
-    def initialize(passenger)
+    def initialize
       @passenger_transitions = []
     end
 
