@@ -15,7 +15,7 @@ class StationTest < MicroTest::Test
 
      # Business logic that verifies the passenger's last name.
      def engage(passenger, options={})
-       if passenger.last_name != "hopkins"
+       if !passenger.last_name.nil? && passenger.last_name != "hopkins"
          passenger.transition_to(:last_name_passed)
        else
          passenger.transition_to(:last_name_failed)
@@ -37,7 +37,9 @@ class StationTest < MicroTest::Test
     states.add :last_name_failed
     states.add :last_name_error
     states.lock
-    @passenger = Ellington::Passenger.new({}, states)
+    person = MicroMock.make.new
+    person.attr(:last_name)
+    @passenger = Ellington::Passenger.new(person, states)
   end
 
   test "construction fails when no states passed" do
@@ -89,9 +91,42 @@ class StationTest < MicroTest::Test
     assert @station.line.nil?
   end
 
+  test "cannot engage an unlocked passenger" do
+    @passenger.current_state = :first_name_passed
+    assert !@station.can_engage?(@passenger)
+  end
+
   test "cannot engage a passenger in the wrong state" do
+    @passenger.lock
     @passenger.current_state = :start
     assert !@station.can_engage?(@passenger)
+  end
+
+  test "call should not engage a locked passenger in the wrong state" do
+    observer = MicroMock.make.new
+    observer.attr(:engagements, [])
+    observer.def(:update) do |station, passenger, transitions|
+      self.engagements << [station, passenger, transitions]
+    end
+    @passenger.lock
+    @passenger.current_state = :start
+    @station.call(@passenger)
+    assert observer.engagements.empty?
+  end
+
+  test "call should engage a locked passenger in the right state" do
+    observer = MicroMock.make.new
+    observer.attr(:engagements, [])
+    observer.def(:update) do |station, passenger, transitions|
+      self.engagements << [station, passenger, transitions]
+    end
+    @passenger.lock
+    @passenger.current_state = :first_name_passed
+    @passenger.last_name = "doe"
+    @station.add_observer observer
+    @station.call(@passenger)
+    assert observer.engagements.length == 1
+    assert @passenger.current_state == :last_name_passed
   end
 
 end

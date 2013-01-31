@@ -56,7 +56,7 @@ module Ellington
 
     # Indicates if this station can peform it's transition on passenger.
     def can_engage?(passenger, options={})
-      passenger.states.can_transition?(passenger.current_state => states)
+      passenger.locked? && passenger.states.can_transition?(passenger.current_state => states)
     end
 
     # Abstract method that should be implemented in the subclass.

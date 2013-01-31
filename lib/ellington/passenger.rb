@@ -11,6 +11,7 @@ module Ellington
       @context = context
       @ticket = ticket
       @states = states
+      super context
     end
 
     def lock
