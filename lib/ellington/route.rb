@@ -1,15 +1,15 @@
 module Ellington
-  class Route
-    attr_reader :name, :lines
+  class Route < SimpleDelegator
+    attr_reader :name
 
     def initialize(name)
       @name = name
-      @lines = []
+      super([])
     end
 
-    def add_line(line)
+    def <<(line)
       line.route = self
-      lines << line
+      push line
     end
 
   end

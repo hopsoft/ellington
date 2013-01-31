@@ -8,11 +8,11 @@ module Ellington
       @name = name
       @formula = Hero::Formula[name]
       formula.steps.clear
-      super([])
+      super []
     end
 
     def route=(value)
-      raise Ellington::RouteAlreadyAssigned unless route.nil?
+      raise Ellington::RouteAlreadyAssignedToLine unless route.nil?
       @route = value
     end
 

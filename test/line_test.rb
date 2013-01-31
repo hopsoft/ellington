@@ -46,4 +46,23 @@ class LineTest < MicroTest::Test
     assert !error.nil?
   end
 
+  test "assign route" do
+    route = Ellington::Route.new("Example Route")
+    @line.route = route
+    assert @line.route == route
+  end
+
+  test "can't assign same route more than once" do
+    route1 = Ellington::Route.new("Example Route 1")
+    route2 = Ellington::Route.new("Example Route 2")
+    error = nil
+    begin
+      @line.route = route1
+      @line.route = route2
+    rescue Ellington::RouteAlreadyAssignedToLine => e
+      error = e
+    end
+    assert !error.nil?
+  end
+
 end
