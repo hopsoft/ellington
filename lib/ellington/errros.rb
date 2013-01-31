@@ -11,7 +11,7 @@ module Ellington
   class NotImplementedError < StandardError
   end
 
-  class LineAlreadyAssignedToStation < StandardError
+  class StationAlreadyBelongsToLine < StandardError
   end
 
   class LineAlreadyBelongsToRoute < StandardError

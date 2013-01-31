@@ -40,7 +40,7 @@ class LineTest < MicroTest::Test
     begin
       @line << station
       @line << station
-    rescue Ellington::LineAlreadyAssignedToStation => e
+    rescue Ellington::StationAlreadyBelongsToLine => e
       error = e
     end
     assert !error.nil?
