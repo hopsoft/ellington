@@ -91,6 +91,25 @@ class StationTest < MicroTest::Test
     assert @station.line.nil?
   end
 
+  test "line assignment" do
+    line = Ellington::Line.new("Example Line")
+    @station.line = line
+    assert @station.line == line
+  end
+
+  test "line can only be assigned once" do
+    line1 = Ellington::Line.new("Example Line 1")
+    line2 = Ellington::Line.new("Example Line 2")
+    error = nil
+    begin
+      @station.line = line1
+      @station.line = line2
+    rescue Ellington::LineAlreadyAssigned => e
+      error = e
+    end
+    assert !error.nil?
+  end
+
   test "cannot engage an unlocked passenger" do
     @passenger.current_state = :first_name_passed
     assert !@station.can_engage?(@passenger)
