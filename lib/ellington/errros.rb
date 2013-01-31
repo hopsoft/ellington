@@ -7,4 +7,10 @@ module Ellington
 
   class NotImplementedError < StandardError
   end
+
+  class StationAlreadyAssigned < StandardError
+  end
+
+  class RouteAlreadyAssigned < StandardError
+  end
 end

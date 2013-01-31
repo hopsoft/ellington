@@ -16,15 +16,13 @@ module Ellington
   # @example Example subclass
   #
   #   class LastNameStation < Ellington::Station
-  #     def initialize(line)
-  #       state = {
-  #         :first_name_passed => [
-  #           :last_name_passed, 
-  #           :last_name_failed, 
-  #           :last_name_error
-  #         ]
-  #       }
-  #       super(line, state)
+  #     def initialize
+  #       states = [
+  #        :last_name_passed, 
+  #        :last_name_failed, 
+  #        :last_name_error
+  #       ]
+  #       super(name, *states)
   #     end
   #
   #     # Business logic that verifies the passenger's last name.
@@ -41,16 +39,21 @@ module Ellington
   #
   class Station
     include Observable
-    attr_reader :line, :state
+    attr_reader :name, :states, :line
 
-    def initialize(line, state)
-      @line = line
-      @state = state
+    def initialize(name, *states)
+      @name = name
+      @states = states
+    end
+
+    def line=(value)
+      raise Ellington::LineAlreadyAssigned unless @line.nil?
+      @line=value
     end
 
     # Indicates if this station can peform it's transition on passenger.
     def can_engage?(passenger, options={})
-      passenger.states.can_transition?(passenger.state => state.values)
+      passenger.states.can_transition?(passenger.current_state => states)
     end
 
     # Abstract method that should be implemented in the subclass.
