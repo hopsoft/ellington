@@ -1,15 +1,23 @@
 module Ellington
   class Conductor
-    attr_reader :route, :wait
+    attr_reader :route, :wait, :conducting
+    attr_accessor :stop
 
     def initialize(route, wait)
       @route = route
       @wait = wait
+      @conducting = false
     end
 
     # The run loop.
     def conduct
+      @stop = false
       loop do
+        if stop
+          @conducting = false
+          break
+        end
+        @conducting = true
         gather_passengers.each do |passenger|
           escort(passenger) if verify(passenger)
         end
