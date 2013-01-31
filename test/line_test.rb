@@ -12,9 +12,9 @@ class LineTest < MicroTest::Test
 
   test "add 1 station" do
     station = Ellington::Station.new("Station 1", :one, :two, :three)
-    @line.add_station station
-    assert @line.stations.length == 1
-    assert @line.stations.include?(station)
+    @line << station
+    assert @line.length == 1
+    assert @line.include?(station)
     assert station.line == @line
   end
 
@@ -22,13 +22,13 @@ class LineTest < MicroTest::Test
     station1 = Ellington::Station.new("Station 1", :one, :two, :three)
     station2 = Ellington::Station.new("Station 2", :one, :two, :three)
     station3 = Ellington::Station.new("Station 3", :one, :two, :three)
-    @line.add_station station1
-    @line.add_station station2
-    @line.add_station station3
-    assert @line.stations.length == 3
-    assert @line.stations.include?(station1)
-    assert @line.stations.include?(station2)
-    assert @line.stations.include?(station3)
+    @line << station1
+    @line << station2
+    @line << station3
+    assert @line.length == 3
+    assert @line.include?(station1)
+    assert @line.include?(station2)
+    assert @line.include?(station3)
     assert station1.line == @line
     assert station2.line == @line
     assert station3.line == @line
@@ -38,8 +38,8 @@ class LineTest < MicroTest::Test
     station = Ellington::Station.new("Station 1", :one, :two, :three)
     error = nil
     begin
-      @line.add_station station
-      @line.add_station station
+      @line << station
+      @line << station
     rescue Ellington::LineAlreadyAssignedToStation => e
       error = e
     end

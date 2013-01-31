@@ -1,27 +1,30 @@
-require "hero"
+require "delegate"
 
 module Ellington
-  class Line
+  class Line < SimpleDelegator
     attr_reader :name, :route
 
     def initialize(name)
       @name = name
-      Hero::Formula[name].steps.clear
+      @formula = Hero::Formula[name]
+      formula.steps.clear
+      super([])
     end
 
     def route=(value)
-      raise Ellington::RouteAlreadyAssigned unless @route.nil?
+      raise Ellington::RouteAlreadyAssigned unless route.nil?
       @route = value
     end
 
-    def add_station(station)
+    def <<(station)
       station.line = self
-      Hero::Formula[name].add_step station.name, station
+      push station
+      formula.add_step station.name, station
     end
 
-    def stations
-      Hero::Formula[name].steps.map(&:last)
-    end
+    protected
+
+    attr_reader :formula
 
   end
 end
