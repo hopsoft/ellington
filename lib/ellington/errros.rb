@@ -14,6 +14,6 @@ module Ellington
   class LineAlreadyAssignedToStation < StandardError
   end
 
-  class RouteAlreadyAssignedToLine < StandardError
+  class LineAlreadyBelongsToRoute < StandardError
   end
 end

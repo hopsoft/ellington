@@ -12,7 +12,7 @@ module Ellington
     end
 
     def route=(value)
-      raise Ellington::RouteAlreadyAssignedToLine unless route.nil?
+      raise Ellington::LineAlreadyBelongsToRoute unless route.nil?
       @route = value
     end
 

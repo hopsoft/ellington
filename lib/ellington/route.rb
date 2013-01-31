@@ -4,7 +4,7 @@ module Ellington
 
     def initialize(name)
       @name = name
-      super([])
+      super []
     end
 
     def <<(line)

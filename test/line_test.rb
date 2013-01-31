@@ -15,7 +15,7 @@ class LineTest < MicroTest::Test
     @line << station
     assert @line.length == 1
     assert @line.include?(station)
-    assert station.line == @line
+    assert @line == station.line
   end
 
   test "add multiple stations" do
@@ -59,7 +59,7 @@ class LineTest < MicroTest::Test
     begin
       @line.route = route1
       @line.route = route2
-    rescue Ellington::RouteAlreadyAssignedToLine => e
+    rescue Ellington::LineAlreadyBelongsToRoute => e
       error = e
     end
     assert !error.nil?
