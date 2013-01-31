@@ -7,6 +7,7 @@ module Ellington
     attr_reader :states
 
     def initialize(context, states)
+      states.lock unless states.frozen?
       @context = context
       @ticket = ticket
       @states = states

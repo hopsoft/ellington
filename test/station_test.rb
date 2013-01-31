@@ -26,6 +26,59 @@ class StationTest < MicroTest::Test
     end
 
     @station = LastNameStation.new("Last Name Station")
+
+    states = StateJacket::Catalog.new
+    states.add :first_name_passed => [
+      :last_name_passed,
+      :last_name_failed,
+      :last_name_error
+    ]
+    states.add :last_name_passed
+    states.add :last_name_failed
+    states.add :last_name_error
+    states.lock
+    @passenger = Ellington::Passenger.new({}, states)
+  end
+
+  test "construction fails when no states passed" do
+    error = nil
+    begin
+      Ellington::Station.new("Missing States")
+    rescue Ellington::InvalidStates => e
+      error = e
+    end
+    assert !error.nil?
+  end
+
+  test "construction fails when fewer than 3 states passed" do
+    error = nil
+    begin
+      Ellington::Station.new("Missing States", :one, :two)
+    rescue Ellington::InvalidStates => e
+      error = e
+    end
+    assert !error.nil?
+  end
+
+  test "construction fails when more than 3 states passed" do
+    error = nil
+    begin
+      Ellington::Station.new("Missing States", :one, :two, :three, :four)
+    rescue Ellington::InvalidStates => e
+      error = e
+    end
+    assert !error.nil?
+  end
+
+  test "engage is abstract" do
+    error = nil
+    begin
+      station = Ellington::Station.new("Missing States", :one, :two, :three)
+      station.engage nil
+    rescue Ellington::NotImplementedError => e
+      error = e
+    end
+    assert !error.nil?
   end
 
   test "name" do
@@ -37,9 +90,8 @@ class StationTest < MicroTest::Test
   end
 
   test "cannot engage a passenger in the wrong state" do
-    passenger = Ellington::Passenger.new({}, StateJacket::Catalog.new)
-    passenger.current_state = :start
-    assert !@station.can_engage?(passenger)
+    @passenger.current_state = :start
+    assert !@station.can_engage?(@passenger)
   end
 
 end

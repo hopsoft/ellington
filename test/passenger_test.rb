@@ -81,4 +81,26 @@ class PassengerTest < MicroTest::Test
     assert watcher.info.new_state == :sad
   end
 
+  test "states get locked on construction" do
+    states = StateJacket::Catalog.new
+    states.add :open => [:closed]
+    states.add :closed => [:open]
+    assert !states.frozen?
+    passenger = Ellington::Passenger.new({}, states)
+    assert states.frozen?
+  end
+
+  test "states get locked on construction and raise error if invalid" do
+    states = StateJacket::Catalog.new
+    states.add :open => [:closed]
+    assert !states.frozen?
+    error = nil
+    begin
+      passenger = Ellington::Passenger.new({}, states)
+    rescue Exception => e
+      error = e
+    end
+    assert !error.nil?
+  end
+
 end

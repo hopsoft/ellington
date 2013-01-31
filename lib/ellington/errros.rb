@@ -1,4 +1,7 @@
 module Ellington
+  class InvalidStates < StandardError
+  end
+
   class InvalidStateTransition < StandardError
   end
 
