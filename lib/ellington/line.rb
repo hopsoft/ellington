@@ -6,6 +6,7 @@ module Ellington
 
     def initialize(name)
       @name = name
+      Hero::Formula[name].steps.clear
     end
 
     def route=(value)

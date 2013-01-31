@@ -104,7 +104,7 @@ class StationTest < MicroTest::Test
     begin
       @station.line = line1
       @station.line = line2
-    rescue Ellington::LineAlreadyAssigned => e
+    rescue Ellington::LineAlreadyAssignedToStation => e
       error = e
     end
     assert !error.nil?

@@ -50,7 +50,7 @@ module Ellington
     end
 
     def line=(value)
-      raise Ellington::LineAlreadyAssigned unless @line.nil?
+      raise Ellington::LineAlreadyAssignedToStation unless @line.nil?
       @line=value
     end
 
