@@ -39,7 +39,8 @@ class StationTest < MicroTest::Test
     states.lock
     person = MicroMock.make.new
     person.attr(:last_name)
-    @passenger = Ellington::Passenger.new(person, states)
+    ticket = Ellington::Ticket.new(:ok => true)
+    @passenger = Ellington::Passenger.new(person, ticket, states)
   end
 
   test "construction fails when no states passed" do

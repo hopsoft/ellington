@@ -1,16 +1,22 @@
 module Ellington
   class Route < SimpleDelegator
-    attr_reader :name
+    attr_reader :name, :head
 
     def initialize(name)
       @name = name
-      super []
+      @inner_hash = {}
+      super(@inner_hash)
     end
 
-    def <<(line)
+    def []=(name, line)
       line.route = self
-      push line
+      inner_hash[name] = line
+      @head ||= line
     end
+
+    protected
+
+    attr_reader :inner_hash
 
   end
 end

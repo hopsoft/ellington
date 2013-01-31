@@ -3,14 +3,15 @@ require "observer"
 module Ellington
   class Passenger < SimpleDelegator
     include Observable
-    attr_accessor :context, :ticket
-    attr_reader :states
+    attr_accessor :context
+    attr_reader :states, :ticket
 
-    def initialize(context, states)
+    def initialize(context, ticket, states)
       states.lock unless states.frozen?
       @context = context
       @ticket = ticket
       @states = states
+      ticket.freeze
       super context
     end
 
