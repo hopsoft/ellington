@@ -22,6 +22,10 @@ module Ellington
       formula.add_step station.name, station
     end
 
+    def board(passenger)
+      formula.run passenger
+    end
+
     protected
 
     attr_reader :formula
