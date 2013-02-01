@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 gem "hero"
 gem "state_jacket"
-gem "yell"
 
 group :development, :test do
   gem "pry"

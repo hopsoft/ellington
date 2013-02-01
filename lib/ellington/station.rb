@@ -34,9 +34,28 @@ module Ellington
         engage passenger, options
         passenger.delete_observer attendant
         raise Ellington::StateTransitionLimitExceeded unless attendant.approve?
+
+        info = {
+          :route                => (line ? line.route : nil),
+          :line                 => line,
+          :station              => self,
+          :passenger            => passenger,
+          :old_state            => attendant.passenger_transitions.first.old_state,
+          :new_state            => attendant.passenger_transitions.first.new_state,
+          :ticket_goal_achieved => passenger.ticket.goal_achieved?,
+          :route_goal_achieved  => (line && line.route ? line.route.goal.achieved?(passenger) : false),
+          :line_goal_achieved   => (line ? line.goal.achieved?(passenger) : false)
+        }
+
         changed
-        notify_observers self, passenger, attendant.passenger_transitions
+        notify_observers info
+
+        if Ellington.logger
+          message = info.map{ |key, value| "#{key}:#{value}" }.join(" ")
+          Ellington.logger.info message
+        end
       end
+
       passenger
     end
   end

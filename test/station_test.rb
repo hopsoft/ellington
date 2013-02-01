@@ -137,9 +137,7 @@ class StationTest < MicroTest::Test
   test "call should engage a locked passenger in the right state" do
     observer = MicroMock.make.new
     observer.attr(:engagements, [])
-    observer.def(:update) do |station, passenger, transitions|
-      self.engagements << [station, passenger, transitions]
-    end
+    observer.def(:update) { |info| self.engagements << info }
     @passenger.lock
     @passenger.current_state = :first_name_passed
     @passenger.last_name = "doe"
