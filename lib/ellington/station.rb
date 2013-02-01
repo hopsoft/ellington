@@ -6,7 +6,7 @@ module Ellington
     include Observable
     attr_reader :name, :states, :line
 
-    def initialize(name, *states)
+    def initialize(name, states)
       if states.length != 3
         raise Ellington::InvalidStates.new("Must provide exactly 3 states.")
       end

@@ -10,7 +10,7 @@ class StationTest < MicroTest::Test
          :last_name_failed, 
          :last_name_error
        ]
-       super(name, *states)
+       super(name, states)
      end
 
      # Business logic that verifies the passenger's last name.
@@ -46,7 +46,7 @@ class StationTest < MicroTest::Test
   test "construction fails when no states passed" do
     error = nil
     begin
-      Ellington::Station.new("Missing States")
+      Ellington::Station.new("Missing States", [])
     rescue Ellington::InvalidStates => e
       error = e
     end
@@ -56,7 +56,7 @@ class StationTest < MicroTest::Test
   test "construction fails when fewer than 3 states passed" do
     error = nil
     begin
-      Ellington::Station.new("Missing States", :one, :two)
+      Ellington::Station.new("Missing States", [:one, :two])
     rescue Ellington::InvalidStates => e
       error = e
     end
@@ -66,7 +66,7 @@ class StationTest < MicroTest::Test
   test "construction fails when more than 3 states passed" do
     error = nil
     begin
-      Ellington::Station.new("Missing States", :one, :two, :three, :four)
+      Ellington::Station.new("Missing States", [:one, :two, :three, :four])
     rescue Ellington::InvalidStates => e
       error = e
     end
@@ -76,7 +76,7 @@ class StationTest < MicroTest::Test
   test "engage is abstract" do
     error = nil
     begin
-      station = Ellington::Station.new("Missing States", :one, :two, :three)
+      station = Ellington::Station.new("Missing States", [:one, :two, :three])
       station.engage nil
     rescue Ellington::NotImplementedError => e
       error = e

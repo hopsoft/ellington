@@ -5,7 +5,7 @@ class ConductorTest < MicroTest::Test
   before do
     class Station < Ellington::Station
       def initialize
-        super "Station 1", :one, :two, :three
+        super "Station 1", [:one, :two, :three]
       end
       def engage(passenger, options={})
       end

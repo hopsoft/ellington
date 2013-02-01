@@ -11,7 +11,8 @@ class LineTest < MicroTest::Test
   end
 
   test "add 1 station" do
-    station = Ellington::Station.new("Station 1", :one, :two, :three)
+    states = [:one, :two, :three]
+    station = Ellington::Station.new("Station 1", states)
     @line << station
     assert @line.length == 1
     assert @line.include?(station)
@@ -19,9 +20,10 @@ class LineTest < MicroTest::Test
   end
 
   test "add multiple stations" do
-    station1 = Ellington::Station.new("Station 1", :one, :two, :three)
-    station2 = Ellington::Station.new("Station 2", :one, :two, :three)
-    station3 = Ellington::Station.new("Station 3", :one, :two, :three)
+    states = [:one, :two, :three]
+    station1 = Ellington::Station.new("Station 1", states)
+    station2 = Ellington::Station.new("Station 2", states)
+    station3 = Ellington::Station.new("Station 3", states)
     @line << station1
     @line << station2
     @line << station3
@@ -35,7 +37,8 @@ class LineTest < MicroTest::Test
   end
 
   test "unable to add the same station more than once" do
-    station = Ellington::Station.new("Station 1", :one, :two, :three)
+    states = [:one, :two, :three]
+    station = Ellington::Station.new("Station 1", states)
     error = nil
     begin
       @line << station
