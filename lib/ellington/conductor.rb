@@ -9,7 +9,6 @@ module Ellington
       @conducting = false
     end
 
-    # The run loop.
     def conduct
       @stop = false
       loop do
@@ -25,7 +24,6 @@ module Ellington
       end
     end
 
-    # Determines if a passenger can ride the route managed by this conductor.
     def verify(passenger)
       raise Ellington::NotImplementedError
     end
@@ -34,7 +32,6 @@ module Ellington
       raise Ellington::NotImplementedError
     end
 
-    # Puts a passenger onto a route.
     def escort(passenger)
       passenger.lock
       route.head.board passenger
