@@ -8,8 +8,7 @@ class PassengerTest < MicroTest::Test
     states.add :sad => [:happy, :error]
     states.add :error
     states.lock
-    ticket = Ellington::Ticket.new(:ok => true)
-    @passenger = Ellington::Passenger.new({}, ticket, states)
+    @passenger = Ellington::Passenger.new({}, Ellington::Ticket.new, states)
   end
 
   test "lock" do
@@ -87,7 +86,7 @@ class PassengerTest < MicroTest::Test
     states.add :open => [:closed]
     states.add :closed => [:open]
     assert !states.frozen?
-    passenger = Ellington::Passenger.new({}, Ellington::Ticket.new(:ok => true), states)
+    passenger = Ellington::Passenger.new({}, Ellington::Ticket.new, states)
     assert states.frozen?
   end
 

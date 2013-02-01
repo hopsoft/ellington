@@ -39,7 +39,7 @@ class StationTest < MicroTest::Test
     states.lock
     person = MicroMock.make.new
     person.attr(:last_name)
-    ticket = Ellington::Ticket.new(:ok => true)
+    ticket = Ellington::Ticket.new
     @passenger = Ellington::Passenger.new(person, ticket, states)
   end
 

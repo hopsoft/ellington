@@ -16,4 +16,7 @@ module Ellington
 
   class LineAlreadyBelongsToRoute < StandardError
   end
+
+  class PassengerAlreadyAssignedToTicket < StandardError
+  end
 end

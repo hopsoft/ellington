@@ -8,7 +8,7 @@ class AttendantTest < MicroTest::Test
     states.add :sad => [:happy, :error]
     states.add :error
     states.lock
-    @passenger = Ellington::Passenger.new({}, Ellington::Ticket.new(:ok => true), states)
+    @passenger = Ellington::Passenger.new({}, Ellington::Ticket.new, states)
     @passenger.current_state = :happy
     @passenger.lock
     @attendant = Ellington::Attendant.new
