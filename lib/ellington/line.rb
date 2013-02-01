@@ -4,11 +4,16 @@ module Ellington
   class Line < SimpleDelegator
     attr_reader :name, :route
 
-    def initialize(name)
+    def initialize(name, goal=[])
       @name = name
+      @goal = goal
       @formula = Hero::Formula[name]
       formula.steps.clear
       super []
+    end
+
+    def goal_achieved?(passenger)
+      goal.include? passenger.current_state
     end
 
     def route=(value)

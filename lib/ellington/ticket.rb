@@ -13,9 +13,15 @@ module Ellington
   #   )
   #   ticket = Ellington::Ticket.new(ticket_data)
   class Ticket < SimpleDelegator
+    attr_reader :goal
 
-    def initialize(context)
+    def initialize(context, goal=[])
+      @goal = goal
       super context
+    end
+
+    def goal_achieved?(passenger)
+      goal.include? passenger.current_state
     end
 
   end

@@ -1,9 +1,10 @@
 module Ellington
   class Route < SimpleDelegator
-    attr_reader :name, :head
+    attr_reader :name, :goal, :head
 
-    def initialize(name)
+    def initialize(name, goal=[])
       @name = name
+      @goal = goal
       @inner_hash = {}
       super(@inner_hash)
     end
@@ -12,6 +13,10 @@ module Ellington
       line.route = self
       inner_hash[name] = line
       @head ||= line
+    end
+
+    def goal_achieved?(passenger)
+      goal.include? passenger.current_state
     end
 
     protected
