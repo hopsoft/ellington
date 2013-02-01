@@ -6,8 +6,8 @@ module Ellington
   class Ticket < SimpleDelegator
     attr_reader :passenger, :goal
 
-    def initialize(goal=[], hash={})
-      @goal = goal
+    def initialize(goal=nil, hash={})
+      @goal = goal || Ellington::Goal.new
       super hash
     end
 
@@ -21,8 +21,7 @@ module Ellington
     end
 
     def goal_achieved?
-      return false unless passenger
-      goal.include? passenger.current_state
+      goal.achieved? passenger
     end
 
   end
