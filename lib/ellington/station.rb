@@ -38,9 +38,9 @@ module Ellington
         transition = attendant.passenger_transitions.first
 
         info = {
-          :route                => (line ? line.route : nil),
-          :line                 => line,
-          :station              => self,
+          :route                => (line ? line.route.name : nil),
+          :line                 => (line ? line.name : nil),
+          :station              => self.class.name,
           :passenger            => passenger,
           :old_state            => (transition ? transition.old_state : nil),
           :new_state            => (transition ? transition.new_state : nil),

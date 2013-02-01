@@ -2,7 +2,7 @@ require "delegate"
 
 module Ellington
   class Line < SimpleDelegator
-    attr_reader :name, :route
+    attr_reader :name, :goal, :route
 
     def initialize(name, goal=nil)
       @name = name
