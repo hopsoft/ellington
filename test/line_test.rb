@@ -2,6 +2,10 @@ require_relative "test_helper"
 
 class LineTest < MicroTest::Test
 
+  class Station < Ellington::Station
+    transitions_passenger_to :one, :two, :three
+  end
+
   before do
     @line = Ellington::Line.new("Example Line")
   end
@@ -11,8 +15,7 @@ class LineTest < MicroTest::Test
   end
 
   test "add 1 station" do
-    states = [:one, :two, :three]
-    station = Ellington::Station.new("Station 1", states)
+    station = LineTest::Station.new("Station 1")
     @line << station
     assert @line.length == 1
     assert @line.include?(station)
@@ -20,10 +23,9 @@ class LineTest < MicroTest::Test
   end
 
   test "add multiple stations" do
-    states = [:one, :two, :three]
-    station1 = Ellington::Station.new("Station 1", states)
-    station2 = Ellington::Station.new("Station 2", states)
-    station3 = Ellington::Station.new("Station 3", states)
+    station1 = LineTest::Station.new("Station 1")
+    station2 = LineTest::Station.new("Station 2")
+    station3 = LineTest::Station.new("Station 3")
     @line << station1
     @line << station2
     @line << station3
@@ -37,8 +39,7 @@ class LineTest < MicroTest::Test
   end
 
   test "unable to add the same station more than once" do
-    states = [:one, :two, :three]
-    station = Ellington::Station.new("Station 1", states)
+    station = LineTest::Station.new("Station 1")
     error = nil
     begin
       @line << station

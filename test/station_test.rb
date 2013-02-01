@@ -1,32 +1,27 @@
 require_relative "test_helper"
 
 class StationTest < MicroTest::Test
+  class Station < Ellington::Station
+    transitions_passenger_to :one, :two, :three
+  end
+
+  class LastNameStation < Ellington::Station
+    transitions_passenger_to :last_name_passed, :last_name_failed, :last_name_error
+
+    # Business logic that verifies the passenger's last name.
+    def engage(passenger, options={})
+     if !passenger.last_name.nil? && passenger.last_name != "hopkins"
+       passenger.transition_to(:last_name_passed)
+     else
+       passenger.transition_to(:last_name_failed)
+     end
+    rescue Exception => ex
+     passenger.transition_to(:last_name_error)
+    end
+  end
 
   before do
-    class LastNameStation < Ellington::Station
-     def initialize(name)
-       states = [
-         :last_name_passed, 
-         :last_name_failed, 
-         :last_name_error
-       ]
-       super(name, states)
-     end
-
-     # Business logic that verifies the passenger's last name.
-     def engage(passenger, options={})
-       if !passenger.last_name.nil? && passenger.last_name != "hopkins"
-         passenger.transition_to(:last_name_passed)
-       else
-         passenger.transition_to(:last_name_failed)
-       end
-     rescue Exception => ex
-       passenger.transition_to(:last_name_error)
-     end
-    end
-
-    @station = LastNameStation.new("Last Name Station")
-
+    @station = StationTest::LastNameStation.new("Last Name Station")
     states = StateJacket::Catalog.new
     states.add :first_name_passed => [
       :last_name_passed,
@@ -43,40 +38,10 @@ class StationTest < MicroTest::Test
     @passenger = Ellington::Passenger.new(person, ticket, states)
   end
 
-  test "construction fails when no states passed" do
-    error = nil
-    begin
-      Ellington::Station.new("Missing States", [])
-    rescue Ellington::InvalidStates => e
-      error = e
-    end
-    assert !error.nil?
-  end
-
-  test "construction fails when fewer than 3 states passed" do
-    error = nil
-    begin
-      Ellington::Station.new("Missing States", [:one, :two])
-    rescue Ellington::InvalidStates => e
-      error = e
-    end
-    assert !error.nil?
-  end
-
-  test "construction fails when more than 3 states passed" do
-    error = nil
-    begin
-      Ellington::Station.new("Missing States", [:one, :two, :three, :four])
-    rescue Ellington::InvalidStates => e
-      error = e
-    end
-    assert !error.nil?
-  end
-
   test "engage is abstract" do
     error = nil
     begin
-      station = Ellington::Station.new("Missing States", [:one, :two, :three])
+      station = Ellington::Station.new("Missing States")
       station.engage nil
     rescue Ellington::NotImplementedError => e
       error = e
@@ -86,6 +51,11 @@ class StationTest < MicroTest::Test
 
   test "name" do
     assert @station.name == "Last Name Station"
+  end
+
+  test "constructs without name" do
+    station = StationTest::LastNameStation.new
+    assert station.name == station.class.name
   end
 
   test "line is unassigned" do
