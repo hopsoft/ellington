@@ -12,7 +12,7 @@ class ConductorTest < MicroTest::Test
     end
 
     route = Ellington::Route.new("Example Route")
-    route["A Line"] = Ellington::Line.new("A Line")
+    route.add Ellington::Line.new("A Line")
     route["A Line"] << Station.new
 
     @conductor = Ellington::Conductor.new(route, 5)

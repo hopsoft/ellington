@@ -12,7 +12,7 @@ class RouteTest < MicroTest::Test
 
   test "add 1 line" do
     line = Ellington::Line.new("Example Line")
-    @route[line.name] = line
+    @route.add line
     assert @route.length == 1
     assert @route[line.name] == line
     assert @route == line.route
@@ -22,9 +22,9 @@ class RouteTest < MicroTest::Test
     line1 = Ellington::Line.new("Example Line 1")
     line2 = Ellington::Line.new("Example Line 2")
     line3 = Ellington::Line.new("Example Line 3")
-    @route[line1.name] = line1
-    @route[line2.name] = line2
-    @route[line3.name] = line3
+    @route.add line1
+    @route.add line2
+    @route.add line3
     assert @route.length == 3
     assert @route[line1.name] == line1
     assert @route[line2.name] == line2
@@ -38,8 +38,8 @@ class RouteTest < MicroTest::Test
     line = Ellington::Line.new("Example Line")
     error = nil
     begin
-      @route[line.name] = line
-      @route[line.name] = line
+      @route.add line
+      @route.add line
     rescue Ellington::LineAlreadyBelongsToRoute => e
       error = e
     end
@@ -48,7 +48,7 @@ class RouteTest < MicroTest::Test
 
   test "head is assigned properly after 1 line added" do
     line = Ellington::Line.new("Example Line")
-    @route[line.name] = line
+    @route.add line
     assert @route.head == line
   end
 
@@ -56,9 +56,9 @@ class RouteTest < MicroTest::Test
     line1 = Ellington::Line.new("Example Line 1")
     line2 = Ellington::Line.new("Example Line 2")
     line3 = Ellington::Line.new("Example Line 3")
-    @route[line1.name] = line1
-    @route[line2.name] = line2
-    @route[line3.name] = line3
+    @route.add line1
+    @route.add line2
+    @route.add line3
     assert @route.head == line1
   end
 

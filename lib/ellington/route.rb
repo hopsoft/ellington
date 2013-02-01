@@ -1,17 +1,20 @@
+require "forwardable"
+
 module Ellington
-  class Route < SimpleDelegator
+  class Route
+    extend Forwardable
     attr_reader :name, :goal, :head
+    def_delegators :inner_hash, :[], :length
 
     def initialize(name, goal=nil)
       @name = name
       @goal = goal || Ellington::Goal.new
       @inner_hash = {}
-      super(@inner_hash)
     end
 
-    def []=(name, line)
+    def add(line)
       line.route = self
-      inner_hash[name] = line
+      inner_hash[line.name] = line
       @head ||= line
     end
 
