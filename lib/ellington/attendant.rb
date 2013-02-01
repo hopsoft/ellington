@@ -1,9 +1,10 @@
 module Ellington
 
   class Attendant
-    attr_reader :passenger_transitions
+    attr_reader :station, :passenger_transitions
 
-    def initialize
+    def initialize(station)
+      @station = station
       @passenger_transitions = []
     end
 
@@ -12,7 +13,8 @@ module Ellington
     end
 
     def approve?
-      @passenger_transitions.length <= 1
+      passenger_transitions.length == 1 && 
+        station.states.include?(passenger_transitions.first.new_state)
     end
 
   end

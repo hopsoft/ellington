@@ -39,7 +39,7 @@ module Ellington
 
     def call(passenger, options={})
       if can_engage?(passenger)
-        attendant = Ellington::Attendant.new
+        attendant = Ellington::Attendant.new(self)
         passenger.add_observer attendant
         engage passenger, options
         passenger.delete_observer attendant

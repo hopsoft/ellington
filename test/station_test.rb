@@ -5,6 +5,9 @@ class StationTest < MicroTest::Test
     transitions_passenger_to :one, :two, :three
   end
 
+  class EmptyStation < Ellington::Station
+  end
+
   class LastNameStation < Ellington::Station
     transitions_passenger_to :last_name_passed, :last_name_failed, :last_name_error
 
@@ -41,7 +44,7 @@ class StationTest < MicroTest::Test
   test "engage is abstract" do
     error = nil
     begin
-      station = Ellington::Station.new("Missing States")
+      station = StationTest::EmptyStation.new
       station.engage nil
     rescue Ellington::NotImplementedError => e
       error = e
