@@ -67,6 +67,8 @@ route.add(line)
 
 
 class Station1 < Ellington::Station
+  transitions_passenger_to :step1_pass, :step1_fail, :step1_error
+
   def engage(passenger, options={})
     begin
       options[:first_reverse] = passenger.context.to_s.reverse.to_i
@@ -78,6 +80,8 @@ class Station1 < Ellington::Station
 end
 
 class Station2 < Ellington::Station
+  transitions_passenger_to :step2_pass, :step2_fail, :step2_error
+
   def engage(passenger, options={})
     begin
       options[:first_subtract] = passenger.context - options[:first_reverse]
@@ -89,6 +93,8 @@ class Station2 < Ellington::Station
 end
 
 class Station3 < Ellington::Station
+  transitions_passenger_to :step3_pass, :step3_fail, :step3_error
+
   def engage(passenger, options={})
     begin
       options[:second_reverse] = options[:first_subtract].to_s.reverse.to_i
@@ -100,6 +106,8 @@ class Station3 < Ellington::Station
 end
 
 class Station4 < Ellington::Station
+  transitions_passenger_to :step4_pass, :step4_fail, :step4_error
+
   def engage(passenger, options={})
     begin
       result = options[:first_subtract] + options[:second_reverse]
@@ -114,10 +122,10 @@ class Station4 < Ellington::Station
   end
 end
 
-line << Station1.new('station 1', [:step1_pass, :step1_fail, :step1_error])
-line << Station2.new('station 2', [:step2_pass, :step2_fail, :step2_error])
-line << Station3.new('station 3', [:step3_pass, :step3_fail, :step3_error])
-line << Station4.new('station 4', [:step4_pass, :step4_fail, :step4_error])
+line << Station1.new
+line << Station2.new
+line << Station3.new
+line << Station4.new
 
 Ellington.logger = Logger.new($stdout)
 
