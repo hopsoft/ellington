@@ -1,15 +1,24 @@
 require_relative "test_helper"
 
+module ATrain
+
+  class InwoodStation < Ellington::Station
+    transitions_passenger_to :inwood_pass, :inwood_fail, :inwood_error
+
+    def engage(passenger, options)
+    end
+  end
+
+end
+
+
 class FullExampleTest < MicroTest::Test
 
   # This test is loosely modeled after the actual A train in New York.
   # http://en.wikipedia.org/wiki/A_(New_York_City_Subway_service)
   test "setup the A train" do
     route = Ellington::Route.new("A Eighth Avenue Express")
-    line = Ellington::Line.new("IND Eighth Avenue Line")
-    states = [:inwood_pass, :inwood_fail, :inwood_error]
-    station = Ellington::Station.new("Inwood - 207th Street", states)
-    route.add line
+    #route.add ATrain::InwoodStation.new("Inwood - 207th Street")
 #
 #    line = Ellington::Line.new(
 #      "IND Eighth Avenue Line",

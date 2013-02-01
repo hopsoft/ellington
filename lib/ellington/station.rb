@@ -1,17 +1,27 @@
 require "observer"
+require "forwardable"
 
 module Ellington
 
   class Station
+    extend Forwardable
     include Observable
     attr_reader :name, :states, :line
+    def_delegator :"self.class", :states
 
-    def initialize(name, states)
-      if states.length != 3
-        raise Ellington::InvalidStates.new("Must provide exactly 3 states.")
+    class << self
+      attr_reader :states
+
+      def transitions_passenger_to(*states)
+        if states.length != 3
+          raise Ellington::InvalidStates.new("Must provide exactly 3 states.")
+        end
+        @states = states
       end
-      @name = name
-      @states = states
+    end
+
+    def initialize(name=nil)
+      @name = name || self.class.name
     end
 
     def line=(value)
