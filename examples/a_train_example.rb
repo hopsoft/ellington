@@ -1,4 +1,4 @@
-# This test is loosely modeled after the actual A train in New York.
+# This example is loosely modeled after the actual A train in New York.
 # http://en.wikipedia.org/wiki/A_(New_York_City_Subway_service)
 
 
@@ -11,7 +11,7 @@ class InwoodStation < Ellington::Station
   )
 
   def engage(passenger, options)
-    # TODO: add more detailed logic here to illustrate a more real world use case
+    # TODO: add more sophisticated logic here to illustrate a more real world use case
     if rand(10) > 5
       passenger.transition_to :obtained_sunglasses
     else
@@ -31,7 +31,7 @@ class OneSixtyEigthStation < Ellington::Station
   )
 
   def engage(passenger, options)
-    # TODO: add more detailed logic here to illustrate a more real world use case
+    # TODO: add more sophisticated logic here to illustrate a more real world use case
     if rand(10) > 5
       passenger.transition_to :obtained_latte
     else
