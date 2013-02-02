@@ -2,7 +2,7 @@
 # http://en.wikipedia.org/wiki/A_(New_York_City_Subway_service)
 
 
-# obtain sunglasses from miami fashion
+# station where passengers obtain sunglasses from miami fashion
 class InwoodStation < Ellington::Station
   transitions_passenger_to(
     :obtained_sunglasses,
@@ -22,7 +22,7 @@ class InwoodStation < Ellington::Station
   end
 end
 
-# get a latte from starbucks
+# station where passenger get a latte from starbucks
 class OneSixtyEigthStation < Ellington::Station
   transitions_passenger_to(
     :obtained_latte, 
@@ -43,7 +43,7 @@ class OneSixtyEigthStation < Ellington::Station
 end
 
 line = Ellington::Line.new("IND Eighth Avenue Line")
-line << ATrain::InwoodStation.new("Inwood - 207th Street")
+line << InwoodStation.new("Inwood - 207th Street")
 line << OneSixtyEigthStation.new("")
 
 route = Ellington::Route.new("A Eighth Avenue Express")
