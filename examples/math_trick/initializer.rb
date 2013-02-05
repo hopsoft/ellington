@@ -17,13 +17,31 @@ Dir[File.join(stations_path, "*.rb")].each { |station| require station }
 
 Ellington.logger = Logger.new($stdout)
 
-route = Ellington::Route.new('Math Trick', Ellington::Goal.new(:add_pass))
-line = Ellington::Line.new('line1', Ellington::Goal.new(:add_pass))
+goal = Ellington::Goal.new(:add_pass)
+
+route = Ellington::Route.new('Math Trick', goal)
+line = Ellington::Line.new('line1', goal)
 line << MathTrick::FirstReverseStation.new
 line << MathTrick::SubtractStation.new
 line << MathTrick::SecondReverseStation.new
 line << MathTrick::AddStation.new
 route.add line
 
-conductor = MathTrick::Conductor.new(route, 0.1)
-conductor.conduct
+conductor = MathTrick::Conductor.new(route)
+
+# some numbers to run through the math trick
+numbers = [
+  631,
+  531,
+  955,
+  123 # will fail
+]
+
+numbers.each do |number|
+  puts "\n\n"
+  ticket = Ellington::Ticket.new(goal)
+  passenger = Ellington::Passenger.new(number, ticket, conductor.states)
+  passenger.current_state = :new_number
+  conductor.escort passenger
+end
+

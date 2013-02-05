@@ -1,15 +1,14 @@
 module Ellington
   class Conductor
-    attr_reader :route, :wait, :conducting
+    attr_reader :route, :conducting
     attr_accessor :stop
 
-    def initialize(route, wait)
+    def initialize(route)
       @route = route
-      @wait = wait
       @conducting = false
     end
 
-    def conduct
+    def start(delay)
       @stop = false
       loop do
         if stop
@@ -17,10 +16,8 @@ module Ellington
           break
         end
         @conducting = true
-        gather_passengers.each do |passenger|
-          escort(passenger) if verify(passenger)
-        end
-        sleep wait
+        gather_passengers.each { |passenger| escort(passenger) }
+        sleep delay
       end
     end
 
@@ -33,6 +30,7 @@ module Ellington
     end
 
     def escort(passenger)
+      return unless verify(passenger)
       passenger.lock
       route.head.board passenger
     end

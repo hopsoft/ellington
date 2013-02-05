@@ -1,16 +1,6 @@
 module MathTrick
   class Conductor < Ellington::Conductor
 
-    # some numbers to run through the math trick
-    def numbers
-      @numbers ||= [
-        631,
-        531,
-        955,
-        123 # will fail
-      ]
-    end
-
     def states
       @states ||= begin
         states = StateJacket::Catalog.new
@@ -39,9 +29,6 @@ module MathTrick
       num = numbers.pop
       puts num
       if num
-        ticket = Ellington::Ticket.new(Ellington::Goal.new(:add_pass))
-        passenger = Ellington::Passenger.new(num, ticket, states)
-        passenger.current_state = :new_number
         return [passenger]
       else
         @stop = true
