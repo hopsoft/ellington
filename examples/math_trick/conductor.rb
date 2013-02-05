@@ -25,16 +25,5 @@ module MathTrick
       true
     end
 
-    def gather_passengers
-      num = numbers.pop
-      puts num
-      if num
-        return [passenger]
-      else
-        @stop = true
-      end
-      return []
-    end
-
   end
 end
