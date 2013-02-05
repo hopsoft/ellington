@@ -46,3 +46,16 @@ more clearly about the complexities of software.
 
 ![Ellington Diagram](https://raw.github.com/hopsoft/ellington/master/doc/diagram.png)
 
+## Directory Structure
+
+```
+
+|- lib
+  |- ellington
+    |- routes
+      |- route_name
+        |- _intializer.rb
+        |- _conductor.rb
+        |- foo_station.rb
+        |- bar_station.rb
+```
