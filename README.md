@@ -25,7 +25,7 @@ more clearly about the complexities of software.
 - **State Transition** - The transition, performed on the passenger, from one state to another state.
 - **Goal** - A list of expected states that should be assigned to the passenger.
 - **Conductor** - A supervisor responsible assembling passengers and putting them on a route.
-- **Attendant** - A helper that determines whether or not a station's logic should run for a given passenger.
+- **Attendant** - A helper that monitors the passenger's activity at a station.
 - **Station** - A stop where business logic is applied. 
                 The passenger's state can change once per stop.
 - **Line** - A rigid track that moves the passenger from point A to point B.
