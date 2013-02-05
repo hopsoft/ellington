@@ -43,7 +43,7 @@ module Ellington
         passenger.add_observer attendant
         engage passenger, options
         passenger.delete_observer attendant
-        raise Ellington::StateTransitionLimitExceeded unless attendant.approve?
+        raise Ellington::AttendandDisapproves unless attendant.approve?
 
         transition = attendant.passenger_transitions.first
 

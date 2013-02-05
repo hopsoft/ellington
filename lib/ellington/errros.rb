@@ -2,10 +2,10 @@ module Ellington
   class InvalidStates < StandardError
   end
 
-  class InvalidStateTransition < StandardError
+  class AttendandDisapproves < StandardError
   end
 
-  class StateTransitionLimitExceeded < StandardError
+  class InvalidStateTransition < StandardError
   end
 
   class NotImplementedError < StandardError
