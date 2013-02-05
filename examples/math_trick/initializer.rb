@@ -1,3 +1,9 @@
+require "logger"
+require_relative "../../lib/ellington"
+require_relative "conductor"
+stations_path = File.expand_path("stations", File.dirname(__FILE__))
+Dir[File.join(stations_path, "*.rb")].each { |station| require station }
+
 # Use ellington to model this process
 #
 # 0 - Pick any three digits number with decreasing digits (432 or 875) [This will be implicit, thus step #0]
@@ -9,21 +15,15 @@
 # You will get a result of 1089
 # credit: http://www.basic-mathematics.com/number-trick-with-1089.html
 
-require "logger"
-require_relative "../../lib/ellington"
-require_relative "conductor"
-Dir[File.expand_path("stations", File.dirname(__FILE__)) + "/*.rb"].each { |f| puts f; require f }
-
 Ellington.logger = Logger.new($stdout)
 
-route = Ellington::Route.new('trick', Ellington::Goal.new(:step4_pass))
-line = Ellington::Line.new('line1', Ellington::Goal.new(:step4_pass))
-route.add(line)
+route = Ellington::Route.new('Math Trick', Ellington::Goal.new(:add_pass))
+line = Ellington::Line.new('line1', Ellington::Goal.new(:add_pass))
 line << MathTrick::FirstReverseStation.new
 line << MathTrick::SubtractStation.new
 line << MathTrick::SecondReverseStation.new
 line << MathTrick::AddStation.new
+route.add line
 
 conductor = MathTrick::Conductor.new(route, 0.1)
 conductor.conduct
-

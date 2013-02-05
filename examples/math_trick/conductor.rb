@@ -14,19 +14,19 @@ module MathTrick
     def states
       @states ||= begin
         states = StateJacket::Catalog.new
-        states.add :new_number => [:step1_pass, :step1_fail, :step1_error]
-        states.add :step1_fail
-        states.add :step1_error
-        states.add :step1_pass => [:step2_pass, :step2_fail, :step2_error]
-        states.add :step2_fail
-        states.add :step2_error
-        states.add :step2_pass => [:step3_pass, :step3_fail, :step3_error]
-        states.add :step3_fail
-        states.add :step3_error
-        states.add :step3_pass => [:step4_pass, :step4_fail, :step4_error]
-        states.add :step4_fail
-        states.add :step4_error
-        states.add :step4_pass
+        states.add :new_number => [:first_reverse_pass, :first_reverse_fail, :first_reverse_error]
+        states.add :first_reverse_fail
+        states.add :first_reverse_error
+        states.add :first_reverse_pass => [:subtract_pass, :subtract_fail, :subtract_error]
+        states.add :subtract_fail
+        states.add :subtract_error
+        states.add :subtract_pass => [:second_reverse_pass, :second_reverse_fail, :second_reverse_error]
+        states.add :second_reverse_fail
+        states.add :second_reverse_error
+        states.add :second_reverse_pass => [:add_pass, :add_fail, :add_error]
+        states.add :add_fail
+        states.add :add_error
+        states.add :add_pass
         states
       end
     end
@@ -39,8 +39,7 @@ module MathTrick
       num = numbers.pop
       puts num
       if num
-        goal = Ellington::Goal.new(:step4_pass)
-        ticket = Ellington::Ticket.new(goal)
+        ticket = Ellington::Ticket.new(Ellington::Goal.new(:add_pass))
         passenger = Ellington::Passenger.new(num, ticket, states)
         passenger.current_state = :new_number
         return [passenger]
