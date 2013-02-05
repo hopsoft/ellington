@@ -23,6 +23,7 @@ more clearly about the complexities of software.
 - **Ticket** - An authorization token that indicates the passenger can ride a specific route.
 - **State** - The status or disposition assigned to the passenger.
 - **State Transition** - The transition, performed on the passenger, from one state to another state.
+- **Goal** - A list of expected states that should be assigned to the passenger.
 - **Conductor** - A supervisor responsible assembling passengers and putting them on a route.
 - **Attendant** - A helper that determines whether or not a station's logic should run for a given passenger.
 - **Station** - A stop where business logic is applied. 
@@ -44,22 +45,4 @@ more clearly about the complexities of software.
 ## Visualizations
 
 ![Ellington Diagram](https://raw.github.com/hopsoft/ellington/master/doc/diagram.png)
-
-## Implementation
-
-### Logging
-
-Ellington exposes a logger that logs all of the following at each station.
-
-- Date/Time
-- Passenger - *Its possible to customize what properties get logged from the passenger.*
-- Ticket
-- State
-- Transition
-- Route
-- Line
-- Station
-
-*The log output coupled with technologies like [map/reduce](http://en.wikipedia.org/wiki/MapReduce)
-provides powerful analytics capabilities.*
 
