@@ -4,59 +4,43 @@ The song was written about [New York City's A train](http://en.wikipedia.org/wik
 
 ![Subway Tunnel](https://raw.github.com/hopsoft/ellington/master/doc/tunnel.jpg)
 
-### Decomposing complex business processes
+#### Ellington is an architecture for modeling complex business processes.
 
-Ellington's nomenclature is taken from [New York's subway system](http://en.wikipedia.org/wiki/New_York_City_Subway).
-We've found that drawing parallels to the physical world helps us reason 
+Ellington is a collection of simple concepts designed to bring discipline, organization, and modularity to a project.
+The base implementation is very light, weighing in around 500 lines.
+
+The nomenclature is taken from [New York's subway system](http://en.wikipedia.org/wiki/New_York_City_Subway).
+We've found that drawing parallels to the physical world helps to reason
 more clearly about the complexities of software.
 *The subway analogy isn't perfect but gets pretty close.*
 
+### Important
+
+The Ellington architecture should be applied **after** a good understanding of the problem domain has been established.
+*We recommend [spiking a solution](http://en.wikipedia.org/wiki/Software_prototyping) to learn your project's requirements and then coming back to Ellington.*
+
 ## Goals
 
-- Provide a nomenclature simple enough to be shared by engineering and business folks.
+- Provide a nomenclature simple enough to be shared by engineering and the business team.
 - Establish constraints to ensure that complex projects are easy to manage, develop, and maintain.
 
 ## Lexicon
 
-- **Conductor** - A supervisor responsible assembling passengers and putting them on a route.
-- **Passenger** - The stateful context or passenger that will be riding our virtual subway.
-- **Route** - A collection of lines and their connections.
-              Routes are synonymous with projects
-              (e.g. a physical collection of lines into a single repo).
-- **Line** - A rigid track that moves the passenger from point A to point B.
+- **Conductor** - A supervisor responsible assembling `passengers` and putting them on a `route`.
+- **Passenger** - The stateful context that will be riding the virtual subway.
+- **Route** - A collection of `lines` and their `connections`.
+- **Line** - A linear track that moves the `passenger` from point A to point B.
 - **Station** - A discreet chunk of business logic.
-- **State** - The status or disposition assigned to the passenger.
-- **State Transition** - The transition, performed on the passenger, from one state to another state.
+- **State** - A status or disposition assigned to the `passenger`.
+- **State Transition** - The `transition`, performed on the `passenger`, from one `state` to another.
 
 ![Ellington Diagram](https://raw.github.com/hopsoft/ellington/master/doc/primary-terms.png)
 
-#### Secondary Terms
+#### Additional Terms
 
-- **Goal** - A list of expected states that should be assigned to the passenger.
-- **Ticket** - An authorization token that indicates the passenger can ride a specific route.
-- **Connection** - A link between lines.
-- **Transfer** - A link between routes.
-- **Network** - An entire system of routes & transfers designed to work together.
-
-## Rules
-
-- The passenger's state must transition exactly once per station.
-
-## Visualizations
-
-![Ellington Diagram](https://raw.github.com/hopsoft/ellington/master/doc/diagram.png)
-
-## Directory Structure
-
-```
-|- lib
-  |- ellington
-    |- routes
-      |- route_name
-        |- stations
-          |- foo_station.rb
-          |- bar_station.rb
-        |- conductor.rb
-        |- intializer.rb
-```
+- **Ticket** - An authorization token that indicates the `passenger` can ride a specific `route`.
+- **Goal** - A list of expected `states`.
+- **Connection** - A link between `lines`.
+- **Transfer** - A link between `routes`.
+- **Network** - An entire system of `routes` & `transfers` designed to work together.
 
