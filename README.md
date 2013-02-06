@@ -1,5 +1,4 @@
-# Ellington
-
+# Ellington 
 Named after [Duke Ellington](http://www.dukeellington.com/) whose signature tune was ["Take the 'A' Train"](http://en.wikipedia.org/wiki/Take_the_%22A%22_Train).
 The song was written about [New York City's A train](http://en.wikipedia.org/wiki/A_%28New_York_City_Subway_service%29).
 
@@ -49,13 +48,14 @@ more clearly about the complexities of software.
 ## Directory Structure
 
 ```
-
 |- lib
   |- ellington
     |- routes
       |- route_name
-        |- _intializer.rb
-        |- _conductor.rb
-        |- foo_station.rb
-        |- bar_station.rb
+        |- stations
+          |- foo_station.rb
+          |- bar_station.rb
+        |- conductor.rb
+        |- intializer.rb
 ```
+
