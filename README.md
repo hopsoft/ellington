@@ -18,18 +18,17 @@ more clearly about the complexities of software.
 
 ## Lexicon
 
-#### Primary Terms
-
 - **Conductor** - A supervisor responsible assembling passengers and putting them on a route.
 - **Passenger** - The stateful context or passenger that will be riding our virtual subway.
 - **Route** - A collection of lines and their connections.
               Routes are synonymous with projects
               (e.g. a physical collection of lines into a single repo).
 - **Line** - A rigid track that moves the passenger from point A to point B.
-- **Station** - A stop where business logic is applied.
-                The passenger's state can change once per stop.
+- **Station** - A discreet chunk of business logic.
 - **State** - The status or disposition assigned to the passenger.
 - **State Transition** - The transition, performed on the passenger, from one state to another state.
+
+![Ellington Diagram](https://raw.github.com/hopsoft/ellington/master/doc/primary-terms.png)
 
 #### Secondary Terms
 
@@ -41,8 +40,7 @@ more clearly about the complexities of software.
 
 ## Rules
 
-- The passenger's state must transition at each station if the station's logic runs.
-- The passenger's state may only transition once per station.
+- The passenger's state must transition exactly once per station.
 
 ## Visualizations
 
