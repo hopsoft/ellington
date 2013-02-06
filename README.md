@@ -10,13 +10,12 @@ Ellington is a collection of simple concepts designed to bring discipline, organ
 The base implementation is very light, weighing in around 500 lines.
 
 The nomenclature is taken from [New York's subway system](http://en.wikipedia.org/wiki/New_York_City_Subway).
-We've found that drawing parallels to the physical world helps to reason
-more clearly about the complexities of software.
+We've found that using cohesive physical metaphors helps people reason more clearly about the complexities of software.
 *The subway analogy isn't perfect but gets pretty close.*
 
 ### Important
 
-The Ellington architecture should be applied **after** a good understanding of the problem domain has been established.
+The Ellington architecture should only be applied **after** a good understanding of the problem domain has been established.
 *We recommend [spiking a solution](http://en.wikipedia.org/wiki/Software_prototyping) to learn your project's requirements and then coming back to Ellington.*
 
 ## Goals
