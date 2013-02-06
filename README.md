@@ -18,21 +18,24 @@ more clearly about the complexities of software.
 
 ## Lexicon
 
+#### Primary Terms
+
+- **Conductor** - A supervisor responsible assembling passengers and putting them on a route.
 - **Passenger** - The stateful context or passenger that will be riding our virtual subway.
-- **Ticket** - An authorization token that indicates the passenger can ride a specific route.
+- **Route** - A collection of lines and their connections.
+              Routes are synonymous with projects
+              (e.g. a physical collection of lines into a single repo).
+- **Line** - A rigid track that moves the passenger from point A to point B.
+- **Station** - A stop where business logic is applied.
+                The passenger's state can change once per stop.
 - **State** - The status or disposition assigned to the passenger.
 - **State Transition** - The transition, performed on the passenger, from one state to another state.
+
+#### Secondary Terms
+
 - **Goal** - A list of expected states that should be assigned to the passenger.
-- **Conductor** - A supervisor responsible assembling passengers and putting them on a route.
-- **Attendant** - A helper that monitors the passenger's activity at a station.
-- **Station** - A stop where business logic is applied. 
-                The passenger's state can change once per stop.
-- **Line** - A rigid track that moves the passenger from point A to point B.
-- **Sub Line** - A line invoked by a station owned by another line within the same route.
+- **Ticket** - An authorization token that indicates the passenger can ride a specific route.
 - **Connection** - A link between lines.
-- **Route** - A collection of lines and their connections.
-              Routes are synonymous with projects 
-              (e.g. a physical collection of lines into a single repo).
 - **Transfer** - A link between routes.
 - **Network** - An entire system of routes & transfers designed to work together.
 
