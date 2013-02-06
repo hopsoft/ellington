@@ -25,21 +25,21 @@ The Ellington architecture should only be applied **after** a good understanding
 
 ## Lexicon
 
-- **Conductor** - A supervisor responsible assembling `passengers` and putting them on a `route`.
-- **Passenger** - The stateful context that will be riding the virtual subway.
-- **Route** - A collection of `lines` and their `connections`.
-- **Line** - A linear track that moves the `passenger` from point A to point B.
-- **Station** - A discreet chunk of business logic.
-- **State** - A status or disposition assigned to the `passenger`.
-- **State Transition** - The `transition`, performed on the `passenger`, from one `state` to another.
+- **[Conductor](https://github.com/hopsoft/ellington/wiki/Conductor)** - A supervisor responsible assembling `passengers` and putting them on a `route`.
+- **[Passenger](https://github.com/hopsoft/ellington/wiki/Passenger)** - The stateful context that will be riding the virtual subway.
+- **[Route](https://github.com/hopsoft/ellington/wiki/Route)** - A collection of `lines` and their `connections`.
+- **[Line](https://github.com/hopsoft/ellington/wiki/Line)** - A linear track that moves the `passenger` from point A to point B.
+- **[Station](https://github.com/hopsoft/ellington/wiki/Station)** - A discreet chunk of business logic.
+- **[State](https://github.com/hopsoft/ellington/wiki/State)** - A status or disposition assigned to the `passenger`.
+- **[State Transition](https://github.com/hopsoft/ellington/wiki/State)** - The `transition`, performed on the `passenger`, from one `state` to another.
 
 ![Ellington Diagram](https://raw.github.com/hopsoft/ellington/master/doc/primary-terms.png)
 
 #### Additional Terms
 
-- **Ticket** - An authorization token that indicates the `passenger` can ride a specific `route`.
-- **Goal** - A list of expected `states`.
-- **Connection** - A link between `lines`.
-- **Transfer** - A link between `routes`.
-- **Network** - An entire system of `routes` & `transfers` designed to work together.
+- **[Ticket](https://github.com/hopsoft/ellington/wiki/Ticket)** - An authorization token that indicates the `passenger` can ride a specific `route`.
+- **[Goal](https://github.com/hopsoft/ellington/wiki/Goal)** - A list of expected `states`.
+- **[Connection](https://github.com/hopsoft/ellington/wiki/Connection)** - A link between `lines`.
+- **[Transfer](Transfer)** - A link between `routes`.
+- **[Network](Network)** - An entire system of `routes` & `transfers` designed to work together.
 
