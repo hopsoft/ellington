@@ -51,14 +51,14 @@ class LineTest < MicroTest::Test
   end
 
   test "assign route" do
-    route = Ellington::Route.new("Example Route")
+    route = Ellington::Route.new("Example Route", StateJacket::Catalog.new)
     @line.route = route
     assert @line.route == route
   end
 
   test "can't assign same route more than once" do
-    route1 = Ellington::Route.new("Example Route 1")
-    route2 = Ellington::Route.new("Example Route 2")
+    route1 = Ellington::Route.new("Example Route 1", StateJacket::Catalog.new)
+    route2 = Ellington::Route.new("Example Route 2", StateJacket::Catalog.new)
     error = nil
     begin
       @line.route = route1

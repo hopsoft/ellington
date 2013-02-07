@@ -10,10 +10,10 @@ class ConductorTest < MicroTest::Test
   end
 
   before do
-    route = Ellington::Route.new("Example Route")
+    route = Ellington::Route.new("Example Route", StateJacket::Catalog.new)
     route.add Ellington::Line.new("A Line")
     route["A Line"] << ConductorTest::Station.new
-    @conductor = Ellington::Conductor.new(route, 5)
+    @conductor = Ellington::Conductor.new(route)
   end
 
   test "verify is abstract" do

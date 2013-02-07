@@ -1,7 +1,6 @@
 module Ellington
   class Conductor
     attr_reader :route, :conducting
-    attr_accessor :stop
 
     def initialize(route)
       @route = route
@@ -10,15 +9,19 @@ module Ellington
 
     def start(delay)
       @stop = false
+      @conducting = true
       loop do
-        if stop
+        if @stop
           @conducting = false
           break
         end
-        @conducting = true
         gather_passengers.each { |passenger| escort(passenger) }
         sleep delay
       end
+    end
+
+    def stop
+      @stop = true
     end
 
     def verify(passenger)

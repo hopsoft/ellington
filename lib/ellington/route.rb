@@ -3,11 +3,12 @@ require "forwardable"
 module Ellington
   class Route
     extend Forwardable
-    attr_reader :name, :goal, :head
+    attr_reader :name, :states, :goal, :head
     def_delegators :inner_hash, :[], :length
 
-    def initialize(name, goal=nil)
+    def initialize(name, states, goal=nil)
       @name = name
+      @states = states
       @goal = goal || Ellington::Goal.new
       @inner_hash = {}
     end

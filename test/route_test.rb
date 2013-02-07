@@ -3,7 +3,7 @@ require_relative "test_helper"
 class RouteTest < MicroTest::Test
 
   before do
-    @route = Ellington::Route.new("Example Route")
+    @route = Ellington::Route.new("Example Route", StateJacket::Catalog.new)
   end
 
   test "name" do

@@ -31,12 +31,13 @@ The Ellington architecture should only be applied **after** a good understanding
 - **[Line](https://github.com/hopsoft/ellington/wiki/Line)** - A linear track that moves the `passenger` from point A to point B.
 - **[Station](https://github.com/hopsoft/ellington/wiki/Station)** - A discreet chunk of business logic.
 - **[State](https://github.com/hopsoft/ellington/wiki/State)** - A status or disposition assigned to the `passenger`.
-- **[State Transition](https://github.com/hopsoft/ellington/wiki/State)** - The `transition`, performed on the `passenger`, from one `state` to another.
 
 ![Ellington Diagram](https://raw.github.com/hopsoft/ellington/master/doc/primary-terms.png)
 
 #### Additional Terms
 
+- **[State Catalog](https://github.com/hopsoft/ellington/wiki/State)** - A collection of states and their transitions.
+- **[State Transition](https://github.com/hopsoft/ellington/wiki/State)** - The `transition`, performed on the `passenger`, from one `state` to another.
 - **[Ticket](https://github.com/hopsoft/ellington/wiki/Ticket)** - An authorization token that indicates the `passenger` can ride a specific `route`.
 - **[Goal](https://github.com/hopsoft/ellington/wiki/Goal)** - A list of expected `states`.
 - **[Connection](https://github.com/hopsoft/ellington/wiki/Connection)** - A link between `lines`.
