@@ -1,3 +1,6 @@
+require "thread"
+require "monitor"
+
 module Ellington
   class Conductor
     attr_reader :route, :conducting
@@ -8,20 +11,27 @@ module Ellington
     end
 
     def start(delay)
-      @stop = false
-      @conducting = true
-      loop do
-        if @stop
-          @conducting = false
-          break
+      return if conducting
+
+      synchronize do
+        @stop = false
+        @conducting = true
+      end
+
+      Thread.new do
+        loop do
+          if @stop
+            synchronize { @conducting = false }
+            break
+          end
+          gather_passengers.each { |passenger| escort(passenger) }
+          sleep delay
         end
-        gather_passengers.each { |passenger| escort(passenger) }
-        sleep delay
       end
     end
 
     def stop
-      @stop = true
+      synchronize { @stop = true }
     end
 
     def verify(passenger)
@@ -34,6 +44,7 @@ module Ellington
 
     def escort(passenger)
       return unless verify(passenger)
+      return if passenger.locked?
       passenger.lock
       route.head.board passenger
     end
