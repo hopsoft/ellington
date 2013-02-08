@@ -17,30 +17,44 @@ Dir[File.join(stations_path, "*.rb")].each { |station| require station }
 
 Ellington.logger = Logger.new($stdout)
 
-goal = Ellington::Goal.new(:add_pass)
+# configure the states & their transitions
+states = StateJacket::Catalog.new
+states.add :new_number => [:first_reverse_pass, :first_reverse_fail, :first_reverse_error]
+states.add :first_reverse_fail
+states.add :first_reverse_error
+states.add :first_reverse_pass => [:subtract_pass, :subtract_fail, :subtract_error]
+states.add :subtract_fail
+states.add :subtract_error
+states.add :subtract_pass => [:second_reverse_pass, :second_reverse_fail, :second_reverse_error]
+states.add :second_reverse_fail
+states.add :second_reverse_error
+states.add :second_reverse_pass => [:add_pass, :add_fail, :add_error]
+states.add :add_fail
+states.add :add_error
+states.add :add_pass
 
-route = Ellington::Route.new('Math Trick', goal)
-line = Ellington::Line.new('line1', goal)
+# setup the goals
+ticket_goal = Ellington::Goal.new(:add_pass)
+route_goal = Ellington::Goal.new(:add_pass)
+line_goal = Ellington::Goal.new(:add_pass)
+
+# configure the route
+route = Ellington::Route.new('Math Trick', states, route_goal)
+line = Ellington::Line.new('Get to 1089', line_goal)
 line << MathTrick::FirstReverseStation.new
 line << MathTrick::SubtractStation.new
 line << MathTrick::SecondReverseStation.new
 line << MathTrick::AddStation.new
 route.add line
 
+# -----------------------------------------------------------------------------------------------------
+
+# manually put passengers on the route
 conductor = MathTrick::Conductor.new(route)
-
-# some numbers to run through the math trick
-numbers = [
-  631,
-  531,
-  955,
-  123 # will fail
-]
-
-numbers.each do |number|
+[631, 531, 955, 123].each do |number|
   puts "\n\n"
-  ticket = Ellington::Ticket.new(goal)
-  passenger = Ellington::Passenger.new(number, ticket, conductor.states)
+  ticket = Ellington::Ticket.new(ticket_goal)
+  passenger = Ellington::Passenger.new(number, ticket, route.states)
   passenger.current_state = :new_number
   conductor.escort passenger
 end
