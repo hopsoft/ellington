@@ -10,3 +10,4 @@ conductor = MathTrick::Conductor.new(MathTrick.route)
   passenger.current_state = :new_number
   conductor.escort passenger
 end
+

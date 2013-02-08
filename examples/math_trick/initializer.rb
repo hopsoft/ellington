@@ -17,23 +17,20 @@ stations_path = File.expand_path("stations", File.dirname(__FILE__))
 Dir[File.join(stations_path, "*.rb")].each { |station| require station }
 Ellington.logger = Logger.new($stdout)
 
-# setup the goals
-route_goal = Ellington::Goal.new(:add_pass)
-line_goal = Ellington::Goal.new(:add_pass)
-
-# configure the route
-route = Ellington::Route.new('Math Trick', MathTrick::States, route_goal)
-line = Ellington::Line.new('Get to 1089', line_goal)
-line << MathTrick::FirstReverseStation.new
-line << MathTrick::SubtractStation.new
-line << MathTrick::SecondReverseStation.new
-line << MathTrick::AddStation.new
-route.add line
-
 module MathTrick
-  class << self
-    attr_accessor :route
+  def self.route
+    @route ||= begin
+      route_goal = Ellington::Goal.new(:add_pass)
+      line_goal = Ellington::Goal.new(:add_pass)
+      route = Ellington::Route.new('Math Trick', MathTrick::States, route_goal)
+      line = Ellington::Line.new('Get to 1089', line_goal)
+      line << MathTrick::FirstReverseStation.new
+      line << MathTrick::SubtractStation.new
+      line << MathTrick::SecondReverseStation.new
+      line << MathTrick::AddStation.new
+      route.add line
+      route
+   end
   end
 end
-MathTrick.route = route
 
