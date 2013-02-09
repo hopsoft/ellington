@@ -1,27 +1,25 @@
-require "forwardable"
-
 module Ellington
   class Route
-    extend Forwardable
-    attr_reader :name, :states, :goal, :head
-    def_delegators :inner_hash, :[], :length
-
-    def initialize(name, states, goal=nil)
-      @name = name
-      @states = states
-      @goal = goal || Ellington::Goal.new
-      @inner_hash = {}
+    def goal
+      self.class.instance_eval { @goal }
     end
 
-    def add(line)
-      line.route = self
-      inner_hash[line.name] = line
-      @head ||= line
+    def transfers
+      self.class.instance_eval { @transfers }
     end
 
-    protected
+    class << self
+      def lines
+        @lines ||= Ellington::LineCollection.new(self)
+      end
 
-    attr_reader :inner_hash
+      def goal(*lines)
+        @goal = lines
+      end
 
+      def transfers(transfers)
+        @transfers = transfers
+      end
+    end
   end
 end

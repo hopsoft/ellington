@@ -44,3 +44,35 @@ The Ellington architecture should only be applied **after** a good understanding
 - **[Transfer](Transfer)** - A link between `routes`.
 - **[Network](Network)** - An entire system of `routes` & `transfers` designed to work together.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```
+Route class
+  composed of line instances
+  each line instance holds a ref to this route's class
+
+Line class
+  composed of station instances
+  each station instance holds a ref to this line's class
+
+Station class
+```
+
