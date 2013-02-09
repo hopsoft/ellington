@@ -15,8 +15,18 @@ module Ellington
           fail = :"[FAIL]#{full_name}"
           error = :"[ERROR]#{full_name}"
           states.add error => [pass, fail, error]
-          states.add pass
           states.add fail
+
+          if index + 1 < self.class.stations.length
+            next_station = self.class.stations[index + 1]
+            next_full_name = "[#{next_station.class.name}][#{self.class.name}][#{route.name}]"
+            next_pass = :"[PASS]#{next_full_name}"
+            next_fail = :"[FAIL]#{next_full_name}"
+            next_error = :"[ERROR]#{next_full_name}"
+            states.add pass => [next_pass, next_fail, next_error]
+          else
+            states.add pass
+          end
         end
         states
       end
