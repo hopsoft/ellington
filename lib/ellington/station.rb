@@ -32,6 +32,7 @@ module Ellington
         catalog.add passed
         catalog.add failed
         catalog.add errored => [ passed, failed, errored ]
+        catalog.lock
         catalog
       end
     end

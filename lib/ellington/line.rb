@@ -27,20 +27,21 @@ module Ellington
 
     def states
       @states ||= begin
-        states = StateJacket::Catalog.new
+        catalog = StateJacket::Catalog.new
         stations.each_with_index do |station, index|
-          states.merge! station.states
+          catalog.merge! station.states
           if index < stations.length - 1
             next_station = stations[index + 1]
-            states[station.state_name(:pass)] = next_station.states.keys
+            catalog[station.state_name(:pass)] = next_station.states.keys
           end
         end
-        states
+        catalog.lock
+        catalog
       end
     end
 
     def fault
-      states.keys - goal
+      states.keys - goal.to_a
     end
 
     class << self
@@ -50,7 +51,7 @@ module Ellington
       end
 
       def goal(*states)
-        @goal ||= states
+        @goal ||= Ellington::Goal.new(*states)
       end
 
       def connections

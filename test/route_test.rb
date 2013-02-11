@@ -32,12 +32,13 @@ class RouteTest < MicroTest::Test
   end
 
   test "goal" do
-    assert ExampleRoute1.goal == [ExampleRoute1.lines[1].goal, ExampleRoute1.lines[2].goal].flatten
+    assert ExampleRoute1.goal.to_a == [ExampleRoute1.lines[1].goal.to_a, ExampleRoute1.lines[2].goal.to_a].flatten
   end
 
   test "fault" do
     assert !ExampleRoute1.fault.empty?
-    assert((ExampleRoute1.fault & ExampleRoute1.goal).empty?)
+    assert((ExampleRoute1.fault & ExampleRoute1.goal.to_a).empty?)
+    assert ExampleRoute1.fault == ExampleRoute1.states.keys - ExampleRoute1.goal.to_a
   end
 
 end

@@ -77,12 +77,12 @@ class LineTest < MicroTest::Test
 
   test "goal" do
     line = ExampleRoute1.lines.first
-    assert line.goal == [line.stations[2].passed]
+    assert line.goal.to_a == [line.stations[2].passed]
   end
 
   test "fault" do
     line = ExampleRoute1.lines.first
-    assert line.fault == line.states.keys - line.goal
+    assert line.fault == line.states.keys - line.goal.to_a
   end
 
 end
