@@ -29,7 +29,12 @@ module Ellington
         @fault ||= states.keys - goal.to_a
       end
 
-      def connections(*connections)
+      def connections
+        @connections ||= Ellington::ConnectionList.new
+      end
+
+      def connect_to(line, options)
+        connections << Ellington::Connection.new(line, options[:on])
       end
 
     end

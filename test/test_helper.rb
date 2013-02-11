@@ -71,7 +71,7 @@ class ExampleRoute1 < Ellington::Route
 
   goal line_two.goal, line_three.goal
 
-  #connect_to line_two, :on => line_one.goal
-  #connect_to line_three, :on => line_one.fault
+  connect_to line_two, :on => line_one.goal
+  connect_to line_three, :on => line_one.fault
 end
 

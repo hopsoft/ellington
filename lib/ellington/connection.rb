@@ -1,10 +1,10 @@
 module Ellington
   class Connection
-    attr_reader :state, :line
+    attr_reader :line, :goal
 
-    def initialize(state, line)
-      @state = state
+    def initialize(line, goal)
       @line = line
+      @goal = goal
     end
 
   end
