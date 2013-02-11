@@ -62,9 +62,36 @@ class LineTest < MicroTest::Test
     assert line.formula.steps[2].last == line.stations[2]
   end
 
-  test "states" do
+  test "station1 'PASS' can transition to all station2 states" do
     line = ExampleRoute.lines.first
-    assert false
+    pass = line.stations[0].state_name(:pass)
+    transitions = line.states[pass]
+    assert transitions.include?(line.stations[1].state_name(:pass))
+    assert transitions.include?(line.stations[1].state_name(:fail))
+    assert transitions.include?(line.stations[1].state_name(:error))
+  end
+
+  test "station2 'PASS' can transition to all station3 states" do
+    line = ExampleRoute.lines.first
+    pass = line.stations[1].state_name(:pass)
+    transitions = line.states[pass]
+    assert transitions.include?(line.stations[2].state_name(:pass))
+    assert transitions.include?(line.stations[2].state_name(:fail))
+    assert transitions.include?(line.stations[2].state_name(:error))
+  end
+
+  test "station3 'PASS' is terminal" do
+    line = ExampleRoute.lines.first
+    pass = line.stations[2].state_name(:pass)
+    transitions = line.states[pass]
+    assert transitions.nil?
+  end
+
+  test "station3 'FAIL' is terminal" do
+    line = ExampleRoute.lines.first
+    pass = line.stations[2].state_name(:fail)
+    transitions = line.states[pass]
+    assert transitions.nil?
   end
 
 end

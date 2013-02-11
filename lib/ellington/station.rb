@@ -6,19 +6,26 @@ module Ellington
     include Observable
     attr_accessor :route, :line
 
+    def state_name(state)
+      :"#{state.to_s.upcase} #{full_name}"
+    end
+
     def full_name
-      "#{self.class.name} > #{line.name} > #{route.name}"
+      @full_name ||= "#{self.class.name} > #{line.name} > #{route.name}"
     end
 
     def states
-      pass = :"PASS #{full_name}"
-      fail = :"FAIL #{full_name}"
-      error = :"ERROR #{full_name}"
-      catalog = StateJacket::Catalog.new
-      catalog.add pass
-      catalog.add fail
-      catalog.add error => [pass, fail, error]
-      catalog
+      @states ||= begin
+        catalog = StateJacket::Catalog.new
+        catalog.add state_name(:pass)
+        catalog.add state_name(:fail)
+        catalog.add state_name(:error) => [
+          state_name(:pass), 
+          state_name(:fail), 
+          state_name(:error)
+        ]
+        catalog
+      end
     end
 
     def can_engage?(passenger, options={})

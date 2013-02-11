@@ -32,7 +32,7 @@ module Ellington
           states.merge! station.states
           if index < stations.length - 1
             next_station = stations[index + 1]
-            states[:"PASS #{station.full_name}"] = next_station.states.keys
+            states[station.state_name(:pass)] = next_station.states.keys
           end
         end
         states
