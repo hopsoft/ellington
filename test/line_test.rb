@@ -17,6 +17,10 @@ class LineTest < MicroTest::Test
     stations << ExampleStation3.new
   end
 
+  class ExampleRoute < Ellington::Route
+    lines << ExampleLine.new
+  end
+
   test "stations on class" do
     assert ExampleLine.stations.length == 3
     assert ExampleLine.stations[0].is_a?(ExampleStation1)
@@ -44,6 +48,18 @@ class LineTest < MicroTest::Test
     ExampleLine.stations.each do |station|
       assert station.line == ExampleLine
     end
+  end
+
+  test "full_name" do
+    line = ExampleRoute.lines.first
+    assert line.full_name == "LineTest::ExampleLine > LineTest::ExampleRoute"
+  end
+
+  test "formula" do
+    line = ExampleRoute.lines.first
+    assert line.formula.steps[0].last == line.stations[0]
+    assert line.formula.steps[1].last == line.stations[1]
+    assert line.formula.steps[2].last == line.stations[2]
   end
 
 end

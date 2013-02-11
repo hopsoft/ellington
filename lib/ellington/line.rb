@@ -7,7 +7,22 @@ module Ellington
     def_delegators :"self.class", :stations
 
     def board(passenger)
-      self.class.board passenger
+      formula.run passenger
+    end
+
+    def full_name
+      @full_name ||= "#{self.class.name} > #{route.name}"
+    end
+
+    def formula
+      @formula ||= begin
+        Hero::Formula[full_name]
+        Hero::Formula[full_name].steps.clear
+        stations.each do |station|
+          Hero::Formula[full_name].add_step station
+        end
+        Hero::Formula[full_name]
+      end
     end
 
     #def states
@@ -37,16 +52,6 @@ module Ellington
     #end
 
     class << self
-      attr_reader :formula
-
-      def inherited(subclass)
-        @formula = Hero::Formula[self.class.name]
-        formula.steps.clear
-      end
-
-      def board(passenger)
-        formula.run passenger
-      end
 
       def stations
         @stations ||= Ellington::StationCollection.new(self)
