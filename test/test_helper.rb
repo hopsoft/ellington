@@ -1,5 +1,6 @@
 require_relative "../lib/ellington"
 
+# stations -----------------------------------------------------------------
 class ExampleStation1 < Ellington::Station
 end
 
@@ -27,27 +28,50 @@ end
 class ExampleStation9 < Ellington::Station
 end
 
+# lines --------------------------------------------------------------------
 class ExampleLine1 < Ellington::Line
-  stations << ExampleStation1.new
-  stations << ExampleStation2.new
-  stations << ExampleStation3.new
+  one = ExampleStation1.new
+  two = ExampleStation2.new
+  three = ExampleStation3.new
+  stations << one
+  stations << two
+  stations << three
+  goal three.passed
 end
 
 class ExampleLine2 < Ellington::Line
-  stations << ExampleStation4.new
-  stations << ExampleStation5.new
-  stations << ExampleStation6.new
+  four = ExampleStation4.new
+  five = ExampleStation5.new
+  six = ExampleStation6.new
+  stations << four
+  stations << five
+  stations << six
+  goal six.passed
 end
 
 class ExampleLine3 < Ellington::Line
-  stations << ExampleStation7.new
-  stations << ExampleStation8.new
-  stations << ExampleStation9.new
+  seven = ExampleStation7.new
+  eight = ExampleStation8.new
+  nine = ExampleStation9.new
+  stations << seven
+  stations << eight
+  stations << nine
+  goal nine.passed
 end
 
-class ExampleRoute < Ellington::Route
-  lines << ExampleLine1.new
-  lines << ExampleLine2.new
-  lines << ExampleLine3.new
+# routes -------------------------------------------------------------------
+class ExampleRoute1 < Ellington::Route
+  line_one = ExampleLine1.new
+  line_two = ExampleLine2.new
+  line_three = ExampleLine3.new
+
+  lines << line_one
+  lines << line_two
+  lines << line_three
+
+  goal line_two.goal, line_three.goal
+
+  #connect_to line_two, :on => line_one.goal
+  #connect_to line_three, :on => line_one.fault
 end
 

@@ -4,7 +4,7 @@ module Ellington
   class Line
     extend Forwardable
     attr_accessor :route
-    def_delegators :"self.class", :stations
+    def_delegators :"self.class", :stations, :goal
 
     def board(passenger)
       formula.run passenger
@@ -39,19 +39,24 @@ module Ellington
       end
     end
 
+    def fault
+      states.keys - goal
+    end
+
     class << self
 
       def stations
-        @stations ||= Ellington::StationCollection.new(self)
+        @stations ||= Ellington::StationList.new(self)
       end
 
-      def goal(*stations)
-        @goal = stations
+      def goal(*states)
+        @goal ||= states
       end
 
-      def connections(connections)
-        @connections = connections
+      def connections
+        @connections ||= {}
       end
+
     end
 
   end

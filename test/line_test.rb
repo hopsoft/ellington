@@ -2,34 +2,15 @@ require_relative "test_helper"
 
 class LineTest < MicroTest::Test
 
-  class ExampleStation1 < Ellington::Station
-  end
-
-  class ExampleStation2 < Ellington::Station
-  end
-
-  class ExampleStation3 < Ellington::Station
-  end
-
-  class ExampleLine < Ellington::Line
-    stations << ExampleStation1.new
-    stations << ExampleStation2.new
-    stations << ExampleStation3.new
-  end
-
-  class ExampleRoute < Ellington::Route
-    lines << ExampleLine.new
-  end
-
   test "stations on class" do
-    assert ExampleLine.stations.length == 3
-    assert ExampleLine.stations[0].is_a?(ExampleStation1)
-    assert ExampleLine.stations[1].is_a?(ExampleStation2)
-    assert ExampleLine.stations[2].is_a?(ExampleStation3)
+    assert ExampleLine1.stations.length == 3
+    assert ExampleLine1.stations[0].is_a?(ExampleStation1)
+    assert ExampleLine1.stations[1].is_a?(ExampleStation2)
+    assert ExampleLine1.stations[2].is_a?(ExampleStation3)
   end
 
   test "lines on instance" do
-    line = ExampleLine.new
+    line = ExampleLine1.new
     assert line.stations.length == 3
     assert line.stations[0].is_a?(ExampleStation1)
     assert line.stations[1].is_a?(ExampleStation2)
@@ -38,32 +19,32 @@ class LineTest < MicroTest::Test
 
   test "type of stations must be unique" do
     begin
-      ExampleLine.stations << ExampleStation1.new
+      ExampleLine1.stations << ExampleStation1.new
     rescue Ellington::ListAlreadyContainsType => e
     end
     assert !e.nil?
   end
 
   test "stations are assigned line" do
-    ExampleLine.stations.each do |station|
-      assert station.line == ExampleLine
+    ExampleLine1.stations.each do |station|
+      assert station.line == ExampleLine1
     end
   end
 
   test "full_name" do
-    line = ExampleRoute.lines.first
-    assert line.full_name == "LineTest::ExampleLine > LineTest::ExampleRoute"
+    line = ExampleRoute1.lines.first
+    assert line.full_name == "ExampleLine1 > ExampleRoute1"
   end
 
   test "formula" do
-    line = ExampleRoute.lines.first
+    line = ExampleRoute1.lines.first
     assert line.formula.steps[0].last == line.stations[0]
     assert line.formula.steps[1].last == line.stations[1]
     assert line.formula.steps[2].last == line.stations[2]
   end
 
   test "station1 'PASS' can transition to all station2 states" do
-    line = ExampleRoute.lines.first
+    line = ExampleRoute1.lines.first
     pass = line.stations[0].state_name(:pass)
     transitions = line.states[pass]
     assert transitions.include?(line.stations[1].state_name(:pass))
@@ -72,7 +53,7 @@ class LineTest < MicroTest::Test
   end
 
   test "station2 'PASS' can transition to all station3 states" do
-    line = ExampleRoute.lines.first
+    line = ExampleRoute1.lines.first
     pass = line.stations[1].state_name(:pass)
     transitions = line.states[pass]
     assert transitions.include?(line.stations[2].state_name(:pass))
@@ -81,17 +62,27 @@ class LineTest < MicroTest::Test
   end
 
   test "station3 'PASS' is terminal" do
-    line = ExampleRoute.lines.first
+    line = ExampleRoute1.lines.first
     pass = line.stations[2].state_name(:pass)
     transitions = line.states[pass]
     assert transitions.nil?
   end
 
   test "station3 'FAIL' is terminal" do
-    line = ExampleRoute.lines.first
+    line = ExampleRoute1.lines.first
     pass = line.stations[2].state_name(:fail)
     transitions = line.states[pass]
     assert transitions.nil?
+  end
+
+  test "goal" do
+    line = ExampleRoute1.lines.first
+    assert line.goal == [line.stations[2].passed]
+  end
+
+  test "fault" do
+    line = ExampleRoute1.lines.first
+    assert line.fault == line.states.keys - line.goal
   end
 
 end

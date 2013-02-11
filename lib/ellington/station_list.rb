@@ -1,7 +1,7 @@
 require "delegate"
 
 module Ellington
-  class StationCollection < SimpleDelegator
+  class StationList < SimpleDelegator
     attr_reader :line
 
     def initialize(line)

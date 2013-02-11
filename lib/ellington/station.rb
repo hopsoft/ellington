@@ -6,24 +6,32 @@ module Ellington
     include Observable
     attr_accessor :route, :line
 
+    def full_name
+      @full_name ||= "#{self.class.name} > #{line.name}"
+    end
+
     def state_name(state)
       :"#{state.to_s.upcase} #{full_name}"
     end
 
-    def full_name
-      @full_name ||= "#{self.class.name} > #{line.name} > #{route.name}"
+    def passed
+      @pass_state ||= state_name(:pass)
+    end
+
+    def failed
+      @fail_state ||= state_name(:fail)
+    end
+
+    def errored
+      @error_state ||= state_name(:error)
     end
 
     def states
       @states ||= begin
         catalog = StateJacket::Catalog.new
-        catalog.add state_name(:pass)
-        catalog.add state_name(:fail)
-        catalog.add state_name(:error) => [
-          state_name(:pass), 
-          state_name(:fail), 
-          state_name(:error)
-        ]
+        catalog.add passed
+        catalog.add failed
+        catalog.add errored => [ passed, failed, errored ]
         catalog
       end
     end
@@ -58,15 +66,15 @@ module Ellington
     end
 
     def pass(passenger)
-      passenger.transition_to states[:pass]
+      passenger.transition_to pass_state
     end
 
     def fail(passenger)
-      passenger.transition_to states[:fail]
+      passenger.transition_to fail_state
     end
 
     def error(passenger)
-      passenger.transition_to states[:error]
+      passenger.transition_to error_state
     end
 
   end

@@ -1,7 +1,7 @@
 require "delegate"
 
 module Ellington
-  class LineCollection < SimpleDelegator
+  class LineList < SimpleDelegator
     attr_reader :route
 
     def initialize(route)

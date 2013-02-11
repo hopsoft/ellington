@@ -63,8 +63,8 @@
 			<integer>3019</integer>
 			<key>Points</key>
 			<array>
-				<string>{760.80917367899076, 1638.3453151811848}</string>
-				<string>{681.50488271749396, 1638.3884632105289}</string>
+				<string>{722.90125794101039, 1688.0073928833008}</string>
+				<string>{722.90128094650174, 1766.5}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -86,7 +86,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{272.0048828125, 1553}, {409, 171}}</string>
+			<string>{{518.40130615234375, 1767}, {409, 171}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -118,7 +118,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{761.30917358398438, 1595}, {335.78289794921875, 86.507392883300781}}</string>
+			<string>{{555.00979614257812, 1601}, {335.78289794921875, 86.507392883300781}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -174,8 +174,8 @@
 			<integer>3016</integer>
 			<key>Points</key>
 			<array>
-				<string>{1213.5048829075063, 1638.3453151873664}</string>
-				<string>{1134.2006224635877, 1638.3884632030176}</string>
+				<string>{722.90126011194172, 1480.0073928833008}</string>
+				<string>{722.90126011194172, 1558.5}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -197,7 +197,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{724.70062255859375, 1553}, {409, 171}}</string>
+			<string>{{518.4012451171875, 1559}, {409, 171}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -229,7 +229,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{1214.0048828125, 1595}, {335.78289794921875, 86.507392883300781}}</string>
+			<string>{{555.00982666015625, 1393}, {335.78289794921875, 86.507392883300781}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -275,7 +275,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{1177.3963623046875, 1553}, {409, 171}}</string>
+			<string>{{518.40130615234375, 1351}, {409, 171}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -7913,7 +7913,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2013-02-11 15:48:14 +0000</string>
+	<string>2013-02-11 22:02:07 +0000</string>
 	<key>Modifier</key>
 	<string>Nathan Hopkins</string>
 	<key>NotesVisible</key>
