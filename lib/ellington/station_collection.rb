@@ -12,7 +12,7 @@ module Ellington
 
     def push(station)
       inner_list << station
-      station.line = station
+      station.line = line
     end
 
     alias_method :<<, :push

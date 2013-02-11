@@ -10,8 +10,20 @@ module Ellington
       "#{self.class.name}->#{line.name}->#{route.name}"
     end
 
+    def states
+      pass = "PASS #{full_name}"
+      fail = "FAIL #{full_name}"
+      error = "ERROR #{full_name}"
+      catalog = StateJacket::Catalog.new
+      catalog.add pass
+      catalog.add fail
+      catalog.add error => [pass, fail]
+      catalog
+    end
+
     def can_engage?(passenger, options={})
-      passenger.locked? && passenger.states.can_transition?(passenger.current_state => states)
+      passenger.locked? && 
+        route.states.can_transition?(passenger.current_state => states.keys)
     end
 
     def engage(passenger, options={})
@@ -26,29 +38,28 @@ module Ellington
         passenger.delete_observer attendant
         raise Ellington::AttendandDisapproves unless attendant.approve?
 
-        transition = attendant.passenger_transitions.first
-
         changed
-        notify_observers info
+        notify_observers nil # TODO: create payload for observers
 
-        if Ellington.logger
-          message = info.map{ |key, value| "#{key}:#{value}" }.join(" ")
-          Ellington.logger.info message
-        end
+        #if Ellington.logger
+        #  message = info.map{ |key, value| "#{key}:#{value}" }.join(" ")
+        #  Ellington.logger.info message
+        #end
       end
 
       passenger
     end
 
-    class << self
-      attr_reader :states
+    def pass(passenger)
+      passenger.transition_to states[:pass]
+    end
 
-      def transitions_passenger_to(*states)
-        if states.length != 3
-          raise Ellington::InvalidStates.new("Must provide exactly 3 states.")
-        end
-        @states = states
-      end
+    def fail(passenger)
+      passenger.transition_to states[:fail]
+    end
+
+    def error(passenger)
+      passenger.transition_to states[:error]
     end
 
   end
