@@ -4,7 +4,7 @@ module Ellington
 
     def initialize(line, states)
       @line = line
-      @states = states.to_a
+      @states = states
     end
 
   end

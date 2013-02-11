@@ -41,7 +41,7 @@ module Ellington
     end
 
     def fault
-      states.keys - goal.to_a
+      states.keys - goal
     end
 
     class << self

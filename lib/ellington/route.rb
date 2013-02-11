@@ -17,16 +17,25 @@ module Ellington
           lines.each do |line|
             catalog.merge! line.states
           end
+
+          connections.each do |connection|
+            connection.states.each do |state|
+              catalog[state] ||= []
+              catalog[state].concat connection.line.stations.first.states.keys
+            end
+          end
+
+          catalog.lock
           catalog
         end
       end
 
       def goal(*line_goals)
-        @goal ||= Ellington::Goal.new(*line_goals.map(&:to_a).flatten)
+        @goal ||= Ellington::Goal.new(*line_goals.flatten)
       end
 
       def fault
-        @fault ||= states.keys - goal.to_a
+        @fault ||= states.keys - goal
       end
 
       def connections

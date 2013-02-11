@@ -73,5 +73,7 @@ class ExampleRoute1 < Ellington::Route
 
   connect_to line_two, :on => line_one.goal
   connect_to line_three, :on => line_one.fault
+
+  binding.pry
 end
 
