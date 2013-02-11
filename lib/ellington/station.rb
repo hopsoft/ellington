@@ -7,17 +7,17 @@ module Ellington
     attr_accessor :route, :line
 
     def full_name
-      "#{self.class.name}->#{line.name}->#{route.name}"
+      "#{self.class.name} > #{line.name} > #{route.name}"
     end
 
     def states
-      pass = "PASS #{full_name}"
-      fail = "FAIL #{full_name}"
-      error = "ERROR #{full_name}"
+      pass = :"PASS #{full_name}"
+      fail = :"FAIL #{full_name}"
+      error = :"ERROR #{full_name}"
       catalog = StateJacket::Catalog.new
       catalog.add pass
       catalog.add fail
-      catalog.add error => [pass, fail]
+      catalog.add error => [pass, fail, error]
       catalog
     end
 

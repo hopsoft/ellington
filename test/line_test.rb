@@ -62,4 +62,9 @@ class LineTest < MicroTest::Test
     assert line.formula.steps[2].last == line.stations[2]
   end
 
+  test "states" do
+    line = ExampleRoute.lines.first
+    assert false
+  end
+
 end

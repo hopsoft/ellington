@@ -25,31 +25,19 @@ module Ellington
       end
     end
 
-    #def states
-    #  @states ||= begin
-    #    states = StateJacket::Catalog.new
-    #    self.class.stations.each_with_index do |station, index|
-    #      full_name = "[#{station.class.name}][#{self.class.name}][#{route.name}]"
-    #      pass = :"[PASS]#{full_name}"
-    #      fail = :"[FAIL]#{full_name}"
-    #      error = :"[ERROR]#{full_name}"
-    #      states.add error => [pass, fail, error]
-    #      states.add fail
-
-    #      if index + 1 < self.class.stations.length
-    #        next_station = self.class.stations[index + 1]
-    #        next_full_name = "[#{next_station.class.name}][#{self.class.name}][#{route.name}]"
-    #        next_pass = :"[PASS]#{next_full_name}"
-    #        next_fail = :"[FAIL]#{next_full_name}"
-    #        next_error = :"[ERROR]#{next_full_name}"
-    #        states.add pass => [next_pass, next_fail, next_error]
-    #      else
-    #        states.add pass
-    #      end
-    #    end
-    #    states
-    #  end
-    #end
+    def states
+      @states ||= begin
+        states = StateJacket::Catalog.new
+        stations.each_with_index do |station, index|
+          states.merge! station.states
+          if index < stations.length - 1
+            next_station = stations[index + 1]
+            states[:"PASS #{station.full_name}"] = next_station.states.keys
+          end
+        end
+        states
+      end
+    end
 
     class << self
 
