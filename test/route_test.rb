@@ -43,9 +43,9 @@ class RouteTest < MicroTest::Test
 
   test "connections" do
     assert ExampleRoute1.connections.first.line == ExampleRoute1.lines[1]
-    assert ExampleRoute1.connections.first.goal == ExampleRoute1.lines[0].goal
+    assert ExampleRoute1.connections.first.states == ExampleRoute1.lines[0].goal.to_a
     assert ExampleRoute1.connections.last.line == ExampleRoute1.lines[2]
-    assert ExampleRoute1.connections.last.goal == ExampleRoute1.lines[0].fault
+    assert ExampleRoute1.connections.last.states == ExampleRoute1.lines[0].fault
   end
 
 end
