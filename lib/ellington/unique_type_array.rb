@@ -1,7 +1,7 @@
 require "delegate"
 
 module Ellington
-  class UniqueArray < SimpleDelegator
+  class UniqueTypeArray < SimpleDelegator
 
     def initialize
       @inner_list = []
@@ -18,12 +18,21 @@ module Ellington
       inner_list << value
     end
 
+    def contains_a?(klass)
+      each do |entry|
+        return true if entry.class == klass
+      end
+      false
+    end
+
     protected
 
     attr_reader :inner_list
 
     def check(value)
-      raise Ellington::ListAlreadyContainsValue if inner_list.include?(value)
+      if contains_a?(value.class)
+        raise Ellington::ListAlreadyContainsType.new("List already contains a #{value.class.name} type!")
+      end
     end
 
   end

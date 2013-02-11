@@ -1,6 +1,8 @@
 module Ellington
-  class ListAlreadyContainsValue < StandardError
+  class ListAlreadyContainsType < StandardError
   end
+
+
 
 
 
@@ -22,10 +24,6 @@ module Ellington
 
   class StationAlreadyBelongsToLine < StandardError
   end
-
-  class LineAlreadyBelongsToRoute < StandardError
-  end
-
 
   class PassengerAlreadyAssignedToTicket < StandardError
   end

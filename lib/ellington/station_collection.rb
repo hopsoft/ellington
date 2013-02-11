@@ -6,13 +6,13 @@ module Ellington
 
     def initialize(line)
       @line = line
-      @inner_list = UniqueArray.new
+      @inner_list = UniqueTypeArray.new
       super @inner_list
     end
 
     def push(station)
-      station.line = line
       inner_list << station
+      station.line = station
     end
 
     alias_method :<<, :push

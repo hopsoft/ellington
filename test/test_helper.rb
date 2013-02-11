@@ -51,4 +51,3 @@ class ExampleRoute < Ellington::Route
   lines << ExampleLine3.new
 end
 
-binding.pry

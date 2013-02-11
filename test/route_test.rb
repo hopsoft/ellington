@@ -2,29 +2,43 @@ require_relative "test_helper"
 
 class RouteTest < MicroTest::Test
 
-#  before do
-#    RouteTest.send(:remove_const, :TestRoute) if RouteTest.const_defined?(:TestRoute)
-#  end
-#
-#  test "addition of lines" do
-#    class TestRoute < Ellington::Route
-#      lines << 1
-#      lines << 2
-#      lines << 3
-#    end
-#    assert TestRoute.lines == [1,2,3]
-#  end
-#
-#  test "lines must be unique" do
-#    begin
-#      class TestRoute < Ellington::Route
-#        lines << 1
-#        lines << 1
-#      end
-#    rescue Ellington::ListAlreadyContainsValue => e
-#    end
-#    assert !e.nil?
-#  end
+  class ExampleLine1 < Ellington::Line
+  end
+
+  class ExampleLine2 < Ellington::Line
+  end
+
+  class ExampleLine3 < Ellington::Line
+  end
+
+  class ExampleRoute < Ellington::Route
+    lines << ExampleLine1.new
+    lines << ExampleLine2.new
+    lines << ExampleLine3.new
+  end
+
+  test "lines on class" do
+    assert ExampleRoute.lines.length == 3
+    assert ExampleRoute.lines[0].is_a?(ExampleLine1)
+    assert ExampleRoute.lines[1].is_a?(ExampleLine2)
+    assert ExampleRoute.lines[2].is_a?(ExampleLine3)
+  end
+
+  test "lines on instance" do
+    route = ExampleRoute.new
+    assert route.lines.length == 3
+    assert route.lines[0].is_a?(ExampleLine1)
+    assert route.lines[1].is_a?(ExampleLine2)
+    assert route.lines[2].is_a?(ExampleLine3)
+  end
+
+  test "type of lines must be unique" do
+    begin
+      ExampleRoute.lines << ExampleLine1.new
+    rescue Ellington::ListAlreadyContainsType => e
+    end
+    assert !e.nil?
+  end
 
 
 

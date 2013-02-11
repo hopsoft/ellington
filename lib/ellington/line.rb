@@ -1,6 +1,10 @@
+require "forwardable"
+
 module Ellington
   class Line
+    extend Forwardable
     attr_accessor :route
+    def_delegators :"self.class", :stations
 
     def board(passenger)
       self.class.board passenger

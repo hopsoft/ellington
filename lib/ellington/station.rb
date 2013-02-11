@@ -4,7 +4,11 @@ module Ellington
 
   class Station
     include Observable
-    attr_accessor :line
+    attr_accessor :route, :line
+
+    def full_name
+      "#{self.class.name}->#{line.name}->#{route.name}"
+    end
 
     def can_engage?(passenger, options={})
       passenger.locked? && passenger.states.can_transition?(passenger.current_state => states)
@@ -24,18 +28,6 @@ module Ellington
 
         transition = attendant.passenger_transitions.first
 
-        info = {
-          :route                => (line ? line.route.name : nil),
-          :line                 => (line ? line.name : nil),
-          :station              => self.class.name,
-          :passenger            => passenger,
-          :old_state            => (transition ? transition.old_state : nil),
-          :new_state            => (transition ? transition.new_state : nil),
-          :ticket_goal_achieved => passenger.ticket.goal_achieved?,
-          :route_goal_achieved  => (line && line.route ? line.route.goal.achieved?(passenger) : false),
-          :line_goal_achieved   => (line ? line.goal.achieved?(passenger) : false)
-        }
-
         changed
         notify_observers info
 
@@ -48,10 +40,6 @@ module Ellington
       passenger
     end
 
-
-
-
-
     class << self
       attr_reader :states
 
@@ -62,8 +50,6 @@ module Ellington
         @states = states
       end
     end
-
-
 
   end
 

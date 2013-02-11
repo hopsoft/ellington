@@ -1,5 +1,10 @@
+require "forwardable"
+
 module Ellington
   class Route
+    extend Forwardable
+    def_delegators :"self.class", :lines
+
     def goal
       self.class.instance_eval { @goal }
     end
