@@ -35,7 +35,9 @@ module Ellington
       end
 
       def fault
-        @fault ||= states.keys - goal
+        @fault ||= (states.keys - goal).delete_if do |state|
+          state.to_s =~ /\AERROR/i
+        end
       end
 
       def connections

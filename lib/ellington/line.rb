@@ -41,7 +41,9 @@ module Ellington
     end
 
     def fault
-      states.keys - goal
+      @fault ||= (states.keys - goal).delete_if do |state|
+        state.to_s =~ /\AERROR/i
+      end
     end
 
     class << self
