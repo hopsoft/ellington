@@ -116,3 +116,10 @@ class ExampleRoute1 < Ellington::Route
   connect_to line_three, :on => line_one.fault
 end
 
+num = NumberWithHistory.new 0
+passenger = Ellington::Passenger.new(num, Ellington::Ticket.new, ExampleRoute1.states)
+passenger.lock
+passenger.current_state = ExampleRoute1.initial_state
+ExampleRoute1.board passenger, :pass => true
+binding.pry
+

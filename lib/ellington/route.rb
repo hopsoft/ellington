@@ -15,8 +15,8 @@ module Ellington
 
     class << self
 
-      def board(passenger)
-        lines.first.board passenger
+      def board(passenger, options={})
+        lines.first.board passenger, options
       end
 
       def lines

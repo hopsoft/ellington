@@ -6,10 +6,10 @@ module Ellington
     extend Forwardable
     include Observable
     attr_accessor :route
-    def_delegators :"self.class", :stations, :goal
+    def_delegators :"self.class", :stations, :goal, :station_completed
 
-    def board(passenger)
-      formula.run passenger
+    def board(passenger, options={})
+      formula.run passenger, options
     end
 
     def full_name
@@ -51,6 +51,7 @@ module Ellington
     end
 
     class << self
+      include Observable
 
       def stations
         @stations ||= Ellington::StationList.new(self)
