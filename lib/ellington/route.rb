@@ -15,6 +15,10 @@ module Ellington
 
     class << self
 
+      def board(passenger)
+        lines.first.board passenger
+      end
+
       def lines
         @lines ||= Ellington::LineList.new(self)
       end
