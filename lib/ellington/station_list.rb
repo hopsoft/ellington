@@ -11,8 +11,10 @@ module Ellington
     end
 
     def push(station)
-      inner_list << station
+      value = inner_list << station
       station.line = line
+      station.add_observer line, :station_completed
+      value
     end
 
     alias_method :<<, :push

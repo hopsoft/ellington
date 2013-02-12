@@ -54,6 +54,10 @@ module Ellington
         passenger.delete_observer attendant
         raise Ellington::AttendandDisapproves unless attendant.approve?
 
+        info = {
+          :station => self
+        }
+
         changed
         notify_observers nil # TODO: create payload for observers
 

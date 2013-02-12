@@ -1,8 +1,10 @@
 require "forwardable"
+require "observer"
 
 module Ellington
   class Line
     extend Forwardable
+    include Observable
     attr_accessor :route
     def_delegators :"self.class", :stations, :goal
 
@@ -62,6 +64,13 @@ module Ellington
 
       def connections
         @connections ||= {}
+      end
+
+      def station_completed(info)
+        if info[:station] == stations.last
+          changed
+          notify_observers info
+        end
       end
 
     end

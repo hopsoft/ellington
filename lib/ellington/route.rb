@@ -48,6 +48,9 @@ module Ellington
         connections << Ellington::Connection.new(line, options[:on])
       end
 
+      def line_completed(info)
+      end
+
     end
   end
 end
