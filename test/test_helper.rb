@@ -1,130 +1,72 @@
+require "delegate"
 require_relative "../lib/ellington"
 
-# stations -----------------------------------------------------------------
-class ExampleStation1 < Ellington::Station
+class NumberWithHistory
+  attr_reader :original_value, :current_value, :history
+  def initialize(value)
+    @original_value = value
+    @current_value = value
+    @history = []
+  end
 
+  def add(other)
+    value = current_value
+    @current_value = current_value + other
+    history.push(:before => value, :after => current_value)
+    current_value
+  end
+end
+
+# stations -----------------------------------------------------------------
+
+module AdditionStation
   def engage(passenger, options)
-    if true
+    raise if !options[:pass] && rand(10) == 1
+    if options[:pass] || rand(10) >= 5
+      passenger.add 1
       pass passenger
     else
       fail passenger
     end
-  rescue
+  rescue Exception => e
     error passenger
   end
+end
 
+class ExampleStation1 < Ellington::Station
+  include AdditionStation
 end
 
 class ExampleStation2 < Ellington::Station
-
-  def engage(passenger, options)
-    if true
-      pass passenger
-    else
-      fail passenger
-    end
-  rescue
-    error passenger
-  end
-
+  include AdditionStation
 end
 
 class ExampleStation3 < Ellington::Station
-
-  def engage(passenger, options)
-    if true
-      pass passenger
-    else
-      fail passenger
-    end
-  rescue
-    error passenger
-  end
-
+  include AdditionStation
 end
 
 class ExampleStation4 < Ellington::Station
-
-  def engage(passenger, options)
-    if true
-      pass passenger
-    else
-      fail passenger
-    end
-  rescue
-    error passenger
-  end
-
+  include AdditionStation
 end
 
 class ExampleStation5 < Ellington::Station
-
-  def engage(passenger, options)
-    if true
-      pass passenger
-    else
-      fail passenger
-    end
-  rescue
-    error passenger
-  end
-
+  include AdditionStation
 end
 
 class ExampleStation6 < Ellington::Station
-
-  def engage(passenger, options)
-    if true
-      pass passenger
-    else
-      fail passenger
-    end
-  rescue
-    error passenger
-  end
-
+  include AdditionStation
 end
 
 class ExampleStation7 < Ellington::Station
-
-  def engage(passenger, options)
-    if true
-      pass passenger
-    else
-      fail passenger
-    end
-  rescue
-    error passenger
-  end
-
+  include AdditionStation
 end
 
 class ExampleStation8 < Ellington::Station
-
-  def engage(passenger, options)
-    if true
-      pass passenger
-    else
-      fail passenger
-    end
-  rescue
-    error passenger
-  end
-
+  include AdditionStation
 end
 
 class ExampleStation9 < Ellington::Station
-
-  def engage(passenger, options)
-    if true
-      pass passenger
-    else
-      fail passenger
-    end
-  rescue
-    error passenger
-  end
-
+  include AdditionStation
 end
 
 # lines --------------------------------------------------------------------

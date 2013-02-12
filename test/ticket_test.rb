@@ -4,6 +4,7 @@ require "digest"
 class TicketTest < MicroTest::Test
 
   before do
+    @number = NumberWithHistory.new(0)
     @ticket = Ellington::Ticket.new(Ellington::Target.new(:closed), 
       :user_id => "458e9710-c1c4-495b-b25a-c622e893f6f7",
       :debit_id => "b834fb69-2eb3-4e57-b313-16b863e91f74",
@@ -22,13 +23,13 @@ class TicketTest < MicroTest::Test
   end
 
   test "passenger assignment" do
-    passenger = Ellington::Passenger.new({}, Ellington::Ticket.new, StateJacket::Catalog.new)
+    passenger = Ellington::Passenger.new(@number, Ellington::Ticket.new, StateJacket::Catalog.new)
     @ticket.passenger = passenger
     assert @ticket.passenger == passenger
   end
 
   test "passenger assignment is only allowed once" do
-    passenger = Ellington::Passenger.new({}, Ellington::Ticket.new, StateJacket::Catalog.new)
+    passenger = Ellington::Passenger.new(@number, Ellington::Ticket.new, StateJacket::Catalog.new)
     error = nil
     begin
       @ticket.passenger = passenger
@@ -44,14 +45,14 @@ class TicketTest < MicroTest::Test
   end
 
   test "goal is not achieved when passenger is not in the correct state" do
-    passenger = Ellington::Passenger.new({}, Ellington::Ticket.new, StateJacket::Catalog.new)
+    passenger = Ellington::Passenger.new(@number, Ellington::Ticket.new, StateJacket::Catalog.new)
     passenger.current_state = :open
     @ticket.passenger = passenger
     assert !@ticket.goal_achieved?
   end
 
   test "goal is achieved when passenger is in the correct state" do
-    passenger = Ellington::Passenger.new({}, Ellington::Ticket.new, StateJacket::Catalog.new)
+    passenger = Ellington::Passenger.new(@number, Ellington::Ticket.new, StateJacket::Catalog.new)
     passenger.current_state = :closed
     @ticket.passenger = passenger
     assert @ticket.goal_achieved?

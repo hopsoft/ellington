@@ -6,7 +6,7 @@ class StationTest < MicroTest::Test
     @route = ExampleRoute1
     @line = @route.lines.first
     @station = @line.stations.first
-    @passenger = Ellington::Passenger.new({}, Ellington::Ticket.new, @route.states)
+    @passenger = Ellington::Passenger.new(NumberWithHistory.new(0), Ellington::Ticket.new, @route.states)
     @passenger.current_state = @route.initial_state
     @passenger.lock
   end
@@ -91,7 +91,7 @@ class StationTest < MicroTest::Test
 
   test "engage" do
     @passenger.current_state = @route.initial_state
-    @station.engage(@passenger, {})
+    @station.engage(@passenger, :pass => true)
     assert @passenger.current_state == @station.passed
   end
 
@@ -103,7 +103,7 @@ class StationTest < MicroTest::Test
     end
     @station.add_observer observer
     @passenger.current_state = @route.initial_state
-    @station.call(@passenger, {})
+    @station.call(@passenger, :pass => true)
     assert observer.callbacks.length == 1
     info = observer.callbacks.first
     assert info.station == @station

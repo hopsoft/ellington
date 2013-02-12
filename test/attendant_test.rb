@@ -8,7 +8,7 @@ class AttendantTest < MicroTest::Test
     @route = ExampleRoute1
     @line = @route.lines.first
     @station = @line.stations.first
-    @passenger = Ellington::Passenger.new({}, Ellington::Ticket.new, @route.states)
+    @passenger = Ellington::Passenger.new(NumberWithHistory.new(0), Ellington::Ticket.new, @route.states)
     @passenger.current_state = @route.initial_state
     @passenger.lock
     @attendant = Ellington::Attendant.new(@station)

@@ -2,6 +2,10 @@ require_relative "test_helper"
 
 class TargetTest < MicroTest::Test
 
+  before do
+    @number = NumberWithHistory.new(0)
+  end
+
   test "basic goal" do
     goal = Ellington::Target.new(:finished)
     assert goal.include?(:finished)
@@ -20,28 +24,28 @@ class TargetTest < MicroTest::Test
   end
 
   test "not satisfied for passenger in the wrong state" do
-    passenger = Ellington::Passenger.new({}, Ellington::Ticket.new, StateJacket::Catalog.new)
+    passenger = Ellington::Passenger.new(@number, Ellington::Ticket.new, StateJacket::Catalog.new)
     passenger.current_state = :open
     goal = Ellington::Target.new(:closed)
     assert !goal.satisfied?(passenger)
   end
 
   test "satisfied for passenger in the right state" do
-    passenger = Ellington::Passenger.new({}, Ellington::Ticket.new, StateJacket::Catalog.new)
+    passenger = Ellington::Passenger.new(@number, Ellington::Ticket.new, StateJacket::Catalog.new)
     passenger.current_state = :closed
     goal = Ellington::Target.new(:closed)
     assert goal.satisfied?(passenger)
   end
 
   test "satisfied for passenger in an expected state" do
-    passenger = Ellington::Passenger.new({}, Ellington::Ticket.new, StateJacket::Catalog.new)
+    passenger = Ellington::Passenger.new(@number, Ellington::Ticket.new, StateJacket::Catalog.new)
     passenger.current_state = :two
     goal = Ellington::Target.new(:one, :two, :three)
     assert goal.satisfied?(passenger)
   end
 
   test "not satisfied for passenger not in an expected state" do
-    passenger = Ellington::Passenger.new({}, Ellington::Ticket.new, StateJacket::Catalog.new)
+    passenger = Ellington::Passenger.new(@number, Ellington::Ticket.new, StateJacket::Catalog.new)
     passenger.current_state = :four
     goal = Ellington::Target.new(:one, :two, :three)
     assert !goal.satisfied?(passenger)
