@@ -49,8 +49,10 @@ module Ellington
       end
 
       def fault
-        @fault ||= (states.keys - goal).delete_if do |state|
-          state.to_s =~ /\AERROR/
+        @fault ||= begin
+          state_list = states.keys - goal
+          state_list.reject! { |state| state.to_s =~ /\AERROR/ }
+          Ellington::Target.new *state_list
         end
       end
 
