@@ -37,4 +37,8 @@ class AttendantTest < MicroTest::Test
     assert !@attendant.approve?
   end
 
+  test "a transition must be made in order to be approved" do
+    assert !@attendant.approve?
+  end
+
 end

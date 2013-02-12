@@ -2,30 +2,129 @@ require_relative "../lib/ellington"
 
 # stations -----------------------------------------------------------------
 class ExampleStation1 < Ellington::Station
+
+  def engage(passenger, options)
+    if true
+      pass passenger
+    else
+      fail passenger
+    end
+  rescue
+    error passenger
+  end
+
 end
 
 class ExampleStation2 < Ellington::Station
+
+  def engage(passenger, options)
+    if true
+      pass passenger
+    else
+      fail passenger
+    end
+  rescue
+    error passenger
+  end
+
 end
 
 class ExampleStation3 < Ellington::Station
+
+  def engage(passenger, options)
+    if true
+      pass passenger
+    else
+      fail passenger
+    end
+  rescue
+    error passenger
+  end
+
 end
 
 class ExampleStation4 < Ellington::Station
+
+  def engage(passenger, options)
+    if true
+      pass passenger
+    else
+      fail passenger
+    end
+  rescue
+    error passenger
+  end
+
 end
 
 class ExampleStation5 < Ellington::Station
+
+  def engage(passenger, options)
+    if true
+      pass passenger
+    else
+      fail passenger
+    end
+  rescue
+    error passenger
+  end
+
 end
 
 class ExampleStation6 < Ellington::Station
+
+  def engage(passenger, options)
+    if true
+      pass passenger
+    else
+      fail passenger
+    end
+  rescue
+    error passenger
+  end
+
 end
 
 class ExampleStation7 < Ellington::Station
+
+  def engage(passenger, options)
+    if true
+      pass passenger
+    else
+      fail passenger
+    end
+  rescue
+    error passenger
+  end
+
 end
 
 class ExampleStation8 < Ellington::Station
+
+  def engage(passenger, options)
+    if true
+      pass passenger
+    else
+      fail passenger
+    end
+  rescue
+    error passenger
+  end
+
 end
 
 class ExampleStation9 < Ellington::Station
+
+  def engage(passenger, options)
+    if true
+      pass passenger
+    else
+      fail passenger
+    end
+  rescue
+    error passenger
+  end
+
 end
 
 # lines --------------------------------------------------------------------

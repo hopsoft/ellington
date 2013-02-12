@@ -54,34 +54,30 @@ module Ellington
         passenger.delete_observer attendant
         raise Ellington::AttendandDisapproves unless attendant.approve?
 
-        info = {
-          :station    => self,
-          :passenger  => passenger,
-          :transition => attendant.transition
-        }
+        info = StationInfo.new(self, passenger, attendant.passenger_transitions.first)
 
         changed
         notify_observers info
 
-        #if Ellington.logger
-        #  message = info.map{ |key, value| "#{key}:#{value}" }.join(" ")
-        #  Ellington.logger.info message
-        #end
+        if Ellington.logger
+          message = info.to_hash.map{ |key, value| "#{key}:#{value}" }.join(" ")
+          Ellington.logger.info message
+        end
       end
 
       passenger
     end
 
     def pass(passenger)
-      passenger.transition_to pass_state
+      passenger.transition_to passed
     end
 
     def fail(passenger)
-      passenger.transition_to fail_state
+      passenger.transition_to failed
     end
 
     def error(passenger)
-      passenger.transition_to error_state
+      passenger.transition_to errored
     end
 
   end

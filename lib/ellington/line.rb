@@ -34,7 +34,7 @@ module Ellington
           catalog.merge! station.states
           if index < stations.length - 1
             next_station = stations[index + 1]
-            catalog[station.state_name(:pass)] = next_station.states.keys
+            catalog[station.passed] = next_station.states.keys
           end
         end
         catalog.lock
