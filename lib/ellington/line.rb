@@ -42,10 +42,6 @@ module Ellington
       end
     end
 
-    def initial_states
-      stations.first.states.keys
-    end
-
     def fault
       @fault ||= (states.keys - goal).delete_if do |state|
         state.to_s =~ /\AERROR/

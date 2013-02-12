@@ -55,11 +55,13 @@ module Ellington
         raise Ellington::AttendandDisapproves unless attendant.approve?
 
         info = {
-          :station => self
+          :station    => self,
+          :passenger  => passenger,
+          :transition => attendant.transition
         }
 
         changed
-        notify_observers nil # TODO: create payload for observers
+        notify_observers info
 
         #if Ellington.logger
         #  message = info.map{ |key, value| "#{key}:#{value}" }.join(" ")

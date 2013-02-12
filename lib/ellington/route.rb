@@ -3,7 +3,15 @@ require "forwardable"
 module Ellington
   class Route
     extend Forwardable
-    def_delegators :"self.class", :lines, :states, :goal, :fault, :connections
+    def_delegators :"self.class",
+      :lines,
+      :states,
+      :initial_state,
+      :goal,
+      :fault,
+      :connections,
+      :connect_to,
+      :line_completed
 
     class << self
 
@@ -14,6 +22,8 @@ module Ellington
       def states
         @states ||= begin
           catalog = StateJacket::Catalog.new
+          catalog.add initial_state => lines.first.stations.first.states.keys
+
           lines.each do |line|
             catalog.merge! line.states
           end
@@ -21,13 +31,17 @@ module Ellington
           connections.each do |connection|
             connection.states.each do |state|
               catalog[state] ||= []
-              catalog[state].concat connection.line.initial_states
+              catalog[state].concat connection.line.stations.first.states.keys
             end
           end
 
           catalog.lock
           catalog
         end
+      end
+
+      def initial_state
+        @initial_state ||= :"PRE #{name}"
       end
 
       def goal(*line_goals)
