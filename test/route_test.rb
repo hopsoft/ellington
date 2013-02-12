@@ -38,7 +38,10 @@ class RouteTest < MicroTest::Test
   test "fault" do
     assert !ExampleRoute1.fault.empty?
     assert((ExampleRoute1.fault & ExampleRoute1.goal).empty?)
-    assert ExampleRoute1.fault == ExampleRoute1.states.keys - ExampleRoute1.goal
+    expected = (ExampleRoute1.states.keys - ExampleRoute1.goal).delete_if do |state|
+      state.to_s =~ /\AERROR/
+    end
+    assert ExampleRoute1.fault == expected
   end
 
   test "connections" do

@@ -82,7 +82,10 @@ class LineTest < MicroTest::Test
 
   test "fault" do
     line = ExampleRoute1.lines.first
-    assert line.fault == line.states.keys - line.goal
+    expected = (line.states.keys - line.goal).delete_if do |state|
+      state.to_s =~ /\AERROR/
+    end
+    assert line.fault == expected
   end
 
 end

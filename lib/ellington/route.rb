@@ -21,7 +21,7 @@ module Ellington
           connections.each do |connection|
             connection.states.each do |state|
               catalog[state] ||= []
-              catalog[state].concat connection.line.stations.first.states.keys
+              catalog[state].concat connection.line.initial_states
             end
           end
 
@@ -36,7 +36,7 @@ module Ellington
 
       def fault
         @fault ||= (states.keys - goal).delete_if do |state|
-          state.to_s =~ /\AERROR/i
+          state.to_s =~ /\AERROR/
         end
       end
 
