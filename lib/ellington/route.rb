@@ -45,7 +45,7 @@ module Ellington
       end
 
       def goal(*line_goals)
-        @goal ||= Ellington::Goal.new(*line_goals.flatten)
+        @goal ||= Ellington::Target.new(*line_goals.flatten)
       end
 
       def fault

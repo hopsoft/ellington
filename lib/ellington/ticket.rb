@@ -7,7 +7,7 @@ module Ellington
     attr_reader :passenger, :goal
 
     def initialize(goal=nil, hash={})
-      @goal = goal || Ellington::Goal.new
+      @goal = goal || Ellington::Target.new
       super hash
     end
 
@@ -21,7 +21,7 @@ module Ellington
     end
 
     def goal_achieved?
-      goal.achieved? passenger
+      goal.satisfied? passenger
     end
 
   end

@@ -1,10 +1,10 @@
 require "delegate"
 
 module Ellington
-  class Goal < SimpleDelegator
+  class Target < SimpleDelegator
 
     def initialize(*states)
-      @inner_list = states.map(&:to_sym)
+      @inner_list = states.flatten.map(&:to_sym)
       super inner_list
     end
 
@@ -12,7 +12,7 @@ module Ellington
       inner_list.include? state.to_sym
     end
 
-    def achieved?(passenger)
+    def satisfied?(passenger)
       return false if passenger.nil?
       include? passenger.current_state.to_sym
     end

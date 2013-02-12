@@ -55,7 +55,7 @@ module Ellington
       end
 
       def goal(*states)
-        @goal ||= Ellington::Goal.new(*states)
+        @goal ||= Ellington::Target.new(*states)
       end
 
       def connections
