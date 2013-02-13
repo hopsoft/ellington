@@ -112,10 +112,10 @@ class ExampleRoute1 < Ellington::Route
   lines << line_two
   lines << line_three
 
-  goal line_two.goal, line_three.goal
+  goal line_two.passed, line_three.passed
 
-  connect_to line_two, :if => line_one.pass
-  connect_to line_three, :if => line_one.fail
+  connect_to line_two, :if => line_one.passed
+  connect_to line_three, :if => line_one.failed
 end
 
 #num = NumberWithHistory.new 0

@@ -40,7 +40,7 @@ module Ellington
       def pass_target(*line_goals)
         @goal ||= Ellington::Target.new(*line_goals.flatten)
       end
-      alias_method :pass, :pass_target
+      alias_method :passed, :pass_target
       alias_method :goal, :pass_target
 
       def connections

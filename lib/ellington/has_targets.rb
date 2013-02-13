@@ -8,12 +8,12 @@ module Ellington
         Ellington::Target.new *state_list
       end
     end
-    alias_method :fail, :fail_target
+    alias_method :failed, :fail_target
 
     def error_target
       @error_target ||= states.keys - goal - fail_target
     end
-    alias_method :error, :error_target
+    alias_method :errored, :error_target
 
     def pass?(passenger)
       pass.satisfied? passenger

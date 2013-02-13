@@ -10,7 +10,7 @@ module Ellington
     def_delegators :"self.class",
       :stations,
       :pass_target,
-      :pass,
+      :passed,
       :goal,
       :station_completed
 
@@ -58,7 +58,7 @@ module Ellington
       def pass_target(*states)
         @goal ||= Ellington::Target.new(*states)
       end
-      alias_method :pass, :pass_target
+      alias_method :passed, :pass_target
       alias_method :goal, :pass_target
 
       def connections
