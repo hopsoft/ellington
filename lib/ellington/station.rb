@@ -1,10 +1,13 @@
 require "observer"
+require "forwardable"
 
 module Ellington
 
   class Station
+    extend Forwardable
     include Observable
-    attr_accessor :route, :line
+    attr_accessor :line
+    def_delegators :line, :route
 
     def full_name
       @full_name ||= "#{self.class.name} > #{line.name}"

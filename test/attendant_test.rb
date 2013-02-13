@@ -5,7 +5,7 @@ class AttendantTest < MicroTest::Test
   end
 
   before do
-    @route = ExampleRoute1
+    @route = ExampleRoute1.new
     @line = @route.lines.first
     @station = @line.stations.first
     @passenger = Ellington::Passenger.new(NumberWithHistory.new(0), Ellington::Ticket.new, @route.states)

@@ -1,8 +1,35 @@
+require "delegate"
+
 module Ellington
-  class Route
+  class Route < SimpleDelegator
+
+    def initialize
+      super self.class
+      init unless initialized?
+    end
 
     class << self
       include HasTargets
+      attr_reader :initialized
+
+      def initialized?
+        @initialized
+      end
+
+      def init
+        initialize_observers
+        states
+        @initialized = true
+      end
+
+      def initialize_observers
+        lines.each do |line|
+          line.add_observer self, :line_completed
+          line.stations.each do |station|
+            station.add_observer line, :station_completed
+          end
+        end
+      end
 
       def board(passenger, options={})
         lines.first.board passenger, options
@@ -55,5 +82,6 @@ module Ellington
       end
 
     end
+
   end
 end

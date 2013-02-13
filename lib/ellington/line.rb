@@ -6,8 +6,10 @@ module Ellington
     extend Forwardable
     include Observable
     include HasTargets
-    attr_accessor :route
+
     def_delegators :"self.class",
+      :route,
+      :route=,
       :stations,
       :pass_target,
       :passed,
@@ -50,6 +52,7 @@ module Ellington
 
     class << self
       include Observable
+      attr_accessor :route
 
       def stations
         @stations ||= Ellington::StationList.new(self)
