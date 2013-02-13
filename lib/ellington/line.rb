@@ -80,27 +80,36 @@ module Ellington
       if info.station == stations.last
         changed
         notify_observers info
+        log info
+        log info, true
+      else
+        log info
       end
-      log info
     end
 
     private
 
-    def log(info)
+    def log(info, line_completed=false)
       return unless Ellington.logger
       return unless Ellington.logger.level <= Logger::INFO
 
-      message = {
-        :station             => info.station.name,
-        :station_state       => info.station.state(info.passenger),
-        :line                => name,
-        :line_state          => state(info.passenger),
-        :passenger_state     => info.passenger.current_state,
-        :old_passenger_state => info.transition.old_state,
-        :passenger           => info.passenger.inspect
-      }
+      message = [] 
+      if line_completed
+        message << "LINE COMPLETED"
+        message << "[line_state:#{state(info.passenger)}]"
+      else
+        message << "STATION COMPLETED"
+      end
+      message << "[station_state:#{info.station.state(info.passenger)}]"
+      message << "[passenger_state:#{info.passenger.current_state}]"
+      message << "[station:#{info.station.name}]"
+      message << "[line:#{name}]"
+      message << "[old_passenger_state:#{info.transition.old_state}]"
+      route.log_passenger_attrs.each do |attr|
+        message << "[#{attr}:#{info.passenger.send(attr)}]"
+      end
 
-      Ellington.logger.info message.inspect
+      Ellington.logger.info message.join(" ")
     end
 
   end

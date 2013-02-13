@@ -78,7 +78,12 @@ module Ellington
         connections << Ellington::Connection.new(line, options[:if])
       end
 
+      def log_passenger_attrs(*attrs)
+        @log_passenger_attrs ||= attrs
+      end
+
       def line_completed(info)
+        # TODO: implement the connections and log messages
       end
 
     end
