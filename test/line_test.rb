@@ -75,17 +75,17 @@ class LineTest < MicroTest::Test
     assert transitions.nil?
   end
 
-  test "goal" do
+  test "pass_target" do
     line = ExampleRoute1.lines.first
     assert line.goal == [line.stations[2].passed]
   end
 
-  test "fault" do
+  test "fail_target" do
     line = ExampleRoute1.lines.first
     expected = (line.states.keys - line.goal).delete_if do |state|
       state.to_s =~ /\AERROR/
     end
-    assert line.fault == expected
+    assert line.fail_target == expected
   end
 
 end

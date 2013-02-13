@@ -5,8 +5,14 @@ module Ellington
   class Line
     extend Forwardable
     include Observable
+    include HasTargets
     attr_accessor :route
-    def_delegators :"self.class", :stations, :goal, :station_completed
+    def_delegators :"self.class",
+      :stations,
+      :pass_target,
+      :pass,
+      :goal,
+      :station_completed
 
     def board(passenger, options={})
       formula.run passenger, options
@@ -42,14 +48,6 @@ module Ellington
       end
     end
 
-    def fault
-      @fault ||= begin
-        state_list = states.keys - goal
-        state_list.reject! { |state| state.to_s =~ /\AERROR/ }
-        Ellington::Target.new *state_list
-      end
-    end
-
     class << self
       include Observable
 
@@ -57,9 +55,11 @@ module Ellington
         @stations ||= Ellington::StationList.new(self)
       end
 
-      def goal(*states)
+      def pass_target(*states)
         @goal ||= Ellington::Target.new(*states)
       end
+      alias_method :pass, :pass_target
+      alias_method :goal, :pass_target
 
       def connections
         @connections ||= {}

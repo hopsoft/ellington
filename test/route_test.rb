@@ -9,14 +9,6 @@ class RouteTest < MicroTest::Test
     assert ExampleRoute1.lines[2].is_a?(ExampleLine3)
   end
 
-  test "lines on instance" do
-    route = ExampleRoute1.new
-    assert route.lines.length == 3
-    assert route.lines[0].is_a?(ExampleLine1)
-    assert route.lines[1].is_a?(ExampleLine2)
-    assert route.lines[2].is_a?(ExampleLine3)
-  end
-
   test "type of lines must be unique" do
     begin
       ExampleRoute1.lines << ExampleLine1.new
@@ -35,20 +27,20 @@ class RouteTest < MicroTest::Test
     assert ExampleRoute1.goal == [ExampleRoute1.lines[1].goal, ExampleRoute1.lines[2].goal].flatten
   end
 
-  test "fault" do
-    assert !ExampleRoute1.fault.empty?
-    assert((ExampleRoute1.fault & ExampleRoute1.goal).empty?)
-    expected = (ExampleRoute1.states.keys - ExampleRoute1.goal).delete_if do |state|
+  test "fail_target" do
+    assert !ExampleRoute1.fail_target.empty?
+    assert((ExampleRoute1.fail_target & ExampleRoute1.pass_target).empty?)
+    expected = (ExampleRoute1.states.keys - ExampleRoute1.pass_target).delete_if do |state|
       state.to_s =~ /\AERROR/
     end
-    assert ExampleRoute1.fault == expected
+    assert ExampleRoute1.fail_target == expected
   end
 
   test "connections" do
     assert ExampleRoute1.connections.first.line == ExampleRoute1.lines[1]
-    assert ExampleRoute1.connections.first.states == ExampleRoute1.lines[0].goal
+    assert ExampleRoute1.connections.first.states == ExampleRoute1.lines[0].pass_target
     assert ExampleRoute1.connections.last.line == ExampleRoute1.lines[2]
-    assert ExampleRoute1.connections.last.states == ExampleRoute1.lines[0].fault
+    assert ExampleRoute1.connections.last.states == ExampleRoute1.lines[0].fail_target
   end
 
 end

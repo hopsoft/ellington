@@ -1,19 +1,8 @@
-require "forwardable"
-
 module Ellington
   class Route
-    extend Forwardable
-    def_delegators :"self.class",
-      :lines,
-      :states,
-      :initial_state,
-      :goal,
-      :fault,
-      :connections,
-      :connect_to,
-      :line_completed
 
     class << self
+      include HasTargets
 
       def board(passenger, options={})
         lines.first.board passenger, options
@@ -48,24 +37,18 @@ module Ellington
         @initial_state ||= :"PRE #{name}"
       end
 
-      def goal(*line_goals)
+      def pass_target(*line_goals)
         @goal ||= Ellington::Target.new(*line_goals.flatten)
       end
-
-      def fault
-        @fault ||= begin
-          state_list = states.keys - goal
-          state_list.reject! { |state| state.to_s =~ /\AERROR/ }
-          Ellington::Target.new *state_list
-        end
-      end
+      alias_method :pass, :pass_target
+      alias_method :goal, :pass_target
 
       def connections
         @connections ||= Ellington::ConnectionList.new
       end
 
       def connect_to(line, options)
-        connections << Ellington::Connection.new(line, options[:on])
+        connections << Ellington::Connection.new(line, options[:if])
       end
 
       def line_completed(info)
