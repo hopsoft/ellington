@@ -1,5 +1,8 @@
+require "logger"
 require "delegate"
 require_relative "../lib/ellington"
+
+Ellington.logger = Logger.new($stdout)
 
 class NumberWithHistory
   attr_reader :original_value, :current_value, :history
@@ -17,8 +20,6 @@ class NumberWithHistory
   end
 end
 
-# stations -----------------------------------------------------------------
-
 module AdditionStation
   def engage(passenger, options)
     raise if !options[:pass] && rand(10) == 1
@@ -33,6 +34,7 @@ module AdditionStation
   end
 end
 
+# stations -----------------------------------------------------------------
 class ExampleStation1 < Ellington::Station
   include AdditionStation
 end
@@ -121,5 +123,4 @@ passenger = Ellington::Passenger.new(num, Ellington::Ticket.new, ExampleRoute1.s
 passenger.lock
 passenger.current_state = ExampleRoute1.initial_state
 ExampleRoute1.board passenger, :pass => true
-binding.pry
 
