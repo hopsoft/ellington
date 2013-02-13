@@ -3,6 +3,25 @@ require "observer"
 
 module Ellington
   class Line
+    class << self
+      include Observable
+      attr_accessor :route
+
+      def stations
+        @stations ||= Ellington::StationList.new(self)
+      end
+
+      def pass_target(*states)
+        @goal ||= Ellington::Target.new(*states)
+      end
+      alias_method :passed, :pass_target
+      alias_method :goal, :pass_target
+
+      def connections
+        @connections ||= {}
+      end
+    end
+
     extend Forwardable
     include Observable
     include HasTargets
@@ -13,15 +32,14 @@ module Ellington
       :stations,
       :pass_target,
       :passed,
-      :goal,
-      :station_completed
+      :goal
 
     def board(passenger, options={})
       formula.run passenger, options
     end
 
     def name
-      @name ||= "#{self.class.name} member of #{route.name}"
+      @name ||= "#{self.class.name} <member of> #{route.name}"
     end
 
     def formula
@@ -50,31 +68,39 @@ module Ellington
       end
     end
 
-    class << self
-      include Observable
-      attr_accessor :route
-
-      def stations
-        @stations ||= Ellington::StationList.new(self)
+    def state(passenger)
+      case
+      when passed.satisfied?(passenger) then "PASS"
+      when failed.satisfied?(passenger) then "FAIL"
+      when errored.satisfied?(passenger) then "ERROR"
       end
+    end
 
-      def pass_target(*states)
-        @goal ||= Ellington::Target.new(*states)
+    def station_completed(info)
+      if info.station == stations.last
+        changed
+        notify_observers info
       end
-      alias_method :passed, :pass_target
-      alias_method :goal, :pass_target
+      log info
+    end
 
-      def connections
-        @connections ||= {}
-      end
+    private
 
-      def station_completed(info)
-        if info.station == stations.last
-          changed
-          notify_observers info
-        end
-      end
+    def log(info)
+      return unless Ellington.logger
+      return unless Ellington.logger.level <= Logger::INFO
 
+      message = {
+        :station             => info.station.name,
+        :station_state       => info.station.state(info.passenger),
+        :line                => name,
+        :line_state          => state(info.passenger),
+        :passenger_state     => info.passenger.current_state,
+        :old_passenger_state => info.transition.old_state,
+        :passenger           => info.passenger.inspect
+      }
+
+      Ellington.logger.info message.inspect
     end
 
   end

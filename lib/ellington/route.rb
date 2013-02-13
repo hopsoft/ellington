@@ -17,17 +17,15 @@ module Ellington
       end
 
       def init
-        initialize_observers
+        initialize_lines
         states
         @initialized = true
       end
 
-      def initialize_observers
+      def initialize_lines
         lines.each do |line|
-          line.route = self
           line.add_observer self, :line_completed
           line.stations.each do |station|
-            station.line = line
             station.add_observer line, :station_completed
           end
         end

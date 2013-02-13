@@ -10,7 +10,7 @@ module Ellington
     def_delegators :line, :route
 
     def name
-      @name ||= "#{self.class.name} member of #{line.name}"
+      @name ||= "#{self.class.name} <member of> #{line.name}"
     end
 
     def state_name(state)
@@ -58,10 +58,8 @@ module Ellington
         raise Ellington::AttendandDisapproves unless attendant.approve?
 
         info = StationInfo.new(self, passenger, attendant.passenger_transitions.first)
-
         changed
         notify_observers info
-        log info
       end
 
       passenger
@@ -79,30 +77,12 @@ module Ellington
       passenger.transition_to errored
     end
 
-    private
-
-    def log(info)
-      return unless Ellington.logger
-  
-      message = {
-        :station          => self.name,
-        :station_passed?  => info.passenger.current_state == passed,
-        :station_failed?  => info.passenger.current_state == failed,
-        :station_errored? => info.passenger.current_state == errored,
-        :line             => line.name,
-        :line_passed?     => line.passed.satisfied?(info.passenger),
-        :line_failed?     => line.failed.satisfied?(info.passenger),
-        :line_errored?    => line.errored.satisfied?(info.passenger),
-        :route            => route.name,
-        :route_passed?    => route.passed.satisfied?(info.passenger),
-        :route_failed?    => route.failed.satisfied?(info.passenger),
-        :route_errored?   => route.errored.satisfied?(info.passenger),
-        :original_state   => info.transition.old_state,
-        :current_state    => info.passenger.current_state,
-        :passenger        => info.passenger.inspect
-      }
-
-      Ellington.logger.info message.inspect
+    def state(passenger)
+      case passenger.current_state
+      when passed then "PASS"
+      when failed then "FAIL"
+      when errored then "ERROR" 
+      end
     end
 
   end
