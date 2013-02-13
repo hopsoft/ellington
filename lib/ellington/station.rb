@@ -9,12 +9,12 @@ module Ellington
     attr_accessor :line
     def_delegators :line, :route
 
-    def full_name
-      @full_name ||= "#{self.class.name} > #{line.name}"
+    def name
+      @name ||= "#{self.class.name} member of #{line.name}"
     end
 
     def state_name(state)
-      :"#{state.to_s.upcase} #{full_name}"
+      :"#{state.to_s.upcase.ljust(6, ".")} #{name}"
     end
 
     def passed
@@ -61,11 +61,7 @@ module Ellington
 
         changed
         notify_observers info
-
-        if Ellington.logger
-          message = info.to_hash.map{ |key, value| "#{key}:#{value}" }.join(" ")
-          Ellington.logger.info message
-        end
+        log info
       end
 
       passenger
@@ -81,6 +77,32 @@ module Ellington
 
     def error(passenger)
       passenger.transition_to errored
+    end
+
+    private
+
+    def log(info)
+      return unless Ellington.logger
+  
+      message = {
+        :station          => self.name,
+        :station_passed?  => info.passenger.current_state == passed,
+        :station_failed?  => info.passenger.current_state == failed,
+        :station_errored? => info.passenger.current_state == errored,
+        :line             => line.name,
+        :line_passed?     => line.passed.satisfied?(info.passenger),
+        :line_failed?     => line.failed.satisfied?(info.passenger),
+        :line_errored?    => line.errored.satisfied?(info.passenger),
+        :route            => route.name,
+        :route_passed?    => route.passed.satisfied?(info.passenger),
+        :route_failed?    => route.failed.satisfied?(info.passenger),
+        :route_errored?   => route.errored.satisfied?(info.passenger),
+        :original_state   => info.transition.old_state,
+        :current_state    => info.passenger.current_state,
+        :passenger        => info.passenger.inspect
+      }
+
+      Ellington.logger.info message.inspect
     end
 
   end

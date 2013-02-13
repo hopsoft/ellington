@@ -11,24 +11,24 @@ class StationTest < MicroTest::Test
     @passenger.lock
   end
 
-  test "full_name" do
-    assert @station.full_name == "ExampleStation1 > ExampleLine1"
+  test "name" do
+    assert @station.name == "ExampleStation1 member of ExampleLine1"
   end
 
   test "state_name" do
-    assert @station.state_name(:foo) == :"FOO ExampleStation1 > ExampleLine1"
+    assert @station.state_name(:foo) == :"FOO... ExampleStation1 member of ExampleLine1"
   end
 
   test "passed" do
-    assert @station.passed == :"PASS ExampleStation1 > ExampleLine1"
+    assert @station.passed == :"PASS.. ExampleStation1 member of ExampleLine1"
   end
 
   test "failed" do
-    assert @station.failed == :"FAIL ExampleStation1 > ExampleLine1"
+    assert @station.failed == :"FAIL.. ExampleStation1 member of ExampleLine1"
   end
 
   test "errored" do
-    assert @station.errored == :"ERROR ExampleStation1 > ExampleLine1"
+    assert @station.errored == :"ERROR. ExampleStation1 member of ExampleLine1"
   end
 
   test "states keys" do

@@ -1,8 +1,6 @@
 require_relative "test_helper"
 
 class AttendantTest < MicroTest::Test
-  class Station < Ellington::Station
-  end
 
   before do
     @route = ExampleRoute1.new

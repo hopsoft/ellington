@@ -27,13 +27,13 @@ class LineTest < MicroTest::Test
 
   test "stations are assigned line" do
     ExampleLine1.stations.each do |station|
-      assert station.line == ExampleLine1
+      assert station.line.is_a?(ExampleLine1)
     end
   end
 
-  test "full_name" do
+  test "name" do
     line = ExampleRoute1.lines.first
-    assert line.full_name == "ExampleLine1 > ExampleRoute1"
+    assert line.name == "ExampleLine1 member of ExampleRoute1"
   end
 
   test "formula" do

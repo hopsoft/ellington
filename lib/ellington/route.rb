@@ -24,8 +24,10 @@ module Ellington
 
       def initialize_observers
         lines.each do |line|
+          line.route = self
           line.add_observer self, :line_completed
           line.stations.each do |station|
+            station.line = line
             station.add_observer line, :station_completed
           end
         end
@@ -61,7 +63,7 @@ module Ellington
       end
 
       def initial_state
-        @initial_state ||= :"PRE #{name}"
+        @initial_state ||= :"#{"PRE".ljust(6, ".")} #{name}"
       end
 
       def pass_target(*line_goals)

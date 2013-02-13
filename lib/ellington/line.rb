@@ -20,18 +20,18 @@ module Ellington
       formula.run passenger, options
     end
 
-    def full_name
-      @full_name ||= "#{self.class.name} > #{route.name}"
+    def name
+      @name ||= "#{self.class.name} member of #{route.name}"
     end
 
     def formula
       @formula ||= begin
-        Hero::Formula[full_name]
-        Hero::Formula[full_name].steps.clear
+        Hero::Formula[name]
+        Hero::Formula[name].steps.clear
         stations.each do |station|
-          Hero::Formula[full_name].add_step station
+          Hero::Formula[name].add_step station
         end
-        Hero::Formula[full_name]
+        Hero::Formula[name]
       end
     end
 
@@ -69,7 +69,7 @@ module Ellington
       end
 
       def station_completed(info)
-        if info[:station] == stations.last
+        if info.station == stations.last
           changed
           notify_observers info
         end

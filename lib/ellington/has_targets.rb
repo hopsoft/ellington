@@ -11,21 +11,11 @@ module Ellington
     alias_method :failed, :fail_target
 
     def error_target
-      @error_target ||= states.keys - goal - fail_target
+      @error_target ||= begin
+        Ellington::Target.new states.keys - goal - fail_target
+      end
     end
     alias_method :errored, :error_target
-
-    def pass?(passenger)
-      pass.satisfied? passenger
-    end
-
-    def fail?(flop, passenger)
-      fail.satisfied? passenger
-    end
-
-    def error?(passenger)
-      error.satisfied? passenger
-    end
 
   end
 end
