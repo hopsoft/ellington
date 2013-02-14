@@ -2,14 +2,6 @@ module Ellington
   class ListAlreadyContainsType < StandardError
   end
 
-
-
-
-
-
-
-
-
   class InvalidStates < StandardError
   end
 

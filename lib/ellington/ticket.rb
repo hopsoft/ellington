@@ -7,21 +7,13 @@ module Ellington
     attr_reader :passenger, :goal
 
     def initialize(goal=nil, hash={})
-      @goal = goal || Ellington::Target.new
+      goal ||= Ellington::Target.new
+      @goal = goal
       super hash
     end
 
     def id
       Digest::SHA256.hexdigest values.map(&:to_s).join
-    end
-
-    def passenger=(value)
-      raise Ellington::PassengerAlreadyAssignedToTicket unless passenger.nil?
-      @passenger = value
-    end
-
-    def goal_achieved?
-      goal.satisfied? passenger
     end
 
   end

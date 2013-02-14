@@ -9,7 +9,7 @@ module Ellington
       @conducting = false
     end
 
-    def start(delay)
+    def start(delay=0)
       return if conducting
 
       mutex.synchronize do

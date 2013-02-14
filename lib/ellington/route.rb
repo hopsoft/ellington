@@ -89,7 +89,7 @@ module Ellington
           connection.states.satisfied?(route_info.passenger)
         end
 
-        if required_connections.empty? && 
+        if required_connections.empty? &&
           (passed.satisfied?(route_info.passenger) || failed.satisfied?(route_info.passenger))
           log route_info
         end

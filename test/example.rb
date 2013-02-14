@@ -196,8 +196,7 @@ class NumberConductor < Ellington::Conductor
   def gather_passengers
     (0..999).to_a.sample(10).map do |num|
       num = NumberWithHistory.new(num)
-      ticket = Ellington::Ticket.new
-      passenger = Ellington::Passenger.new(num, ticket, route.states)
+      passenger = Ellington::Passenger.new(num, route)
       passenger.current_state = route.initial_state
       passenger.lock
       passenger
@@ -209,5 +208,5 @@ end
 if ENV["START"]
   route = BasicMath.new
   conductor = NumberConductor.new(route)
-  conductor.start 1
+  conductor.start
 end

@@ -3,16 +3,14 @@ require "observer"
 module Ellington
   class Passenger < SimpleDelegator
     include Observable
-    attr_accessor :context
-    attr_reader :states, :ticket
+    attr_accessor :context, :ticket
+    attr_reader :route
 
-    def initialize(context, ticket, states)
-      ticket.passenger = self
-      ticket.freeze unless ticket.frozen?
-      states.lock unless states.frozen?
+    def initialize(context, route, ticket=nil)
+      ticket ||= Ellington::Ticket.new
       @context = context
+      @route = route
       @ticket = ticket
-      @states = states
       super context
     end
 
@@ -47,7 +45,7 @@ module Ellington
         raise Ellington::InvalidStateTransition.new(message)
       end
 
-      if !states.can_transition?(current_state => new_state)
+      if !route.states.can_transition?(current_state => new_state)
         message = "Cannot transition #{self.class.name} from:#{current_state} to:#{new_state}"
         raise Ellington::InvalidStateTransition.new(message)
       end
