@@ -112,7 +112,7 @@ class DivideBy10 < Ellington::Station
   def engage(passenger, options)
     raise if rand(100) == 0
     if rand(100) > 5
-      passenger.calc :/, 10
+      passenger.calc :/, 10.0
       pass passenger
     else
       fail passenger
@@ -126,7 +126,7 @@ class DivideBy100 < Ellington::Station
   def engage(passenger, options)
     raise if rand(100) == 0
     if rand(100) > 5
-      passenger.calc :*, 100
+      passenger.calc :/, 100.0
       pass passenger
     else
       fail passenger
@@ -140,7 +140,7 @@ class DivideBy1000 < Ellington::Station
   def engage(passenger, options)
     raise if rand(100) == 0
     if rand(100) > 5
-      passenger.calc :*, 1000
+      passenger.calc :/, 1000.0
       pass passenger
     else
       fail passenger
@@ -187,7 +187,7 @@ class BasicMath < Ellington::Route
   connect_to division, :if => addition.passed
   connect_to multiplication, :if => addition.failed
 
-  log_passenger_attrs :current_value
+  log_passenger_attrs :original_value, :current_value
 end
 
 # conductor ---------------------------------------------------------------
