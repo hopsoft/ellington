@@ -179,10 +179,10 @@ class BasicMath < Ellington::Route
   division = Division.new
 
   lines << addition
-  lines << multiplication
   lines << division
+  lines << multiplication
 
-  goal multiplication.passed, division.passed
+  goal division.passed, multiplication.passed
 
   connect_to division, :if => addition.passed
   connect_to multiplication, :if => addition.failed

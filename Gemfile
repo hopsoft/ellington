@@ -7,7 +7,7 @@ group :development, :test do
   gem "yell"
   gem "awesome_print"
   gem "pry"
-  gem "pry-nav"
+  #gem "pry-nav"
   gem "pry-stack_explorer"
   #gem "pry-rescue"
   gem "pry-exception_explorer"
