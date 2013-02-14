@@ -10,8 +10,8 @@ module Ellington
       super station_info
     end
 
-    def name
-      @name ||= "#{station.class.name} <member of> #{line.class.name} <member of> #{line.route.name}"
+    def station_full_name
+      @station_full_name ||= "#{station.class.name}::#{line.class.name}::#{line.route.name}"
     end
 
     def log_message(options={})
@@ -24,7 +24,7 @@ module Ellington
         message << "[STATION COMPLETED]"
         message << "[#{station.state(passenger)}]"
       end
-      message << "[#{name}]"
+      message << "[#{station_full_name}]"
       message << "[passenger_state:#{passenger.current_state}]"
       message << "[old_passenger_state:#{transition.old_state}]"
       line.route.log_passenger_attrs.each do |attr|

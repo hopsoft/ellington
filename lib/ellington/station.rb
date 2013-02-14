@@ -10,7 +10,7 @@ module Ellington
     def_delegators :line, :route
 
     def name
-      @name ||= "#{self.class.name} <member of> #{line.name}"
+      @name ||= "#{self.class.name}::#{line.name}"
     end
 
     def state_name(state)
