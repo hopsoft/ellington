@@ -14,7 +14,7 @@ module Ellington
     end
 
     def state_name(state)
-      "#{state.to_s.upcase.ljust(6, ".")} #{name}"
+      "#{state.to_s.upcase} #{name}"
     end
 
     def passed

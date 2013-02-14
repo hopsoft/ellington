@@ -61,7 +61,7 @@ module Ellington
       end
 
       def initial_state
-        @initial_state ||= "#{"PRE".ljust(6, ".")} #{name}"
+        @initial_state ||= "PRE #{name}"
       end
 
       def pass_target(*line_goals)

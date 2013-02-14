@@ -3,13 +3,9 @@ require_relative "test_helper"
 class PassengerTest < MicroTest::Test
 
   before do
-    states = StateJacket::Catalog.new
-    states.add :happy => [:sad, :error]
-    states.add :sad => [:happy, :error]
-    states.add :error
-    states.lock
+    @route = BasicMath.new
     @number = NumberWithHistory.new(0)
-    @passenger = Ellington::Passenger.new(@number, Ellington::Ticket.new, states)
+    @passenger = Ellington::Passenger.new(@number, @route)
   end
 
   test "lock" do
@@ -26,8 +22,8 @@ class PassengerTest < MicroTest::Test
   test "transition_to fails when unlocked" do
     error = nil
     begin
-      @passenger.current_state = :happy
-      @passenger.transition_to :sad
+      @passenger.current_state = @route.initial_state
+      @passenger.transition_to @route.lines.first.states.keys.first
     rescue Ellington::InvalidStateTransition => e
       error = e
     end
@@ -35,23 +31,15 @@ class PassengerTest < MicroTest::Test
     assert error.message == "Cannot transition an unlocked Ellington::Passenger's state"
   end
 
-  test "transition_to (valid 1)" do
+  test "transition_to valid state" do
     @passenger.lock
-    @passenger.current_state = :happy
-    @passenger.transition_to :sad
+    @passenger.current_state = @route.initial_state
+    @passenger.transition_to @route.lines.first.states.keys.first
     @passenger.unlock
-    assert @passenger.current_state == :sad
+    assert @passenger.current_state == @route.lines.first.states.keys.first
   end
 
-  test "transition_to (valid 2)" do
-    @passenger.lock
-    @passenger.current_state = :sad
-    @passenger.transition_to :happy
-    @passenger.unlock
-    assert @passenger.current_state == :happy
-  end
-
-  test "transition_to (invalid)" do
+  test "transition_to invalid state" do
     error = nil
     begin
       @passenger.lock
@@ -73,35 +61,13 @@ class PassengerTest < MicroTest::Test
 
     @passenger.add_observer(watcher)
     @passenger.lock
-    @passenger.current_state = :happy
-    @passenger.transition_to :sad
+    @passenger.current_state = @route.initial_state
+    @passenger.transition_to @route.lines.first.states.keys.first
     @passenger.unlock
 
     assert watcher.info.passenger == @passenger
-    assert watcher.info.old_state == :happy
-    assert watcher.info.new_state == :sad
-  end
-
-  test "states get locked on construction" do
-    states = StateJacket::Catalog.new
-    states.add :open => [:closed]
-    states.add :closed => [:open]
-    assert !states.frozen?
-    passenger = Ellington::Passenger.new(@number, Ellington::Ticket.new, states)
-    assert states.frozen?
-  end
-
-  test "states get locked on construction and raise error if invalid" do
-    states = StateJacket::Catalog.new
-    states.add :open => [:closed]
-    assert !states.frozen?
-    error = nil
-    begin
-      passenger = Ellington::Passenger.new(@number, states)
-    rescue Exception => e
-      error = e
-    end
-    assert !error.nil?
+    assert watcher.info.old_state == "PRE BasicMath"
+    assert watcher.info.new_state == "PASS Add10::Addition"
   end
 
 end
