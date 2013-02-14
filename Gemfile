@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-gem "hero"
-gem "state_jacket"
+gem "hero", "~> 0.1.7"
+gem "state_jacket", "~> 0.0.7"
 
 group :development, :test do
   gem "yell"
