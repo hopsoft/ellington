@@ -26,8 +26,8 @@ end
 
 module AdditionStation
   def engage(passenger, options)
-    raise if !options[:pass] && rand(10) == 1
-    if options[:pass] || rand(10) >= 5
+    raise if !options[:pass] && rand(99) == 1
+    if options[:pass] || rand(99) >= 5
       passenger.add 1
       pass passenger
     else
@@ -128,5 +128,5 @@ num = NumberWithHistory.new 0
 passenger = Ellington::Passenger.new(num, Ellington::Ticket.new, ExampleRoute1.states)
 passenger.lock
 passenger.current_state = ExampleRoute1.initial_state
-ExampleRoute1.new.board passenger, :pass => true
+ExampleRoute1.new.board passenger
 

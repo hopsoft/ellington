@@ -70,7 +70,8 @@ module Ellington
 
     def station_completed(station_info)
       line_info = Ellington::LineInfo.new(self, station_info)
-      if line_info.station == stations.last
+      if line_info.station == stations.last ||
+        line_info.passenger.current_state == line_info.station.failed
         log line_info, :station_completed => true
         log line_info, :line_completed => true
         changed
