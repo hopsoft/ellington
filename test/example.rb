@@ -15,114 +15,183 @@ class NumberWithHistory
     @history = []
   end
 
-  def add(other)
+  def calc(operand, other)
     value = current_value
-    @current_value = current_value + other
+    @current_value = current_value.send(operand, other)
     history.push(:before => value, :after => current_value)
     current_value
   end
 end
 
-module AdditionStation
+# stations -----------------------------------------------------------------
+class Add10 < Ellington::Station
   def engage(passenger, options)
-    if passenger.add 1
+    raise if rand(100) == 0
+    if rand(100) > 5
+      passenger.calc :+, 10
       pass passenger
     else
       fail passenger
     end
-  rescue Exception => e
+  rescue
     error passenger
   end
 end
 
-# stations -----------------------------------------------------------------
-class ExampleStation1 < Ellington::Station
-  include AdditionStation
+class Add100 < Ellington::Station
+  def engage(passenger, options)
+    raise if rand(100) == 0
+    if rand(100) > 5
+      passenger.calc :+, 100
+      pass passenger
+    else
+      fail passenger
+    end
+  rescue
+    error passenger
+  end
 end
 
-class ExampleStation2 < Ellington::Station
-  include AdditionStation
+class Add1000 < Ellington::Station
+  def engage(passenger, options)
+    raise if rand(100) == 0
+    if rand(100) > 5
+      passenger.calc :+, 1000
+      pass passenger
+    else
+      fail passenger
+    end
+  rescue
+    error passenger
+  end
 end
 
-class ExampleStation3 < Ellington::Station
-  include AdditionStation
+class MultiplyBy10 < Ellington::Station
+  def engage(passenger, options)
+    raise if rand(100) == 0
+    if rand(100) > 5
+      passenger.calc :*, 10
+      pass passenger
+    else
+      fail passenger
+    end
+  rescue
+    error passenger
+  end
 end
 
-class ExampleStation4 < Ellington::Station
-  include AdditionStation
+class MultiplyBy100 < Ellington::Station
+  def engage(passenger, options)
+    raise if rand(100) == 0
+    if rand(100) > 5
+      passenger.calc :*, 100
+      pass passenger
+    else
+      fail passenger
+    end
+  rescue
+    error passenger
+  end
 end
 
-class ExampleStation5 < Ellington::Station
-  include AdditionStation
+class MultiplyBy1000 < Ellington::Station
+  def engage(passenger, options)
+    raise if rand(100) == 0
+    if rand(100) > 5
+      passenger.calc :*, 1000
+      pass passenger
+    else
+      fail passenger
+    end
+  rescue
+    error passenger
+  end
 end
 
-class ExampleStation6 < Ellington::Station
-  include AdditionStation
+class DivideBy10 < Ellington::Station
+  def engage(passenger, options)
+    raise if rand(100) == 0
+    if rand(100) > 5
+      passenger.calc :/, 10
+      pass passenger
+    else
+      fail passenger
+    end
+  rescue
+    error passenger
+  end
 end
 
-class ExampleStation7 < Ellington::Station
-  include AdditionStation
+class DivideBy100 < Ellington::Station
+  def engage(passenger, options)
+    raise if rand(100) == 0
+    if rand(100) > 5
+      passenger.calc :*, 100
+      pass passenger
+    else
+      fail passenger
+    end
+  rescue
+    error passenger
+  end
 end
 
-class ExampleStation8 < Ellington::Station
-  include AdditionStation
-end
-
-class ExampleStation9 < Ellington::Station
-  include AdditionStation
+class DivideBy1000 < Ellington::Station
+  def engage(passenger, options)
+    raise if rand(100) == 0
+    if rand(100) > 5
+      passenger.calc :*, 1000
+      pass passenger
+    else
+      fail passenger
+    end
+  rescue
+    error passenger
+  end
 end
 
 # lines --------------------------------------------------------------------
-class ExampleLine1 < Ellington::Line
-  one = ExampleStation1.new
-  two = ExampleStation2.new
-  three = ExampleStation3.new
-  stations << one
-  stations << two
-  stations << three
-  goal three.passed
+class Addition < Ellington::Line
+  stations << Add10.new
+  stations << Add100.new
+  stations << Add1000.new
+  goal stations.last.passed
 end
 
-class ExampleLine2 < Ellington::Line
-  four = ExampleStation4.new
-  five = ExampleStation5.new
-  six = ExampleStation6.new
-  stations << four
-  stations << five
-  stations << six
-  goal six.passed
+class Multiplication < Ellington::Line
+  stations << MultiplyBy10.new
+  stations << MultiplyBy100.new
+  stations << MultiplyBy1000.new
+  goal stations.last.passed
 end
 
-class ExampleLine3 < Ellington::Line
-  seven = ExampleStation7.new
-  eight = ExampleStation8.new
-  nine = ExampleStation9.new
-  stations << seven
-  stations << eight
-  stations << nine
-  goal nine.passed
+class Division < Ellington::Line
+  stations << DivideBy10.new
+  stations << DivideBy100.new
+  stations << DivideBy1000.new
+  goal stations.last.passed
 end
 
-# routes -------------------------------------------------------------------
-class ExampleRoute1 < Ellington::Route
-  line_one = ExampleLine1.new
-  line_two = ExampleLine2.new
-  line_three = ExampleLine3.new
+# route -------------------------------------------------------------------
+class BasicMath < Ellington::Route
+  addition = Addition.new
+  multiplication = Multiplication.new
+  division = Division.new
 
-  lines << line_one
-  lines << line_two
-  lines << line_three
+  lines << addition
+  lines << multiplication
+  lines << division
 
-  goal line_two.passed, line_three.passed
+  goal multiplication.passed, division.passed
 
-  connect_to line_two, :if => line_one.passed
-  connect_to line_three, :if => line_one.failed
+  connect_to division, :if => addition.passed
+  connect_to multiplication, :if => addition.failed
 
   log_passenger_attrs :current_value
 end
 
 # conductor ---------------------------------------------------------------
-class ExampleConductor < Ellington::Conductor
+class NumberConductor < Ellington::Conductor
 
   def gather_passengers
     (0..999).to_a.sample(10).map do |num|
@@ -138,7 +207,7 @@ class ExampleConductor < Ellington::Conductor
 end
 
 if ENV["START"]
-  route = ExampleRoute1.new
-  conductor = ExampleConductor.new(route)
-  conductor.start 2
+  route = BasicMath.new
+  conductor = NumberConductor.new(route)
+  conductor.start 1
 end
