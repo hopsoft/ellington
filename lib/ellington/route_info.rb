@@ -15,8 +15,6 @@ module Ellington
       message << "[ROUTE COMPLETED]"
       message << "[#{route.state(passenger)}]"
       message << "[#{station_full_name}]"
-      message << "[passenger_state:#{passenger.current_state}]"
-      message << "[old_passenger_state:#{transition.old_state}]"
       line.route.log_passenger_attrs.each do |attr|
         message << "[#{attr}:#{passenger.send(attr)}]"
       end

@@ -89,9 +89,11 @@ module Ellington
           connection.states.satisfied?(route_info.passenger)
         end
 
-        if required_connections.empty? &&
-          (passed.satisfied?(route_info.passenger) || failed.satisfied?(route_info.passenger))
-          log route_info
+        if required_connections.empty?
+          if passed.satisfied?(route_info.passenger) || failed.satisfied?(route_info.passenger)
+            log route_info
+          end
+          Ellington.logger.info "\n" if Ellington.logger
         end
 
         required_connections.each do |connection|
