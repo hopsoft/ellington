@@ -1,5 +1,4 @@
 require "thread"
-require "monitor"
 
 module Ellington
   class Conductor
@@ -13,29 +12,32 @@ module Ellington
     def start(delay)
       return if conducting
 
-      synchronize do
+      mutex.synchronize do
         @stop = false
         @conducting = true
       end
 
-      Thread.new do
+      thread = Thread.new do
         loop do
           if @stop
-            synchronize { @conducting = false }
+            mutex.synchronize { @conducting = false }
             break
           end
-          gather_passengers.each { |passenger| escort(passenger) }
+          gather_passengers.each do |passenger|
+            escort(passenger)
+          end
           sleep delay
         end
       end
+      thread.join
     end
 
     def stop
-      synchronize { @stop = true }
+      mutex.synchronize { @stop = true }
     end
 
     def verify(passenger)
-      raise Ellington::NotImplementedError
+      true
     end
 
     def gather_passengers
@@ -43,10 +45,14 @@ module Ellington
     end
 
     def escort(passenger)
-      return unless verify(passenger)
-      return if passenger.locked?
-      passenger.lock
-      route.head.board passenger
+      return unless verify(passenger) && passenger.locked?
+      route.lines.first.board passenger
+    end
+
+    private
+
+    def mutex
+      @mutex ||= Mutex.new
     end
 
   end

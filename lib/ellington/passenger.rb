@@ -27,7 +27,7 @@ module Ellington
     end
 
     def locked?
-      return context.locked? if context.respond_to?(:"locked?")
+      return context.locked? if context.respond_to?(:locked?)
       @locked
     end
 
@@ -37,7 +37,7 @@ module Ellington
     end
 
     def current_state=(value)
-      return context.current_state=(value) if context.respond_to?(:"current_state=")
+      return context.current_state=(value) if context.respond_to?(:current_state=)
       @current_state = value
     end
 

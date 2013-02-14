@@ -4,17 +4,17 @@ module Ellington
   class Target < SimpleDelegator
 
     def initialize(*states)
-      @inner_list = states.flatten.map(&:to_sym)
+      @inner_list = states.flatten
       super inner_list
     end
 
     def include?(state)
-      inner_list.include? state.to_sym
+      inner_list.include? state
     end
 
     def satisfied?(passenger)
       return false if passenger.nil?
-      include? passenger.current_state.to_sym
+      include? passenger.current_state
     end
 
     protected

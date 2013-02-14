@@ -61,7 +61,7 @@ module Ellington
       end
 
       def initial_state
-        @initial_state ||= :"#{"PRE".ljust(6, ".")} #{name}"
+        @initial_state ||= "#{"PRE".ljust(6, ".")} #{name}"
       end
 
       def pass_target(*line_goals)
@@ -86,7 +86,7 @@ module Ellington
         route_info = Ellington::RouteInfo.new(self, line_info)
 
         required_connections = connections.select do |connection|
-          connection.states.satisfied?(line_info.passenger)
+          connection.states.satisfied?(route_info.passenger)
         end
 
         if required_connections.empty? && 
