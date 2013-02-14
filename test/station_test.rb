@@ -3,32 +3,32 @@ require_relative "test_helper"
 class StationTest < MicroTest::Test
 
   before do
-    @route = ExampleRoute1.new
+    @route = BasicMath.new
     @line = @route.lines.first
     @station = @line.stations.first
-    @passenger = Ellington::Passenger.new(NumberWithHistory.new(0), Ellington::Ticket.new, @route.states)
+    @passenger = Ellington::Passenger.new(NumberWithHistory.new(0), @route)
     @passenger.current_state = @route.initial_state
     @passenger.lock
   end
 
   test "name" do
-    assert @station.name == "ExampleStation1 <member of> ExampleLine1"
+    assert @station.name == "Add10::Addition"
   end
 
   test "state_name" do
-    assert @station.state_name(:foo) == :"FOO... ExampleStation1 <member of> ExampleLine1"
+    assert @station.state_name(:foo) == "FOO Add10::Addition"
   end
 
   test "passed" do
-    assert @station.passed == :"PASS.. ExampleStation1 <member of> ExampleLine1"
+    assert @station.passed == "PASS Add10::Addition"
   end
 
   test "failed" do
-    assert @station.failed == :"FAIL.. ExampleStation1 <member of> ExampleLine1"
+    assert @station.failed == "FAIL Add10::Addition"
   end
 
   test "errored" do
-    assert @station.errored == :"ERROR. ExampleStation1 <member of> ExampleLine1"
+    assert @station.errored == "ERROR Add10::Addition"
   end
 
   test "states keys" do
