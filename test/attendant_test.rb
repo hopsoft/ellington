@@ -3,10 +3,10 @@ require_relative "test_helper"
 class AttendantTest < MicroTest::Test
 
   before do
-    @route = ExampleRoute1.new
+    @route = BasicMath.new
     @line = @route.lines.first
     @station = @line.stations.first
-    @passenger = Ellington::Passenger.new(NumberWithHistory.new(0), Ellington::Ticket.new, @route.states)
+    @passenger = Ellington::Passenger.new(NumberWithHistory.new(0), @route)
     @passenger.current_state = @route.initial_state
     @passenger.lock
     @attendant = Ellington::Attendant.new(@station)
