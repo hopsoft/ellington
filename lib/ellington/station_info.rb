@@ -1,11 +1,11 @@
-class StationInfo < Struct.new(:station, :passenger, :transition)
-
-  def to_hash
-    hash = {}
-    members.each do |member|
-      hash[member] = send(member)
+module Ellington
+  class StationInfo
+    attr_reader :station, :passenger, :transition, :options
+    def initialize(station, passenger, transition, options)
+      @station = station
+      @passenger = passenger
+      @transition = transition
+      @options = options
     end
-    hash
   end
-
 end

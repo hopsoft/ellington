@@ -56,10 +56,8 @@ module Ellington
         engage passenger, options
         passenger.delete_observer attendant
         raise Ellington::AttendandDisapproves unless attendant.approve?
-
-        info = StationInfo.new(self, passenger, attendant.passenger_transitions.first)
         changed
-        notify_observers info
+        notify_observers Ellington::StationInfo.new(self, passenger, attendant.passenger_transitions.first, options)
       end
 
       passenger

@@ -82,8 +82,28 @@ module Ellington
         @log_passenger_attrs ||= attrs
       end
 
-      def line_completed(info)
-        # TODO: implement the connections and log messages
+      def line_completed(line_info)
+        route_info = Ellington::RouteInfo.new(self, line_info)
+
+        required_connections = connections.select do |connection|
+          connection.states.satisfied?(line_info.passenger)
+        end
+
+        if required_connections.empty? && 
+          (passed.satisfied?(route_info.passenger) || failed.satisfied?(route_info.passenger))
+          log route_info
+        end
+
+        required_connections.each do |connection|
+          connection.line.board route_info.passenger, route_info.options
+        end
+      end
+
+      private
+
+      def log(route_info)
+        return unless Ellington.logger
+        Ellington.logger.info route_info.log_message
       end
 
     end

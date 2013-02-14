@@ -61,7 +61,7 @@ module Ellington
       end
 
       changed
-      notify_observers TransitionInfo.new(self, old_state, new_state)
+      notify_observers Ellington::TransitionInfo.new(self, old_state, new_state)
       return_value || new_state
     end
 

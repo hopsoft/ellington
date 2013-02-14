@@ -4,6 +4,7 @@ gem "hero"
 gem "state_jacket"
 
 group :development, :test do
+  gem "yell"
   gem "awesome_print"
   gem "pry"
   gem "pry-stack_explorer"

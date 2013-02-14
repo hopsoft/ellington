@@ -2,7 +2,11 @@ require "logger"
 require "delegate"
 require_relative "../lib/ellington"
 
-Ellington.logger = Logger.new($stdout)
+require "yell"
+Ellington.logger = Yell.new do |logger|
+  logger.adapter STDOUT, :level => [:info], :format => "[%d] [%L] [%h][%p][%t] %m"
+end
+#Ellington.logger =  Logger.new($stdout)
 
 class NumberWithHistory
   attr_reader :original_value, :current_value, :history
@@ -117,7 +121,7 @@ class ExampleRoute1 < Ellington::Route
   connect_to line_two, :if => line_one.passed
   connect_to line_three, :if => line_one.failed
 
-  log_passenger_attrs :original_value, :current_value
+  log_passenger_attrs :current_value
 end
 
 num = NumberWithHistory.new 0

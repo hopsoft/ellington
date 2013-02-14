@@ -17,5 +17,13 @@ module Ellington
     end
     alias_method :errored, :error_target
 
+    def state(passenger)
+      case
+      when passed.satisfied?(passenger) then "PASS"
+      when failed.satisfied?(passenger) then "FAIL"
+      when errored.satisfied?(passenger) then "ERROR"
+      end
+    end
+
   end
 end

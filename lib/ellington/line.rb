@@ -68,48 +68,23 @@ module Ellington
       end
     end
 
-    def state(passenger)
-      case
-      when passed.satisfied?(passenger) then "PASS"
-      when failed.satisfied?(passenger) then "FAIL"
-      when errored.satisfied?(passenger) then "ERROR"
-      end
-    end
-
-    def station_completed(info)
-      if info.station == stations.last
+    def station_completed(station_info)
+      line_info = Ellington::LineInfo.new(self, station_info)
+      if line_info.station == stations.last
+        log line_info, :station_completed => true
+        log line_info, :line_completed => true
         changed
-        notify_observers info
-        log info
-        log info, true
+        notify_observers line_info
       else
-        log info
+        log line_info, :station_completed => true
       end
     end
 
     private
 
-    def log(info, line_completed=false)
+    def log(line_info, options={})
       return unless Ellington.logger
-      return unless Ellington.logger.level <= Logger::INFO
-
-      message = [] 
-      if line_completed
-        message << "LINE COMPLETED"
-        message << "[line_state:#{state(info.passenger)}]"
-      else
-        message << "STATION COMPLETED"
-      end
-      message << "[station_state:#{info.station.state(info.passenger)}]"
-      message << "[passenger_state:#{info.passenger.current_state}]"
-      message << "[station:#{info.station.name}]"
-      message << "[line:#{name}]"
-      message << "[old_passenger_state:#{info.transition.old_state}]"
-      route.log_passenger_attrs.each do |attr|
-        message << "[#{attr}:#{info.passenger.send(attr)}]"
-      end
-
-      Ellington.logger.info message.join(" ")
+      Ellington.logger.info line_info.log_message(options)
     end
 
   end
