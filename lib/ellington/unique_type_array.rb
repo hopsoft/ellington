@@ -13,10 +13,7 @@ module Ellington
       inner_list.push value
     end
 
-    def <<(value)
-      check value
-      inner_list << value
-    end
+    alias_method :<<, :push
 
     def contains_a?(klass)
       each do |entry|
