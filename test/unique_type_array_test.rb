@@ -23,5 +23,10 @@ class UniqueTypeArrayTest < MicroTest::Test
     assert !e.nil?
   end
 
+  test "contains_a?" do
+    @list.push :foo
+    assert @list.contains_a?(Symbol)
+  end
+
 end
 
