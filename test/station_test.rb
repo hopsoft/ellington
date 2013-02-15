@@ -92,7 +92,7 @@ class StationTest < MicroTest::Test
   test "engage" do
     @passenger.current_state = @route.initial_state
     @station.engage(@passenger, :pass => true)
-    assert @passenger.current_state == @station.passed
+    assert @passenger.current_state != @route.initial_state
   end
 
   test "observers are notified after a station completes" do

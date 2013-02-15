@@ -2,34 +2,36 @@ require "thread"
 
 module Ellington
   class Conductor
-    attr_reader :route, :conducting
+    attr_reader :route
 
     def initialize(route)
       @route = route
       @conducting = false
     end
 
-    def start(delay=0)
-      return if conducting
+    def conducting?
+      @conducting
+    end
+
+    def start
+      return if conducting?
 
       mutex.synchronize do
         @stop = false
         @conducting = true
       end
 
-      thread = Thread.new do
+      @thread = Thread.new do
         loop do
           if @stop
             mutex.synchronize { @conducting = false }
-            break
+            Thread.current.exit
           end
           gather_passengers.each do |passenger|
             escort(passenger)
           end
-          sleep delay
         end
       end
-      thread.join
     end
 
     def stop
@@ -49,7 +51,9 @@ module Ellington
       route.lines.first.board passenger
     end
 
-    private
+    protected
+
+    attr_reader :thread
 
     def mutex
       @mutex ||= Mutex.new
