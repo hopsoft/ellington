@@ -38,6 +38,11 @@ module Ellington
       mutex.synchronize { @stop = true }
     end
 
+    def wait(seconds=nil)
+      sleep seconds if seconds
+      thread.join
+    end
+
     def verify(passenger)
       true
     end
