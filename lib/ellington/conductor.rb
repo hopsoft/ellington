@@ -38,8 +38,7 @@ module Ellington
       mutex.synchronize { @stop = true }
     end
 
-    def wait(seconds=nil)
-      sleep seconds if seconds
+    def wait
       thread.join
     end
 

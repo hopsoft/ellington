@@ -210,6 +210,7 @@ if ENV["START"]
   route = BasicMath.new
   conductor = NumberConductor.new(route)
   conductor.start
+  #conductor.wait
   sleep 5
   conductor.stop
 end
