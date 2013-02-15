@@ -91,7 +91,7 @@ class StationTest < MicroTest::Test
 
   test "engage" do
     @passenger.current_state = @route.initial_state
-    @station.engage(@passenger, :pass => true)
+    @station.engage(@passenger, nil)
     assert @passenger.current_state != @route.initial_state
   end
 
@@ -103,13 +103,13 @@ class StationTest < MicroTest::Test
     end
     @station.add_observer observer
     @passenger.current_state = @route.initial_state
-    @station.call(@passenger, :pass => true)
+    @station.call(@passenger)
     assert observer.callbacks.length == 1
     info = observer.callbacks.first
     assert info.station == @station
     assert info.passenger == @passenger
     assert info.transition.old_state == @route.initial_state
-    assert info.transition.new_state == @station.passed
+    assert info.transition.new_state != @route.initial_state
   end
 
 end

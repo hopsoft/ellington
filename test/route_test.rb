@@ -4,6 +4,7 @@ class RouteTest < MicroTest::Test
 
   before do
     @route = BasicMath.new
+    @passenger = Ellington::Passenger.new(NumberWithHistory.new(0), @route)
   end
 
   test "lines on class" do
@@ -46,6 +47,64 @@ class RouteTest < MicroTest::Test
     assert @route.connections.first.states == @route.lines[0].pass_target
     assert @route.connections.last.line == @route.lines[2]
     assert @route.connections.last.states == @route.lines[0].fail_target
+  end
+
+  test "passed" do
+    assert @route.passed == [
+      "PASS DivideBy1000::Division", 
+      "PASS MultiplyBy1000::Multiplication"
+    ]
+  end
+
+  test "state pass" do
+    @passenger.current_state = @route.passed.first
+    assert @route.state(@passenger) == "PASS"
+  end
+
+  test "failed" do
+    assert @route.failed == [
+      "PRE BasicMath",
+      "PASS Add10::Addition",
+      "FAIL Add10::Addition",
+      "PASS Add100::Addition",
+      "FAIL Add100::Addition",
+      "PASS Add1000::Addition",
+      "FAIL Add1000::Addition",
+      "PASS DivideBy10::Division",
+      "FAIL DivideBy10::Division",
+      "PASS DivideBy100::Division",
+      "FAIL DivideBy100::Division",
+      "FAIL DivideBy1000::Division",
+      "PASS MultiplyBy10::Multiplication",
+      "FAIL MultiplyBy10::Multiplication",
+      "PASS MultiplyBy100::Multiplication",
+      "FAIL MultiplyBy100::Multiplication",
+      "FAIL MultiplyBy1000::Multiplication"
+    ]
+  end
+
+  test "state fail" do
+    @passenger.current_state = @route.failed.first
+    assert @route.state(@passenger) == "FAIL"
+  end
+
+  test "errored" do
+    assert @route.errored == [
+      "ERROR Add10::Addition",
+      "ERROR Add100::Addition",
+      "ERROR Add1000::Addition",
+      "ERROR DivideBy10::Division",
+      "ERROR DivideBy100::Division",
+      "ERROR DivideBy1000::Division",
+      "ERROR MultiplyBy10::Multiplication",
+      "ERROR MultiplyBy100::Multiplication",
+      "ERROR MultiplyBy1000::Multiplication"
+    ]
+  end
+
+  test "state error" do
+    @passenger.current_state = @route.errored.first
+    assert @route.state(@passenger) == "ERROR"
   end
 
 end

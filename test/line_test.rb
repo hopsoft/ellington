@@ -5,6 +5,7 @@ class LineTest < MicroTest::Test
   before do
     @route = BasicMath.new
     @line = @route.lines.first
+    @passenger = Ellington::Passenger.new(NumberWithHistory.new(0), @route)
   end
 
   test "stations on class" do
@@ -90,6 +91,43 @@ class LineTest < MicroTest::Test
       state.to_s =~ /\AERROR/
     end
     assert line.fail_target == expected
+  end
+
+  test "passed" do
+    assert @line.passed == ["PASS Add1000::Addition"]
+  end
+
+  test "state pass" do
+    @passenger.current_state = @line.passed.first
+    assert @line.state(@passenger) == "PASS"
+  end
+
+  test "failed" do
+    assert @line.failed == [
+      "PASS Add10::Addition",
+      "FAIL Add10::Addition",
+      "PASS Add100::Addition",
+      "FAIL Add100::Addition",
+      "FAIL Add1000::Addition"
+    ]
+  end
+
+  test "state fail" do
+    @passenger.current_state = @line.failed.first
+    assert @line.state(@passenger) == "FAIL"
+  end
+
+  test "errored" do
+    assert @line.errored == [
+      "ERROR Add10::Addition", 
+      "ERROR Add100::Addition", 
+      "ERROR Add1000::Addition"
+    ]
+  end
+
+  test "state error" do
+    @passenger.current_state = @line.errored.first
+    assert @line.state(@passenger) == "ERROR"
   end
 
 end
