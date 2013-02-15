@@ -23,6 +23,10 @@ class RouteInfoTest < MicroTest::Test
     assert @route_info.line == @line
   end
 
+  test "line_info" do
+    assert @route_info.line_info == @line_info
+  end
+
   test "station_info" do
     assert @route_info.station_info == @station_info
   end
