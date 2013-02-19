@@ -25,128 +25,128 @@ end
 
 # stations -----------------------------------------------------------------
 class Add10 < Ellington::Station
-  def engage(passenger, options)
+  def engage(number, options)
     raise if rand(100) == 0
     if rand(100) > 5
-      passenger.calc :+, 10
-      pass passenger
+      number.calc :+, 10
+      pass_passenger number
     else
-      fail passenger
+      fail_passenger number
     end
   rescue
-    error passenger
+    error_passenger number
   end
 end
 
 class Add100 < Ellington::Station
-  def engage(passenger, options)
+  def engage(number, options)
     raise if rand(100) == 0
     if rand(100) > 5
-      passenger.calc :+, 100
-      pass passenger
+      number.calc :+, 100
+      pass_passenger number
     else
-      fail passenger
+      fail_passenger number
     end
   rescue
-    error passenger
+    error_passenger number
   end
 end
 
 class Add1000 < Ellington::Station
-  def engage(passenger, options)
+  def engage(number, options)
     raise if rand(100) == 0
     if rand(100) > 5
-      passenger.calc :+, 1000
-      pass passenger
+      number.calc :+, 1000
+      pass_passenger number
     else
-      fail passenger
+      fail_passenger number
     end
   rescue
-    error passenger
+    error_passenger number
   end
 end
 
 class MultiplyBy10 < Ellington::Station
-  def engage(passenger, options)
+  def engage(number, options)
     raise if rand(100) == 0
     if rand(100) > 5
-      passenger.calc :*, 10
-      pass passenger
+      number.calc :*, 10
+      pass_passenger number
     else
-      fail passenger
+      fail_passenger number
     end
   rescue
-    error passenger
+    error_passenger number
   end
 end
 
 class MultiplyBy100 < Ellington::Station
-  def engage(passenger, options)
+  def engage(number, options)
     raise if rand(100) == 0
     if rand(100) > 5
-      passenger.calc :*, 100
-      pass passenger
+      number.calc :*, 100
+      pass_passenger number
     else
-      fail passenger
+      fail_passenger number
     end
   rescue
-    error passenger
+    error_passenger number
   end
 end
 
 class MultiplyBy1000 < Ellington::Station
-  def engage(passenger, options)
+  def engage(number, options)
     raise if rand(100) == 0
     if rand(100) > 5
-      passenger.calc :*, 1000
-      pass passenger
+      number.calc :*, 1000
+      pass_passenger number
     else
-      fail passenger
+      fail_passenger number
     end
   rescue
-    error passenger
+    error_passenger number
   end
 end
 
 class DivideBy10 < Ellington::Station
-  def engage(passenger, options)
+  def engage(number, options)
     raise if rand(100) == 0
     if rand(100) > 5
-      passenger.calc :/, 10.0
-      pass passenger
+      number.calc :/, 10.0
+      pass_passenger number
     else
-      fail passenger
+      fail_passenger number
     end
   rescue
-    error passenger
+    error_passenger number
   end
 end
 
 class DivideBy100 < Ellington::Station
-  def engage(passenger, options)
+  def engage(number, options)
     raise if rand(100) == 0
     if rand(100) > 5
-      passenger.calc :/, 100.0
-      pass passenger
+      number.calc :/, 100.0
+      pass_passenger number
     else
-      fail passenger
+      fail_passenger number
     end
   rescue
-    error passenger
+    error_passenger number
   end
 end
 
 class DivideBy1000 < Ellington::Station
-  def engage(passenger, options)
+  def engage(number, options)
     raise if rand(100) == 0
     if rand(100) > 5
-      passenger.calc :/, 1000.0
-      pass passenger
+      number.calc :/, 1000.0
+      pass_passenger number
     else
-      fail passenger
+      fail_passenger number
     end
   rescue
-    error passenger
+    error_passenger number
   end
 end
 

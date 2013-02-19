@@ -61,19 +61,19 @@ class StationTest < MicroTest::Test
 
   test "pass properly transitions passenger's state" do
     @passenger.current_state = @route.initial_state
-    @station.pass @passenger
+    @station.pass_passenger @passenger
     assert @passenger.current_state == @station.passed
   end
 
   test "fail properly transitions passenger's state" do
     @passenger.current_state = @route.initial_state
-    @station.fail @passenger
+    @station.fail_passenger @passenger
     assert @passenger.current_state == @station.failed
   end
 
   test "error properly transitions passenger's state" do
     @passenger.current_state = @route.initial_state
-    @station.error @passenger
+    @station.error_passenger @passenger
     assert @passenger.current_state == @station.errored
   end
 

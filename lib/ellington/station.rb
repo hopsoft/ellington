@@ -63,15 +63,15 @@ module Ellington
       passenger
     end
 
-    def pass(passenger)
+    def pass_passenger(passenger)
       passenger.transition_to passed
     end
 
-    def fail(passenger)
+    def fail_passenger(passenger)
       passenger.transition_to failed
     end
 
-    def error(passenger)
+    def error_passenger(passenger)
       passenger.transition_to errored
     end
 
