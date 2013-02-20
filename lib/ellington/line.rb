@@ -38,6 +38,10 @@ module Ellington
       formula.run passenger, options
     end
 
+    def boarded?(passenger)
+      !(passenger.state_history & states.keys).empty?
+    end
+
     def name
       @name ||= "#{self.class.name}::#{route.name}"
     end

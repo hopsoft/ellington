@@ -75,7 +75,9 @@ module Ellington
       end
 
       def connect_to(line, options)
-        connections << Ellington::Connection.new(line, options[:if])
+        type = options.keys.first
+        states = options[type]
+        connections << Ellington::Connection.new(line, type, states)
       end
 
       def log_passenger_attrs(*attrs)
@@ -86,7 +88,7 @@ module Ellington
         route_info = Ellington::RouteInfo.new(self, line_info)
 
         required_connections = connections.select do |connection|
-          connection.states.satisfied?(route_info.passenger)
+          connection.required?(route_info.passenger)
         end
 
         if required_connections.empty?
