@@ -52,12 +52,12 @@ class RouteInfoTest < MicroTest::Test
   end
 
   test "log_message route pass" do
-    assert @route_info.log_message == "[ROUTE COMPLETED] [PASS] [Add10::Addition::BasicMath] [original_value:0] [current_value:0]"
+    assert @route_info.log_message == "[ROUTE COMPLETED] [PASS] [BasicMath] [original_value:0] [current_value:0]"
   end
 
   test "log_message route fail" do
     @passenger.current_state = @station.failed
-    assert @route_info.log_message == "[ROUTE COMPLETED] [FAIL] [Add10::Addition::BasicMath] [original_value:0] [current_value:0]"
+    assert @route_info.log_message == "[ROUTE COMPLETED] [FAIL] [BasicMath] [original_value:0] [current_value:0]"
   end
 
 end

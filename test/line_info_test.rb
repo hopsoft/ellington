@@ -42,7 +42,7 @@ class LineInfoTest < MicroTest::Test
   end
 
   test "log_message" do
-    assert @line_info.log_message == "[Add10::Addition::BasicMath] [original_value:0] [current_value:0]"
+    assert @line_info.log_message == "[original_value:0] [current_value:0]"
   end
 
   test "log_message with station_completed pass" do
@@ -65,13 +65,13 @@ class LineInfoTest < MicroTest::Test
 
   test "log_message with line_completed pass" do
     @passenger.current_state = @line.stations.last.passed
-    expected = "[LINE COMPLETED] [PASS] [Add10::Addition::BasicMath] [original_value:0] [current_value:0]"
+    expected = "[LINE COMPLETED] [PASS] [Addition::BasicMath] [original_value:0] [current_value:0]"
     assert @line_info.log_message(:line_completed => true) == expected
   end
 
   test "log_message with line_completed fail" do
     @passenger.current_state = @line.stations.last.failed
-    expected = "[LINE COMPLETED] [FAIL] [Add10::Addition::BasicMath] [original_value:0] [current_value:0]"
+    expected = "[LINE COMPLETED] [FAIL] [Addition::BasicMath] [original_value:0] [current_value:0]"
     assert @line_info.log_message(:line_completed => true) == expected
   end
 

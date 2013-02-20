@@ -39,6 +39,10 @@ module Ellington
       @current_state = value
     end
 
+    def state_history
+      @state_history ||= []
+    end
+
     def transition_to(new_state)
       if !locked?
         message = "Cannot transition an unlocked #{self.class.name}'s state"
@@ -57,6 +61,8 @@ module Ellington
       else
         self.current_state = new_state
       end
+
+      state_history << new_state
 
       changed
       notify_observers Ellington::TransitionInfo.new(self, old_state, new_state)
