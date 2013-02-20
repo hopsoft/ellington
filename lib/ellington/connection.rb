@@ -2,9 +2,9 @@ module Ellington
   class Connection
     attr_reader :line, :states
 
-    def initialize(line, states)
+    def initialize(line, *states)
       @line = line
-      @states = states
+      @states = Ellington::Target.new(*states)
     end
 
   end

@@ -19,12 +19,13 @@ module Ellington
       if options[:line_completed]
         message << "[LINE COMPLETED]"
         message << "[#{line.state(passenger)}]"
+        message << "[#{line.name}]"
       end
       if options[:station_completed]
         message << "[STATION COMPLETED]"
         message << "[#{station.state(passenger)}]"
+        message << "[#{station_full_name}]"
       end
-      message << "[#{station_full_name}]"
       line.route.log_passenger_attrs.each do |attr|
         message << "[#{attr}:#{passenger.send(attr)}]"
       end
