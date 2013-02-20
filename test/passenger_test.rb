@@ -70,4 +70,13 @@ class PassengerTest < MicroTest::Test
     assert watcher.info.new_state == "PASS Add10::Addition"
   end
 
+  test "state_history" do
+    @passenger.lock
+    @passenger.current_state = @route.initial_state
+    @passenger.transition_to @route.lines[0].states.keys.first
+    @passenger.transition_to @route.lines[2].states.keys.first
+    @passenger.unlock
+    assert @passenger.state_history == ["PASS Add10::Addition", "PASS MultiplyBy10::Multiplication"]
+  end
+
 end
