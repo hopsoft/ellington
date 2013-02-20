@@ -5,7 +5,7 @@ class ConnectionTest < MicroTest::Test
   before do
     @route = BasicMath.new
     @line = @route.lines.first
-    @connection = Ellington::Connection.new(@route.lines[1], @line.passed)
+    @connection = Ellington::Connection.new(@route.lines[1], :if_any, @line.passed)
   end
 
   test "line" do
