@@ -11,11 +11,11 @@ module Ellington
     def required?(passenger)
       return false if line.boarded?(passenger)
 
-      if type == :if_any
+      if type == :if_currently
         return states.satisfied?(passenger) 
       end
 
-      if type == :if_all
+      if type == :if_ever
         return (passenger.state_history & states).length == states.length
       end
 
