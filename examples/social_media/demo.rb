@@ -26,7 +26,7 @@ end
 class BlastConductor < Ellington::Conductor
 
   def gather_passengers
-    sleep 1 # wait a bit between batches
+    #sleep 1 # wait a bit between batches
 
     (0..10).map do
       # Find users that should ride the route.

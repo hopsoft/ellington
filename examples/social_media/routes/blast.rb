@@ -8,8 +8,8 @@ class Blast < Ellington::Route
   lines << twitter
   lines << billing
 
-  connect_to twitter, :if_currently => [facebook.passed, facebook.failed, facebook.errored]
-  connect_to billing, :if_ever => [facebook.passed, twitter.passed]
+  connect_to twitter, :if_any => [facebook.passed, facebook.failed, facebook.errored]
+  connect_to billing, :if_all => [facebook.passed, twitter.passed]
 
   goal billing.passed
 

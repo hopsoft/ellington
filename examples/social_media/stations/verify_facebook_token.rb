@@ -4,6 +4,7 @@ class VerifyFacebookToken < Ellington::Station
     begin
       # TODO: Verify the OAuth token for the user's Facebook account.
 
+      # Add some fakery so it feels like its working.
       raise if rand(100) == 0
       ok = rand(100) > 5
 
