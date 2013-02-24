@@ -1,4 +1,4 @@
-# Ellington 
+# Ellington
 Named after [Duke Ellington](http://www.dukeellington.com/) whose signature tune was ["Take the 'A' Train"](http://en.wikipedia.org/wiki/Take_the_%22A%22_Train).
 The song was written about [New York City's A train](http://en.wikipedia.org/wiki/A_%28New_York_City_Subway_service%29).
 
@@ -7,7 +7,7 @@ The song was written about [New York City's A train](http://en.wikipedia.org/wik
 #### Ellington is an architecture for modeling complex business processes.
 
 Ellington is a collection of simple concepts designed to bring discipline, organization, and modularity to a project.
-The base implementation is very light, weighing in around 500 lines.
+([View the slides from the intro talk.](https://speakerdeck.com/hopsoft/ellington-intro))
 
 The nomenclature is taken from [New York's subway system](http://en.wikipedia.org/wiki/New_York_City_Subway).
 We've found that using cohesive physical metaphors helps people reason more clearly about the complexities of software.
@@ -33,46 +33,4 @@ The Ellington architecture should only be applied **after** a good understanding
 - **[State](https://github.com/hopsoft/ellington/wiki/State)** - A status or disposition assigned to the `passenger`.
 
 ![Ellington Diagram](https://raw.github.com/hopsoft/ellington/master/doc/primary-terms.png)
-
-#### Additional Terms
-
-- **[State Catalog](https://github.com/hopsoft/ellington/wiki/State)** - A collection of states and their transitions.
-- **[State Transition](https://github.com/hopsoft/ellington/wiki/State)** - The `transition`, performed on the `passenger`, from one `state` to another.
-- **[Ticket](https://github.com/hopsoft/ellington/wiki/Ticket)** - An authorization token that indicates the `passenger` can ride a specific `route`.
-- **[Goal](https://github.com/hopsoft/ellington/wiki/Goal)** - A list of expected `states`.
-- **[Connection](https://github.com/hopsoft/ellington/wiki/Connection)** - A link between `lines`.
-- **[Transfer](Transfer)** - A link between `routes`.
-- **[Network](Network)** - An entire system of `routes` & `transfers` designed to work together.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-```
-Route class
-  composed of line instances
-  each line instance holds a ref to this route's class
-
-Line class
-  composed of station instances
-  each station instance holds a ref to this line's class
-
-Station class
-```
 
