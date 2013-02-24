@@ -5,8 +5,19 @@ module Ellington
 
     def initialize
       super self.class
-      states
+
+      if lines.empty?
+        message = "#{self.class.name} has no lines!"
+        raise Ellington::NoLinesDeclared.new(message)
+      end
+
+      if goal.empty?
+        message = "#{self.class.name} has no lines!"
+        raise Ellington::NoGoalDeclared.new(message)
+      end
+
       initialize_lines
+      states
     end
 
     def initialize_lines

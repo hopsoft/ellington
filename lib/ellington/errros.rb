@@ -14,6 +14,9 @@ module Ellington
   class NoStationsDeclared < StandardError
   end
 
+  class NoLinesDeclared < StandardError
+  end
+
   class NoGoalDeclared < StandardError
   end
 end

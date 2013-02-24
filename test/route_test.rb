@@ -7,6 +7,27 @@ class RouteTest < MicroTest::Test
     @passenger = Ellington::Passenger.new(NumberWithHistory.new(0), @route)
   end
 
+  test "must declare lines" do
+    class NoLinesRoute < Ellington::Route
+    end
+    begin
+      NoLinesRoute.new
+    rescue Ellington::NoLinesDeclared => e
+    end
+    assert !e.nil?
+  end
+
+  test "must declare goal" do
+    class NoGoalRoute < Ellington::Route
+      lines << Addition.new
+    end
+    begin
+      NoGoalRoute.new
+    rescue Ellington::NoGoalDeclared => e
+    end
+    assert !e.nil?
+  end
+
   test "lines on class" do
     assert @route.lines.length == 3
     assert @route.lines[0].is_a?(Addition)
