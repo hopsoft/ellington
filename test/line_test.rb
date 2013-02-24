@@ -8,6 +8,27 @@ class LineTest < MicroTest::Test
     @passenger = Ellington::Passenger.new(NumberWithHistory.new(0), @route)
   end
 
+  test "must declare stations" do
+    class NoStationsLine < Ellington::Line
+    end
+    begin
+      NoStationsLine.new
+    rescue Ellington::NoStationsDeclared => e
+    end
+    assert !e.nil?
+  end
+
+  test "must declare goal" do
+    class NoGoalLine < Ellington::Line
+      stations << Add10.new
+    end
+    begin
+      NoGoalLine.new
+    rescue Ellington::NoGoalDeclared => e
+    end
+    assert !e.nil?
+  end
+
   test "stations on class" do
     assert @line.stations.length == 3
     assert @line.stations[0].is_a?(Add10)

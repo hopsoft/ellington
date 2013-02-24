@@ -29,6 +29,18 @@ module Ellington
       :passed,
       :goal
 
+    def initialize
+      if stations.empty?
+        message = "#{self.class.name} has no stations!"
+        raise Ellington::NoStationsDeclared.new(message)
+      end
+
+      if goal.empty?
+        message = "#{self.class.name} has no goal!"
+        raise Ellington::NoGoalDeclared.new(message)
+      end
+    end
+
     def board(passenger, options={})
       formula.run passenger, options
     end

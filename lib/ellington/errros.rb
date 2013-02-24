@@ -10,4 +10,10 @@ module Ellington
 
   class NotImplementedError < StandardError
   end
+
+  class NoStationsDeclared < StandardError
+  end
+
+  class NoGoalDeclared < StandardError
+  end
 end
