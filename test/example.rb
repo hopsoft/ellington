@@ -184,8 +184,8 @@ class BasicMath < Ellington::Route
 
   goal division.passed, multiplication.passed
 
-  connect_to division, :if => addition.passed
-  connect_to multiplication, :if => addition.failed
+  connect_to division, :if_any => addition.passed
+  connect_to multiplication, :if_any => addition.failed
 
   log_passenger_attrs :original_value, :current_value
 end

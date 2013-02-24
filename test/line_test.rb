@@ -32,7 +32,7 @@ class LineTest < MicroTest::Test
 
   test "stations are assigned line" do
     @line.stations.each do |station|
-      assert station.line == @line.class
+      assert station.line == @line
     end
   end
 

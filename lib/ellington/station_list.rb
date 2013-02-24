@@ -2,17 +2,17 @@ require "delegate"
 
 module Ellington
   class StationList < SimpleDelegator
-    attr_reader :line
+    attr_reader :line_class
 
-    def initialize(line)
-      @line = line
+    def initialize(line_class)
+      @line_class = line_class
       @inner_list = UniqueTypeArray.new
       super @inner_list
     end
 
     def push(station)
       value = inner_list << station
-      station.line = line
+      station.line_class = line_class
       value
     end
     alias_method :<<, :push

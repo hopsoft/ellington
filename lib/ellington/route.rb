@@ -5,7 +5,19 @@ module Ellington
 
     def initialize
       super self.class
-      init unless initialized?
+      states
+      initialize_lines
+    end
+
+    def initialize_lines
+      lines.each do |line|
+        line.route = self
+        line.add_observer self, :line_completed
+        line.stations.each do |station|
+          station.line = line
+          station.add_observer line, :station_completed
+        end
+      end
     end
 
     class << self
@@ -14,21 +26,6 @@ module Ellington
 
       def initialized?
         @initialized
-      end
-
-      def init
-        initialize_lines
-        states
-        @initialized = true
-      end
-
-      def initialize_lines
-        lines.each do |line|
-          line.add_observer self, :line_completed
-          line.stations.each do |station|
-            station.add_observer line, :station_completed
-          end
-        end
       end
 
       def board(passenger, options={})

@@ -1,8 +1,6 @@
 require "yell"
 require "securerandom"
-require_relative "../../lib/ellington"
-Dir[File.dirname(__FILE__) + "/stations/*.rb"].each { |f| require f }
-Dir[File.dirname(__FILE__) + "/**/*.rb"].each { |f| require f }
+require_relative "loader"
 
 Ellington.logger = Yell.new do |logger|
   logger.adapter STDOUT, :level => [:info], :format => "%m"

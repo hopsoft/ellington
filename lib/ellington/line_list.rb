@@ -2,22 +2,22 @@ require "delegate"
 
 module Ellington
   class LineList < SimpleDelegator
-    attr_reader :route
+    attr_reader :route_class
 
-    def initialize(route)
-      @route = route
+    def initialize(route_class)
+      @route_class = route_class
       @inner_list = UniqueTypeArray.new
       super @inner_list
     end
-    
+
     def push(line)
       value = inner_list << line
-      line.route = route
+      line.route_class = route_class
       value
     end
     alias_method :<<, :push
 
-    protected 
+    protected
 
     attr_reader :inner_list
   end

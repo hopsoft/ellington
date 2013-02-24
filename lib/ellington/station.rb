@@ -6,11 +6,11 @@ module Ellington
   class Station
     extend Forwardable
     include Observable
-    attr_accessor :line
+    attr_accessor :line_class, :line
     def_delegators :line, :route
 
     def name
-      @name ||= "#{self.class.name}::#{line.name}"
+      @name ||= "#{self.class.name}::#{line_class.name}"
     end
 
     def state_name(state)

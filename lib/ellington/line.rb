@@ -5,7 +5,6 @@ module Ellington
   class Line
     class << self
       include Observable
-      attr_accessor :route
 
       def stations
         @stations ||= Ellington::StationList.new(self)
@@ -16,19 +15,15 @@ module Ellington
       end
       alias_method :passed, :pass_target
       alias_method :goal, :pass_target
-
-      def connections
-        @connections ||= {}
-      end
     end
 
     extend Forwardable
     include Observable
     include HasTargets
 
+    attr_accessor :route_class, :route
+
     def_delegators :"self.class",
-      :route,
-      :route=,
       :stations,
       :pass_target,
       :passed,
@@ -43,7 +38,7 @@ module Ellington
     end
 
     def name
-      @name ||= "#{self.class.name}::#{route.name}"
+      @name ||= "#{self.class.name}::#{route_class.name}"
     end
 
     def formula
