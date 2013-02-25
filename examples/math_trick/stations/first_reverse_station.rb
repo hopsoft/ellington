@@ -1,14 +1,12 @@
-module MathTrick
-  class FirstReverseStation < Ellington::Station
-    transitions_passenger_to :first_reverse_pass, :first_reverse_fail, :first_reverse_error
+class FirstReverseStation < Ellington::Station
 
-    def engage(passenger, options={})
-      begin
-        options[:first_reverse] = passenger.context.to_s.reverse.to_i
-        passenger.transition_to(:first_reverse_pass)
-      rescue Exception
-        passenger.transition_to(:first_reverse_error)
-      end
+  def engage(number, options={})
+    begin
+      options[:first_reverse] = number.to_s.reverse.to_i
+      pass_passenger number
+    rescue Exception => e
+      error_passenger number
     end
   end
+
 end
