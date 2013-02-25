@@ -88,8 +88,12 @@ module Ellington
         connections << Ellington::Connection.new(line, type, states)
       end
 
-      def log_passenger_attrs(*attrs)
-        @log_passenger_attrs ||= attrs
+      def log_options(options={})
+        @log_options ||= begin
+          options[:passenger] ||= []
+          options[:options] ||= []
+          options
+        end
       end
 
       def line_completed(line_info)

@@ -15,8 +15,11 @@ module Ellington
       message << "[ROUTE COMPLETED]"
       message << "[#{route.state(passenger)}]"
       message << "[#{route.name}]"
-      line.route.log_passenger_attrs.each do |attr|
+      route.log_options[:passenger].each do |attr|
         message << "[#{attr}:#{passenger.send(attr)}]"
+      end
+      route.log_options[:options].each do |attr|
+        message << "[#{attr}:#{self.options[attr]}]"
       end
       message.join " "
     end

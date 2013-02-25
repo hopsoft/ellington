@@ -187,7 +187,7 @@ class BasicMath < Ellington::Route
   connect_to division, :if_any => addition.passed
   connect_to multiplication, :if_any => addition.failed
 
-  log_passenger_attrs :original_value, :current_value
+  log_options :passenger => [:original_value, :current_value]
 end
 
 # conductor ---------------------------------------------------------------
