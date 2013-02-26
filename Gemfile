@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem "hero", "~> 0.1.7"
 gem "state_jacket", "~> 0.0.7"
+gem "ruby-graphviz", :require => "graphviz"
 
 group :development, :test do
   gem "yell"
