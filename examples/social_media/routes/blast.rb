@@ -15,5 +15,5 @@ class Blast < Ellington::Route
 
   # extra attributes we want to log
   # these exist on the user
-  log :passenger => [:id, :current_message]
+  log_options :passenger => [:id, :current_message]
 end
