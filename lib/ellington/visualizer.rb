@@ -89,6 +89,12 @@ module Ellington
           state_node = Node.new(state, line_cluster.viz.add_nodes(state))
           state_node.viz["style"] = "filled,rounded"
           state_node.viz["color"] = "white"
+          if line.goal.include?(state)
+            state_node.viz["color"] = "green2"
+          end
+          if route.goal.include?(state)
+            state_node.viz["color"] = "gold"
+          end
           line_cluster << state_node
         end
 
@@ -124,6 +130,9 @@ module Ellington
           state_node = Node.new(state, line_cluster.viz.add_nodes("#{line.class.name}#{state}", "label" => state))
           state_node.viz["style"] = "filled,rounded"
           state_node.viz["color"] = "white"
+          if !(route.goal & line.stations.map{ |s| "#{state} #{s.name}" }).empty?
+            state_node.viz["color"] = "gold"
+          end
           line_cluster << state_node
         end
       end
@@ -199,6 +208,12 @@ module Ellington
           state_node = Node.new(state, line_cluster.viz.add_nodes(state))
           state_node.viz["style"] = "filled,rounded"
           state_node.viz["color"] = "white"
+          if line.goal.include?(state)
+            state_node.viz["color"] = "green2"
+          end
+          if route.goal.include?(state)
+            state_node.viz["color"] = "gold"
+          end
           line_cluster << state_node
         end
       end
