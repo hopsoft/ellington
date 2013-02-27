@@ -180,6 +180,52 @@ module Ellington
     end
 
     def graph_route
+      g = Node.new(nil, GraphViz.new("G"))
+      g.viz["label"] = "#{route.name} Lines"
+      g.viz["compound"] = true
+      g.viz["ranksep"] = 0.8
+      g.viz["fontname"] = "Helvetica"
+      g.viz.node["fontname"] = "Helvetica"
+      g.viz.node["shape"] = "box"
+      g.viz.node["style"] = "rounded"
+
+      route.lines.each_with_index do |line, index|
+        line_cluster = Node.new(line, g.viz.add_graph("cluster#{index}"))
+        line_cluster.viz["label"] = line.class.name
+        line_cluster.viz["style"] = "filled"
+        g << line_cluster
+
+        line.states.keys.each do |state|
+          state_node = Node.new(state, line_cluster.viz.add_nodes(state))
+          state_node.viz["style"] = "filled,rounded"
+          state_node.viz["color"] = "white"
+          line_cluster << state_node
+        end
+      end
+
+      viz = g.viz.add_nodes(route.initial_state)
+
+      route.states.each do |from_state, to_states|
+        (to_states || []).each do |to_state|
+          from_line = route.lines.to_a.select{ |l| l.states.keys.include?(from_state) }.first
+          from_node = g.find(from_line) if from_line
+          from_viz = from_node.viz.get_node(from_state) if from_node
+          from_viz ||= g.viz.get_node(from_state)
+          to_line = route.lines.to_a.select{ |l| l.states.keys.include?(to_state) }.first
+          to_node = g.find(to_line) if to_line
+          to_viz = to_node.viz.get_node(to_state) if to_node
+          to_viz ||= g.viz.get_node(to_state)
+
+          if from_viz && to_viz
+            g.viz.add_edges(
+              from_viz,
+              to_viz
+            )
+          end
+        end
+      end
+
+      g.viz.output(:pdf => "#{route.name}.pdf")
     end
 
   end
