@@ -17,11 +17,21 @@ module Ellington
     end
     alias_method :errored, :error_target
 
+    def state_names(states)
+      names = []
+      names << "PASS" if (states & passed).length == passed.length
+      names << "FAIL" if (states & failed).length == failed.length
+      names << "ERROR" if (states & errored).length == errored.length
+      names
+    end
+
     def state(passenger)
       case
       when passed.satisfied?(passenger) then "PASS"
       when failed.satisfied?(passenger) then "FAIL"
       when errored.satisfied?(passenger) then "ERROR"
+      else
+        nil
       end
     end
 
