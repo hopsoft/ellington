@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem "hero", "~> 0.1.7"
-gem "state_jacket", "~> 0.0.7"
+gem "state_jacket", "~> 0.0.9"
 gem "ruby-graphviz", "~> 1.0.8", :require => "graphviz"
 
 group :development, :test do

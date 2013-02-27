@@ -53,7 +53,9 @@ module Ellington
           catalog.add initial_state => lines.first.stations.first.states.keys
 
           lines.each do |line|
-            catalog.merge! line.states
+            line.states.each do |state, transitions|
+              catalog[state] = transitions.nil? ? nil : transitions.dup
+            end
           end
 
           connections.each do |connection|

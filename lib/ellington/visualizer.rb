@@ -55,13 +55,10 @@ module Ellington
       g.viz["fontname"] = "Helvetica"
       g.viz.node["fontname"] = "Helvetica"
       g.viz.node["shape"] = "box"
-      g.viz.node["style"] = "filled,rounded"
-      g.viz.node["color"] = "white"
+      g.viz.node["style"] = "rounded"
 
       route.lines.each_with_index do |line, index|
         line_cluster = Node.new(line, g.viz.add_graph("cluster#{index}"))
-        line_cluster.viz["style"] = "filled"
-        line_cluster.viz["color"] = "honeydew3"
         line_cluster.viz["label"] = line.class.name
         g << line_cluster
 
@@ -80,35 +77,29 @@ module Ellington
     end
 
     def graph_lines
-      g = Node.new(nil, GraphViz.new("G", "rankdir" => "TB"))
+      binding.pry
+      g = Node.new(nil, GraphViz.new("G"))
       g.viz["label"] = "#{route.name} Lines"
       g.viz["fontname"] = "Helvetica"
       g.viz.node["fontname"] = "Helvetica"
+      g.viz.node["shape"] = "box"
+      g.viz.node["style"] = "rounded"
 
       route.lines.each_with_index do |line, index|
         line_cluster = Node.new(line, g.viz.add_graph("cluster#{index}"))
         line_cluster.viz["label"] = line.class.name
-        line_cluster.viz["margin"] = 10
         g << line_cluster
 
-        line.stations.each do |station|
-          station_node = Node.new(station, line_cluster.viz.add_nodes(station.class.name))
-          label = "#{station.class.name}|{<#{short_name(station.passed)}>Pass|<#{short_name(station.failed)}>Fail|<#{short_name(station.errored)}>Error}"
-          station_node.viz["label"] = label
-          station_node.viz["shape"] = "Mrecord"
-          station_node.viz["group"] = station.class.name
-          line_cluster << station_node
+        line.states.keys.each do |state|
+          state_node = Node.new(state, line_cluster.viz.add_nodes(state))
+          line_cluster << state_node
         end
 
-        line.stations.each do |station|
-          (line.states[station.passed] || []).each do |state|
-            next_station = line.stations.to_a.select{ |s| s.states.keys.include?(state) }.first
-            if next_station
-              edge = line_cluster.viz.add_edges(
-                { station.class.name => short_name(station.passed)},
-                { next_station.class.name => short_name(state) }
-              )
-            end
+        line.states.each do |state, transitions|
+          a = line_cluster.find(state)
+          (transitions || []).each do |transition|
+            b = line_cluster.find(transition)
+            line_cluster.viz.add_edges a.viz, b.viz rescue binding.pry
           end
         end
       end

@@ -68,7 +68,10 @@ module Ellington
       @states ||= begin
         catalog = StateJacket::Catalog.new
         stations.each_with_index do |station, index|
-          catalog.merge! station.states
+          station.states.each do |state, transitions|
+            catalog[state] = transitions.nil? ? nil : transitions.dup
+          end
+
           if index < stations.length - 1
             next_station = stations[index + 1]
             catalog[station.passed] = next_station.states.keys
