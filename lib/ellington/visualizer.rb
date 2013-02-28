@@ -28,15 +28,18 @@ module Ellington
       end
     end
 
-    attr_reader :route
+    attr_reader :route, :dir
 
-    def initialize(route)
+    def initialize(route, dir)
       @route = route
+      @dir = dir
     end
 
-    def test
-      g = Node.new(nil, GraphViz.new("G"))
-      g.viz.output(:pdf => "#{route.name}.pdf")
+    def graph
+      graph_route_basic
+      graph_route
+      graph_lines_basic
+      graph_lines
     end
 
     def graph_lines_basic
@@ -67,7 +70,8 @@ module Ellington
         end
       end
 
-      g.viz.output(:pdf => "#{route.name}.pdf")
+      file_name = "#{route.name.downcase.gsub("::", "_")}-lines-basic.pdf"
+      g.viz.output(:pdf => File.join(dir, file_name))
     end
 
     def graph_lines
@@ -107,7 +111,8 @@ module Ellington
         end
       end
 
-      g.viz.output(:pdf => "#{route.name}.pdf")
+      file_name = "#{route.name.downcase.gsub("::", "_")}-lines.pdf"
+      g.viz.output(:pdf => File.join(dir, file_name))
     end
 
     def graph_route_basic
@@ -185,7 +190,8 @@ module Ellington
         end
       end
 
-      g.viz.output(:pdf => "#{route.name}.pdf")
+      file_name = "#{route.name.downcase.gsub("::", "_")}-route-basic.pdf"
+      g.viz.output(:pdf => File.join(dir, file_name))
     end
 
     def graph_route
@@ -240,7 +246,8 @@ module Ellington
         end
       end
 
-      g.viz.output(:pdf => "#{route.name}.pdf")
+      file_name = "#{route.name.downcase.gsub("::", "_")}-route.pdf"
+      g.viz.output(:pdf => File.join(dir, file_name))
     end
 
   end

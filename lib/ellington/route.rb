@@ -35,6 +35,16 @@ module Ellington
       include HasTargets
       attr_reader :initialized
 
+      def inherited(subclass)
+        (@subclasses ||= []) << subclass
+      end
+
+      def generate_graphs(dir)
+        @subclasses.each do |subclass|
+          Ellington::Visualizer.new(subclass.new, dir).graph
+        end
+      end
+
       def initialized?
         @initialized
       end
