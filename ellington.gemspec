@@ -27,5 +27,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.add_dependency "hero", "~> 0.1.7"
   gem.add_dependency "state_jacket", "~> 0.0.7"
+  gem.add_dependency "ruby-graphviz", "~> 1.0.8"
   gem.license       = "MIT"
 end
