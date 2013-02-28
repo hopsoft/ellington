@@ -7,21 +7,20 @@ The song was written about [New York City's A train](http://en.wikipedia.org/wik
 #### Ellington is an architecture for modeling complex business processes.
 
 Ellington is a collection of simple concepts designed to bring discipline, organization, and modularity to a project.
-([View the slides from the intro talk.](https://speakerdeck.com/hopsoft/ellington-intro))
 
 The nomenclature is taken from [New York's subway system](http://en.wikipedia.org/wiki/New_York_City_Subway).
 We've found that using consistent and cohesive physical metaphors helps people reason more clearly about the complexities of software.
 *The subway analogy isn't perfect but gets pretty close.*
 
-### Important
-
-The Ellington architecture should only be applied **after** a good understanding of the problem domain has been established.
-*We recommend [spiking a solution](http://en.wikipedia.org/wiki/Software_prototyping) to learn your project's requirements and then coming back to Ellington.*
-
-## Goals
+### Goals
 
 - Provide a consistent nomenclature thats simple enough to be shared by engineering and the business team.
 - Establish constraints which ensure complex projects are easy to manage, develop, and maintain.
+
+## Start Here
+
+* Skim the intro [slides on Speaker Deck](https://speakerdeck.com/hopsoft/ellington-intro).
+* Review one of the [example apps](https://github.com/hopsoft/ellington/tree/master/examples/social_media).
 
 ## Lexicon
 
@@ -33,4 +32,7 @@ The Ellington architecture should only be applied **after** a good understanding
 - **[State](https://github.com/hopsoft/ellington/wiki/State)** - A status or disposition assigned to the `passenger`.
 
 ![Ellington Diagram](https://raw.github.com/hopsoft/ellington/master/doc/primary-terms.png)
+
+**Note:** *We recommend Ellington for projects where a good understanding of the problem domain has been established.
+You might want to [spike a solution](http://en.wikipedia.org/wiki/Software_prototyping) to learn your project's requirements before using Ellington.*
 
