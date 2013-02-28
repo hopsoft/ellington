@@ -1,4 +1,5 @@
 require "delegate"
+require "fileutils"
 
 module Ellington
   class Route < SimpleDelegator
@@ -40,6 +41,7 @@ module Ellington
       end
 
       def generate_graphs(dir)
+        FileUtils.mkdir_p(dir)
         @subclasses.each do |subclass|
           Ellington::Visualizer.new(subclass.new, dir).graph
         end
