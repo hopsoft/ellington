@@ -10,7 +10,7 @@ Ellington is a collection of simple concepts designed to bring discipline, organ
 ([View the slides from the intro talk.](https://speakerdeck.com/hopsoft/ellington-intro))
 
 The nomenclature is taken from [New York's subway system](http://en.wikipedia.org/wiki/New_York_City_Subway).
-We've found that using cohesive physical metaphors helps people reason more clearly about the complexities of software.
+We've found that using consistent and cohesive physical metaphors helps people reason more clearly about the complexities of software.
 *The subway analogy isn't perfect but gets pretty close.*
 
 ### Important
@@ -20,8 +20,8 @@ The Ellington architecture should only be applied **after** a good understanding
 
 ## Goals
 
-- Provide a nomenclature simple enough to be shared by engineering and the business team.
-- Establish constraints to ensure that complex projects are easy to manage, develop, and maintain.
+- Provide a consistent nomenclature thats simple enough to be shared by engineering and the business team.
+- Establish constraints which ensure complex projects are easy to manage, develop, and maintain.
 
 ## Lexicon
 
