@@ -1,0 +1,1 @@
+class 89&*^&$kjhgui; end
