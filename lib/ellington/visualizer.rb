@@ -229,9 +229,11 @@ module Ellington
           state_node = Node.new(state, line_cluster.viz.add_nodes(state))
           if line.goal.include?(state)
             state_node.viz["color"] = NODE_COLOR_LINE_GOAL
+            state_node.viz["fillcolor"] = NODE_FILLCOLOR_LINE_GOAL
           end
           if route.goal.include?(state)
             state_node.viz["color"] = NODE_COLOR_ROUTE_GOAL
+            state_node.viz["fillcolor"] = NODE_FILLCOLOR_ROUTE_GOAL
           end
           if passenger && passenger.state_history_includes?(state)
             state_node.viz["color"] = NODE_COLOR_PASSENGER_HIT
@@ -242,9 +244,27 @@ module Ellington
       end
 
       viz = g.viz.add_nodes(route.initial_state)
-      edges = {}
-      highlight_edges = {}
-      last_edge = {}
+      rendered_edges = {}
+
+      if passenger
+        passenger_nodes = g.reduce([]) do |memo, line_cluster| 
+          line_cluster.children.each do |node| 
+            if node.viz["color"].to_s.gsub(/\W/, "") == NODE_COLOR_PASSENGER_HIT
+              memo << node
+            end
+          end
+          memo
+        end
+        previous_node = nil
+        passenger_nodes.each do |node|
+          from_viz = previous_node.nil? ? viz : previous_node.viz
+          rendered_edges[from_viz.id + node.viz.id] = true
+          edge = g.viz.add_edges(from_viz, node.viz)
+          edge["color"] = EDGE_COLOR_PASSENGER_HIT
+          edge["penwidth"] = EDGE_PENWIDTH_PASSENGER_HIT
+          previous_node = node
+        end
+      end
 
       route.states.each do |from_state, to_states|
         (to_states || []).each do |to_state|
@@ -257,47 +277,14 @@ module Ellington
           to_viz = to_node.viz.get_node(to_state) if to_node
           to_viz ||= g.viz.get_node(to_state)
 
-          if from_viz && to_viz
-            key = "#{from_state}#{to_state}"
-
-            edges[key] = {
-              :from_viz => from_viz,
-              :to_viz => to_viz
-            }
-
-            if passenger && passenger.state_history_includes?(from_state, to_state)
-              edges.delete key
-
-              highlight_edges[key] = {
-                :from_viz => from_viz,
-                :to_viz => to_viz
-              }
-
-              if last_edge[:to_node] == to_node
-                highlight_edges.delete last_edge[:key]
-              end
-            end
-
-            last_edge = {
-              :key => key,
-              :from_line => from_line,
-              :to_line => to_line,
-              :to_node => to_node
-            }
+          if from_viz && to_viz && !rendered_edges[from_viz.id + to_viz.id]
+            rendered_edges[from_viz.id + to_viz.id] = true
+            edge = g.viz.add_edges(
+              from_viz,
+              to_viz
+            )
+            edge["style"] = EDGE_STYLE_PASSENGER_MISS if passenger
           end
-        end
-      end
-
-      highlight_edges.each do |key, value|
-        edge = g.viz.add_edges(value[:from_viz], value[:to_viz])
-        edge["color"] = EDGE_COLOR_PASSENGER_HIT
-        edge["penwidth"] = EDGE_PENWIDTH_PASSENGER_HIT
-      end
-
-      edges.each do |key, value|
-        edge = g.viz.add_edges(value[:from_viz], value[:to_viz])
-        if passenger
-          edge["style"] = EDGE_STYLE_PASSENGER_MISS
         end
       end
 
