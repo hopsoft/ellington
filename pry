@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby --
 
 require_relative "lib/ellington"
+require_relative "examples/math_trick/loader"
 require_relative "examples/social_media/loader"
 require "pry"
 Pry.start

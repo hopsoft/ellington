@@ -40,10 +40,11 @@ module Ellington
         (@subclasses ||= []) << subclass
       end
 
-      def generate_graphs(dir)
+      def generate_graphs(dir, options={})
+        options[:format] ||= :svg
         FileUtils.mkdir_p(dir)
         @subclasses.each do |subclass|
-          Ellington::Visualizer.new(subclass.new, dir).graph
+          Ellington::Visualizer.new(subclass.new, dir, options[:format]).graph_all(options[:passenger])
         end
       end
 
@@ -122,6 +123,7 @@ module Ellington
             log route_info
           end
           Ellington.logger.info "\n" if Ellington.logger
+          binding.pry
         end
 
         required_connections.each do |connection|

@@ -16,3 +16,4 @@ test/version_tmp
 tmp
 *.key
 *.pdf
+graphs
