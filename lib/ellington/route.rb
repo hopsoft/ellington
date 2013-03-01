@@ -44,7 +44,7 @@ module Ellington
         options[:format] ||= :svg
         FileUtils.mkdir_p(dir)
         @subclasses.each do |subclass|
-          Ellington::Visualizer.new(subclass.new, dir, options[:format]).graph_all(options[:passenger])
+          Ellington::Visualizer.new(subclass.new, dir, options[:format]).graph_all
         end
       end
 
