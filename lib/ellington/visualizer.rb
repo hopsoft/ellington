@@ -90,11 +90,29 @@ module Ellington
             station_node.viz["color"] = NODE_COLOR_ROUTE_GOAL
             station_node.viz["fillcolor"] = NODE_COLOR_ROUTE_GOAL
           end
+
+          if passenger && !(passenger.state_history & station.states.keys).empty?
+            station_node.viz["color"] = NODE_COLOR_PASSENGER_HIT
+            station_node.viz["penwidth"] = NODE_PENWIDTH_PASSENGER_HIT
+          end
         end
 
         line_cluster.each_with_index.each do |node, node_index|
           next_node = line_cluster[node_index + 1]
-          line_cluster.viz.add_edges node.viz, next_node.viz if next_node
+          if next_node
+            station = node.base
+            next_station = next_node.base
+            edge = line_cluster.viz.add_edges(node.viz, next_node.viz)
+            if passenger 
+              if !(passenger.state_history & station.states.keys).empty? &&
+                !(passenger.state_history & next_station.states.keys).empty?
+                edge["color"] = EDGE_COLOR_PASSENGER_HIT
+                edge["penwidth"] = EDGE_PENWIDTH_PASSENGER_HIT
+              else
+                edge["style"] = EDGE_STYLE_PASSENGER_MISS
+              end
+            end
+          end
         end
       end
 
