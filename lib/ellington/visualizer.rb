@@ -197,7 +197,7 @@ module Ellington
 
       route.connections.each do |connection|
         to_node = g.find(connection.line)
-        from_line = to_node.base
+        to_line = to_node.base
 
         combos = {}
         g.to_a.each do |node|
@@ -210,10 +210,10 @@ module Ellington
         if connection.type == :if_any
           combos.each do |state, nodes|
             nodes.each do |node|
-              to_line = node.base
+              from_line = node.base
               g.viz.add_edges(
-                node.viz.get_node("#{to_line.class.name}#{state}"),
-                to_node.viz.get_node("#{from_line.class.name}PASS"),
+                node.viz.get_node("#{from_line.class.name}#{state}"),
+                to_node.viz.get_node("#{to_line.class.name}PASS"),
                 "lhead" => to_node.viz.id
               )
             end
