@@ -80,6 +80,16 @@ module Ellington
         line.stations.each do |station|
           station_node = Node.new(station, line_cluster.viz.add_nodes(station.class.name))
           line_cluster << station_node
+
+          if !(line.goal & station.states.keys).empty?
+            station_node.viz["color"] = NODE_COLOR_LINE_GOAL
+            station_node.viz["fillcolor"] = NODE_COLOR_LINE_GOAL
+          end
+
+          if !(route.goal & station.states.keys).empty?
+            station_node.viz["color"] = NODE_COLOR_ROUTE_GOAL
+            station_node.viz["fillcolor"] = NODE_COLOR_ROUTE_GOAL
+          end
         end
 
         line_cluster.each_with_index.each do |node, node_index|
@@ -144,6 +154,7 @@ module Ellington
     def graph_route_basic(passenger=nil)
       g = Node.new(nil, GraphViz.new("GraphRouteBasic"))
       set_graph_defaults g.viz
+      g.viz["ranksep"] = 1
       g.viz["label"] = "#{route.name} Route - basic"
 
       route.lines.each_with_index do |line, index|
@@ -154,8 +165,13 @@ module Ellington
 
         %w{PASS FAIL ERROR}.each do |state|
           state_node = Node.new(state, line_cluster.viz.add_nodes("#{line.class.name}#{state}", "label" => state))
+          if !(line.goal & line.stations.map{ |s| "#{state} #{s.name}" }).empty?
+            state_node.viz["color"] = NODE_COLOR_LINE_GOAL
+            state_node.viz["fillcolor"] = NODE_COLOR_LINE_GOAL
+          end
           if !(route.goal & line.stations.map{ |s| "#{state} #{s.name}" }).empty?
             state_node.viz["color"] = NODE_COLOR_ROUTE_GOAL
+            state_node.viz["fillcolor"] = NODE_COLOR_ROUTE_GOAL
           end
           line_cluster << state_node
         end
