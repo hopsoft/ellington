@@ -181,17 +181,29 @@ module Ellington
         line_cluster.viz["label"] = line.class.name
         g << line_cluster
 
+        passenger_hit = false
         %w{PASS FAIL ERROR}.each do |state|
           state_node = Node.new(state, line_cluster.viz.add_nodes("#{line.class.name}#{state}", "label" => state))
-          if !(line.goal & line.stations.map{ |s| "#{state} #{s.name}" }).empty?
+          line_cluster << state_node
+          states = line.stations.map{ |s| "#{state} #{s.name}" }
+
+          if !(line.goal & states).empty?
             state_node.viz["color"] = NODE_COLOR_LINE_GOAL
             state_node.viz["fillcolor"] = NODE_COLOR_LINE_GOAL
           end
-          if !(route.goal & line.stations.map{ |s| "#{state} #{s.name}" }).empty?
+
+          if !(route.goal & states).empty?
             state_node.viz["color"] = NODE_COLOR_ROUTE_GOAL
             state_node.viz["fillcolor"] = NODE_COLOR_ROUTE_GOAL
           end
-          line_cluster << state_node
+
+          if passenger
+            if !passenger_hit && !(passenger.state_history & line.send("#{state.downcase}ed")).empty?
+              passenger_hit = true
+              state_node.viz["color"] = NODE_COLOR_PASSENGER_HIT
+              state_node.viz["penwidth"] = NODE_PENWIDTH_PASSENGER_HIT
+            end
+          end
         end
       end
 
