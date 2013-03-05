@@ -42,7 +42,7 @@ module Ellington
     NODE_COLOR_VIRTUAL = "gray50"
     NODE_COLOR_LINE_GOAL = "green2"
     NODE_COLOR_ROUTE_GOAL = "gold"
-    NODE_COLOR_PASSENGER_HIT = "green3"
+    NODE_COLOR_PASSENGER_HIT = "royalblue1"
     NODE_FILLCOLOR = "white"
     NODE_FILLCOLOR_LINE_GOAL = "green2"
     NODE_FILLCOLOR_ROUTE_GOAL = "gold"
@@ -52,7 +52,7 @@ module Ellington
     NODE_STYLE_VIRTUAL = "rounded"
     NODE_PENWIDTH_PASSENGER_HIT = 2
     EDGE_PENWIDTH_PASSENGER_HIT = 2
-    EDGE_COLOR_PASSENGER_HIT = "green3"
+    EDGE_COLOR_PASSENGER_HIT = "royalblue1"
     EDGE_STYLE_PASSENGER_MISS = "dotted"
     CLUSTER_STYLE = "filled"
     CLUSTER_COLOR = "gray70"
@@ -104,8 +104,8 @@ module Ellington
             next_station = next_node.base
             edge = line_cluster.viz.add_edges(node.viz, next_node.viz)
             if passenger 
-              if node.viz["color"] == NODE_COLOR_PASSENGER_HIT &&
-                next_node.viz["color"] == NODE_COLOR_PASSENGER_HIT
+              if color_name(node.viz["color"]) == NODE_COLOR_PASSENGER_HIT &&
+                color_name(next_node.viz["color"]) == NODE_COLOR_PASSENGER_HIT
                 edge["color"] = EDGE_COLOR_PASSENGER_HIT
                 edge["penwidth"] = EDGE_PENWIDTH_PASSENGER_HIT
               else
@@ -339,6 +339,10 @@ module Ellington
     end
 
     private
+
+    def color_name(graphviz_color)
+      graphviz_color.to_s.gsub("\"", "")
+    end
 
     def set_graph_defaults(graph)
       graph["compound"] = true
