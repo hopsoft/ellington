@@ -104,8 +104,8 @@ module Ellington
             next_station = next_node.base
             edge = line_cluster.viz.add_edges(node.viz, next_node.viz)
             if passenger 
-              if !(passenger.state_history & station.states.keys).empty? &&
-                !(passenger.state_history & next_station.states.keys).empty?
+              if node.viz["color"] == NODE_COLOR_PASSENGER_HIT &&
+                next_node.viz["color"] == NODE_COLOR_PASSENGER_HIT
                 edge["color"] = EDGE_COLOR_PASSENGER_HIT
                 edge["penwidth"] = EDGE_PENWIDTH_PASSENGER_HIT
               else
