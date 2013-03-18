@@ -1,5 +1,6 @@
 require "delegate"
 require "fileutils"
+require "observer"
 
 module Ellington
   class Route < SimpleDelegator
@@ -33,6 +34,7 @@ module Ellington
     end
 
     class << self
+      include Observable
       include HasTargets
       attr_reader :initialized
 
@@ -121,9 +123,10 @@ module Ellington
         if required_connections.empty?
           if passed.satisfied?(route_info.passenger) || failed.satisfied?(route_info.passenger)
             log route_info
+            changed
+            notify_observers route_info
           end
           Ellington.logger.info "\n" if Ellington.logger
-          binding.pry
         end
 
         required_connections.each do |connection|
