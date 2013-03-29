@@ -1,5 +1,6 @@
 require "delegate"
 require "fileutils"
+require "observer"
 
 module Ellington
   class Route < SimpleDelegator
@@ -33,6 +34,7 @@ module Ellington
     end
 
     class << self
+      include Observable
       include HasTargets
       attr_reader :initialized
 
@@ -40,10 +42,11 @@ module Ellington
         (@subclasses ||= []) << subclass
       end
 
-      def generate_graphs(dir)
+      def generate_graphs(dir, options={})
+        options[:format] ||= :svg
         FileUtils.mkdir_p(dir)
         @subclasses.each do |subclass|
-          Ellington::Visualizer.new(subclass.new, dir).graph
+          Ellington::Visualizer.new(subclass.new, dir, options[:format]).graph_all
         end
       end
 
@@ -120,6 +123,8 @@ module Ellington
         if required_connections.empty?
           if passed.satisfied?(route_info.passenger) || failed.satisfied?(route_info.passenger)
             log route_info
+            changed
+            notify_observers route_info
           end
           Ellington.logger.info "\n" if Ellington.logger
         end

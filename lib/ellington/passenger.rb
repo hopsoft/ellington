@@ -43,6 +43,10 @@ module Ellington
       @state_history ||= []
     end
 
+    def state_history_includes?(*states)
+      (state_history & states).length == states.length
+    end
+
     def transition_to(new_state)
       if !locked?
         message = "Cannot transition an unlocked #{self.class.name}'s state"
