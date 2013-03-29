@@ -1,0 +1,1 @@
+class FirstWreck; end
