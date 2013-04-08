@@ -38,12 +38,12 @@ You might want to [spike a solution](http://en.wikipedia.org/wiki/Software_proto
 
 ## Run the demo
 
-```sh
+```
 git clone git://github.com/hopsoft/ellington.git
 cd ellington
 bundle
 bundle exec ruby examples/social_media/demo.rb
 ```
 
-Review the demo code [here](https://github.com/hopsoft/ellington/tree/master/examples/social_media).
+Review the demo project [here](https://github.com/hopsoft/ellington/tree/master/examples/social_media).
 
