@@ -36,3 +36,14 @@ We've found that using consistent and cohesive physical metaphors helps people r
 **Note:** *We recommend Ellington for projects where a good understanding of the problem domain has been established.
 You might want to [spike a solution](http://en.wikipedia.org/wiki/Software_prototyping) to learn your project's requirements before using Ellington.*
 
+## Run the demo
+
+```sh
+git clone git://github.com/hopsoft/ellington.git
+cd ellington
+bundle
+bundle exec ruby examples/social_media/demo.rb
+```
+
+Review the demo code [here](https://github.com/hopsoft/ellington/tree/master/examples/social_media).
+
