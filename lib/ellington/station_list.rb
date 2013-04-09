@@ -17,6 +17,10 @@ module Ellington
     end
     alias_method :<<, :push
 
+    def add(station)
+      push(station).last
+    end
+
     protected 
 
     attr_reader :inner_list
