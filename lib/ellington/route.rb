@@ -1,6 +1,7 @@
 require "delegate"
 require "fileutils"
 require "observer"
+require_relative "has_targets"
 
 module Ellington
   class Route < SimpleDelegator
