@@ -5,6 +5,7 @@ gem "state_jacket", "~> 0.0.9"
 gem "ruby-graphviz", "~> 1.0.8", :require => "graphviz"
 
 group :test do
+  gem "rake"
   gem "micro_test"
   gem "micro_mock"
 end
