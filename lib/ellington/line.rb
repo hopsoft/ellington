@@ -1,5 +1,6 @@
 require "forwardable"
 require "observer"
+require_relative "has_targets"
 
 module Ellington
   class Line
