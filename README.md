@@ -1,6 +1,6 @@
 # Ellington
 
-![Build Status](https://travis-ci.org/hopsoft/ellington.png)
+[![Build Status](https://travis-ci.org/hopsoft/ellington.png)](https://travis-ci.org/hopsoft/ellington)
 
 Named after [Duke Ellington](http://www.dukeellington.com/) whose signature tune was ["Take the 'A' Train"](http://en.wikipedia.org/wiki/Take_the_%22A%22_Train).
 The song was written about [New York City's A train](http://en.wikipedia.org/wiki/A_%28New_York_City_Subway_service%29).
