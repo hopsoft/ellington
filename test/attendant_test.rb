@@ -13,10 +13,6 @@ class AttendantTest < MicroTest::Test
     @passenger.add_observer @attendant
   end
 
-  test "fail" do
-    assert false
-  end
-
   test "passenger transition is captured" do
     @passenger.transition_to @station.passed
     assert @attendant.passenger_transitions.length == 1
