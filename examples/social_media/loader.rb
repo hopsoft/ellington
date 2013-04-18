@@ -5,6 +5,7 @@ require_relative "../../lib/ellington"
 end
 
 %w{
+  mock_station_helper
   bill_credit_card
   can_post
   can_tweet

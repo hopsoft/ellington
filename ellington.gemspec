@@ -15,8 +15,8 @@ Gem::Specification.new do |gem|
   gem.test_files    = Dir["test/**/*.rb"]
   gem.require_paths = ["lib"]
 
-  gem.add_dependency "hero", "~> 0.1.8"
-  gem.add_dependency "state_jacket", "~> 0.0.7"
+  gem.add_dependency "hero", "~> 0.1.9"
+  gem.add_dependency "state_jacket", "~> 0.1.0"
   gem.add_dependency "ruby-graphviz", "~> 1.0.8"
 
   gem.add_development_dependency "rake"
