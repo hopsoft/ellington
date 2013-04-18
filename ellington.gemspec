@@ -1,7 +1,5 @@
 # -*- encoding: utf-8 -*-
-lib = File.expand_path("../lib", __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "ellington/version"
+require File.join(File.dirname(__FILE__), "lib", "ellington", "version")
 
 Gem::Specification.new do |gem|
   gem.name          = "ellington"
@@ -10,16 +8,14 @@ Gem::Specification.new do |gem|
   gem.authors       = ["Nathan Hopkins"]
   gem.email         = ["natehop@gmail.com"]
   gem.homepage      = "https://github.com/hopsoft/ellington"
-  gem.summary       = "An embeddable framework to ensure your projects are easy to manage, develop, & maintain."
-  gem.description   = %Q{
-    A micro framework to ensure your projects are easy to manage, develop, & maintain.
-  }
+  gem.summary       = "An framework to ensure your projects are easy to manage, develop, & maintain."
+  gem.description   = "An framework to ensure your projects are easy to manage, develop, & maintain."
 
   gem.files         = Dir["lib/**/*.rb", "[A-Z]*"]
   gem.test_files    = Dir["test/**/*.rb"]
   gem.require_paths = ["lib"]
 
-  gem.add_dependency "hero", "~> 0.1.7"
+  gem.add_dependency "hero", "~> 0.1.8"
   gem.add_dependency "state_jacket", "~> 0.0.7"
   gem.add_dependency "ruby-graphviz", "~> 1.0.8"
 
@@ -31,5 +27,4 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "pry"
   gem.add_development_dependency "pry-stack_explorer"
   gem.add_development_dependency "pry-exception_explorer"
-
 end
