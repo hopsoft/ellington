@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.authors       = ["Nathan Hopkins"]
   gem.email         = ["natehop@gmail.com"]
   gem.homepage      = "https://github.com/hopsoft/ellington"
-  gem.summary       = "An framework to ensure your projects are easy to manage, develop, & maintain."
-  gem.description   = "An framework to ensure your projects are easy to manage, develop, & maintain."
+  gem.summary       = "An opinionated framework for modeling complex business processes."
+  gem.description   = "An opinionated framework for modeling complex business processes."
 
   gem.files         = Dir["lib/**/*.rb", "[A-Z]*"]
   gem.test_files    = Dir["test/**/*.rb"]
