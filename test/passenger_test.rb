@@ -56,7 +56,7 @@ class PassengerTest < MicroTest::Test
     watcher = MicroMock.make.new
     watcher.attrs(:info)
     watcher.def(:update) do |info|
-      self.info = info 
+      self.info = info
     end
 
     @passenger.add_observer(watcher)
@@ -67,7 +67,7 @@ class PassengerTest < MicroTest::Test
 
     assert watcher.info.passenger == @passenger
     assert watcher.info.old_state == "PRE BasicMath"
-    assert watcher.info.new_state == "PASS Add10::Addition"
+    assert watcher.info.new_state == "PASS Addition Add10"
   end
 
   test "state_history" do
@@ -76,7 +76,7 @@ class PassengerTest < MicroTest::Test
     @passenger.transition_to @route.lines[0].states.keys.first
     @passenger.transition_to @route.lines[2].states.keys.first
     @passenger.unlock
-    assert @passenger.state_history == ["PASS Add10::Addition", "PASS MultiplyBy10::Multiplication"]
+    assert @passenger.state_history == ["PASS Addition Add10", "PASS Multiplication MultiplyBy10"]
   end
 
 end

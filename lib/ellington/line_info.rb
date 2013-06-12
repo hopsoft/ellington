@@ -11,7 +11,7 @@ module Ellington
     end
 
     def station_full_name
-      @station_full_name ||= "#{station.class.name}::#{line.class.name}::#{line.route.name}"
+      @station_full_name ||= "#{line.route.name} #{line.class.name} #{station.class.name}"
     end
 
     def log_message(options={})

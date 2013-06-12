@@ -10,7 +10,7 @@ module Ellington
     def_delegators :line, :route
 
     def name
-      @name ||= "#{self.class.name}::#{line_class.name}"
+      @name ||= "#{line_class.name} #{self.class.name}"
     end
 
     def state_name(state)
@@ -41,7 +41,7 @@ module Ellington
     end
 
     def can_engage?(passenger, options={})
-      passenger.locked? && 
+      passenger.locked? &&
         route.states.can_transition?(passenger.current_state => states.keys)
     end
 
@@ -79,7 +79,7 @@ module Ellington
       case passenger.current_state
       when passed then "PASS"
       when failed then "FAIL"
-      when errored then "ERROR" 
+      when errored then "ERROR"
       end
     end
 

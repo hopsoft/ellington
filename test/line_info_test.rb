@@ -38,7 +38,7 @@ class LineInfoTest < MicroTest::Test
   end
 
   test "station_full_name" do
-    assert @line_info.station_full_name == "Add10::Addition::BasicMath"
+    assert @line_info.station_full_name == "BasicMath Addition Add10"
   end
 
   test "log_message" do
@@ -47,31 +47,31 @@ class LineInfoTest < MicroTest::Test
 
   test "log_message with station_completed pass" do
     @passenger.current_state = @station.passed
-    expected = "[STATION COMPLETED] [PASS] [Add10::Addition::BasicMath] [original_value:0] [current_value:0]"
+    expected = "[STATION COMPLETED] [PASS] [BasicMath Addition Add10] [original_value:0] [current_value:0]"
     assert @line_info.log_message(:station_completed => true) == expected
   end
 
   test "log_message with station_completed fail" do
     @passenger.current_state = @station.failed
-    expected = "[STATION COMPLETED] [FAIL] [Add10::Addition::BasicMath] [original_value:0] [current_value:0]"
+    expected = "[STATION COMPLETED] [FAIL] [BasicMath Addition Add10] [original_value:0] [current_value:0]"
     assert @line_info.log_message(:station_completed => true) == expected
   end
 
   test "log_message with station_completed error" do
     @passenger.current_state = @station.errored
-    expected = "[STATION COMPLETED] [ERROR] [Add10::Addition::BasicMath] [original_value:0] [current_value:0]"
+    expected = "[STATION COMPLETED] [ERROR] [BasicMath Addition Add10] [original_value:0] [current_value:0]"
     assert @line_info.log_message(:station_completed => true) == expected
   end
 
   test "log_message with line_completed pass" do
     @passenger.current_state = @line.stations.last.passed
-    expected = "[LINE COMPLETED] [PASS] [Addition::BasicMath] [original_value:0] [current_value:0]"
+    expected = "[LINE COMPLETED] [PASS] [BasicMath Addition] [original_value:0] [current_value:0]"
     assert @line_info.log_message(:line_completed => true) == expected
   end
 
   test "log_message with line_completed fail" do
     @passenger.current_state = @line.stations.last.failed
-    expected = "[LINE COMPLETED] [FAIL] [Addition::BasicMath] [original_value:0] [current_value:0]"
+    expected = "[LINE COMPLETED] [FAIL] [BasicMath Addition] [original_value:0] [current_value:0]"
     assert @line_info.log_message(:line_completed => true) == expected
   end
 

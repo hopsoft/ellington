@@ -48,7 +48,7 @@ class RouteInfoTest < MicroTest::Test
   end
 
   test "station_full_name" do
-    assert @route_info.station_full_name == "Add10::Addition::BasicMath"
+    assert @route_info.station_full_name == "BasicMath Addition Add10"
   end
 
   test "log_message route pass" do

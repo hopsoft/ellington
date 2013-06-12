@@ -72,8 +72,8 @@ class RouteTest < MicroTest::Test
 
   test "passed" do
     assert @route.passed == [
-      "PASS DivideBy1000::Division", 
-      "PASS MultiplyBy1000::Multiplication"
+      "PASS Division DivideBy1000",
+      "PASS Multiplication MultiplyBy1000"
     ]
   end
 
@@ -85,22 +85,22 @@ class RouteTest < MicroTest::Test
   test "failed" do
     assert @route.failed == [
       "PRE BasicMath",
-      "PASS Add10::Addition",
-      "FAIL Add10::Addition",
-      "PASS Add100::Addition",
-      "FAIL Add100::Addition",
-      "PASS Add1000::Addition",
-      "FAIL Add1000::Addition",
-      "PASS DivideBy10::Division",
-      "FAIL DivideBy10::Division",
-      "PASS DivideBy100::Division",
-      "FAIL DivideBy100::Division",
-      "FAIL DivideBy1000::Division",
-      "PASS MultiplyBy10::Multiplication",
-      "FAIL MultiplyBy10::Multiplication",
-      "PASS MultiplyBy100::Multiplication",
-      "FAIL MultiplyBy100::Multiplication",
-      "FAIL MultiplyBy1000::Multiplication"
+      "PASS Addition Add10",
+      "FAIL Addition Add10",
+      "PASS Addition Add100",
+      "FAIL Addition Add100",
+      "PASS Addition Add1000",
+      "FAIL Addition Add1000",
+      "PASS Division DivideBy10",
+      "FAIL Division DivideBy10",
+      "PASS Division DivideBy100",
+      "FAIL Division DivideBy100",
+      "FAIL Division DivideBy1000",
+      "PASS Multiplication MultiplyBy10",
+      "FAIL Multiplication MultiplyBy10",
+      "PASS Multiplication MultiplyBy100",
+      "FAIL Multiplication MultiplyBy100",
+      "FAIL Multiplication MultiplyBy1000"
     ]
   end
 
@@ -111,21 +111,27 @@ class RouteTest < MicroTest::Test
 
   test "errored" do
     assert @route.errored == [
-      "ERROR Add10::Addition",
-      "ERROR Add100::Addition",
-      "ERROR Add1000::Addition",
-      "ERROR DivideBy10::Division",
-      "ERROR DivideBy100::Division",
-      "ERROR DivideBy1000::Division",
-      "ERROR MultiplyBy10::Multiplication",
-      "ERROR MultiplyBy100::Multiplication",
-      "ERROR MultiplyBy1000::Multiplication"
+      "ERROR Addition Add10",
+      "ERROR Addition Add100",
+      "ERROR Addition Add1000",
+      "ERROR Division DivideBy10",
+      "ERROR Division DivideBy100",
+      "ERROR Division DivideBy1000",
+      "ERROR Multiplication MultiplyBy10",
+      "ERROR Multiplication MultiplyBy100",
+      "ERROR Multiplication MultiplyBy1000"
     ]
+
   end
 
   test "state error" do
     @passenger.current_state = @route.errored.first
     assert @route.state(@passenger) == "ERROR"
+  end
+
+  test "find line by type" do
+    line = @route.lines.find_by_type(Division)
+    assert line.is_a?(Division)
   end
 
 end

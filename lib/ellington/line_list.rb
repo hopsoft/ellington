@@ -21,6 +21,10 @@ module Ellington
       push(line).last
     end
 
+    def find_by_type(type)
+      find { |entry| entry.is_a? type }
+    end
+
     protected
 
     attr_reader :inner_list

@@ -12,23 +12,23 @@ class StationTest < MicroTest::Test
   end
 
   test "name" do
-    assert @station.name == "Add10::Addition"
+    assert @station.name == "Addition Add10"
   end
 
   test "state_name" do
-    assert @station.state_name(:foo) == "FOO Add10::Addition"
+    assert @station.state_name(:foo) == "FOO Addition Add10"
   end
 
   test "passed" do
-    assert @station.passed == "PASS Add10::Addition"
+    assert @station.passed == "PASS Addition Add10"
   end
 
   test "failed" do
-    assert @station.failed == "FAIL Add10::Addition"
+    assert @station.failed == "FAIL Addition Add10"
   end
 
   test "errored" do
-    assert @station.errored == "ERROR Add10::Addition"
+    assert @station.errored == "ERROR Addition Add10"
   end
 
   test "states keys" do

@@ -59,7 +59,7 @@ class LineTest < MicroTest::Test
 
   test "name" do
     line = @route.lines.first
-    assert line.name == "Addition::BasicMath"
+    assert line.name == "BasicMath Addition"
   end
 
   test "formula" do
@@ -115,7 +115,7 @@ class LineTest < MicroTest::Test
   end
 
   test "passed" do
-    assert @line.passed == ["PASS Add1000::Addition"]
+    assert @line.passed == ["PASS Addition Add1000"]
   end
 
   test "state pass" do
@@ -125,11 +125,11 @@ class LineTest < MicroTest::Test
 
   test "failed" do
     assert @line.failed == [
-      "PASS Add10::Addition",
-      "FAIL Add10::Addition",
-      "PASS Add100::Addition",
-      "FAIL Add100::Addition",
-      "FAIL Add1000::Addition"
+      "PASS Addition Add10",
+      "FAIL Addition Add10",
+      "PASS Addition Add100",
+      "FAIL Addition Add100",
+      "FAIL Addition Add1000"
     ]
   end
 
@@ -140,15 +140,20 @@ class LineTest < MicroTest::Test
 
   test "errored" do
     assert @line.errored == [
-      "ERROR Add10::Addition", 
-      "ERROR Add100::Addition", 
-      "ERROR Add1000::Addition"
+      "ERROR Addition Add10",
+      "ERROR Addition Add100",
+      "ERROR Addition Add1000"
     ]
   end
 
   test "state error" do
     @passenger.current_state = @line.errored.first
     assert @line.state(@passenger) == "ERROR"
+  end
+
+  test "find station by type" do
+    station = @line.stations.find_by_type(Add100)
+    assert station.is_a?(Add100)
   end
 
 end

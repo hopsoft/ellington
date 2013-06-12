@@ -51,7 +51,7 @@ module Ellington
     end
 
     def name
-      @name ||= "#{self.class.name}::#{route_class.name}"
+      @name ||= "#{route_class.name} #{self.class.name}"
     end
 
     def formula
