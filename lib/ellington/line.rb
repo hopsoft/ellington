@@ -42,6 +42,10 @@ module Ellington
       end
     end
 
+    def initial_states
+      stations.first.initial_states
+    end
+
     def board(passenger, options={})
       formula.run passenger, options
     end
