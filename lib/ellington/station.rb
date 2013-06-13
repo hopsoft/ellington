@@ -9,6 +9,12 @@ module Ellington
     attr_accessor :line_class, :line
     def_delegators :line, :route
 
+    def initial_states
+      route.states.keys.select do |state|
+        route.states.can_transition?(state => states.keys)
+      end
+    end
+
     def name
       @name ||= "#{line_class.name} #{self.class.name}"
     end

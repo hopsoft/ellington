@@ -24,7 +24,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "micro_mock"
   gem.add_development_dependency "yell"
   gem.add_development_dependency "awesome_print"
-  gem.add_development_dependency "pry"
   gem.add_development_dependency "pry-stack_explorer"
-  gem.add_development_dependency "pry-exception_explorer"
 end
