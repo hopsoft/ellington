@@ -17,3 +17,5 @@ tmp
 *.key
 *.pdf
 graphs
+.DS_Store
+*.swp

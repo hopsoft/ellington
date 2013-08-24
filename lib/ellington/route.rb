@@ -116,26 +116,29 @@ module Ellington
 
       def line_completed(line_info)
         route_info = Ellington::RouteInfo.new(self, line_info)
-
-        required_connections = connections.select do |connection|
-          connection.required?(route_info.passenger)
-        end
-
-        if required_connections.empty?
-          if passed.satisfied?(route_info.passenger) || failed.satisfied?(route_info.passenger)
-            log route_info
-            changed
-            notify_observers route_info
-          end
-          Ellington.logger.info "\n" if Ellington.logger
-        end
-
-        required_connections.each do |connection|
+        connections = required_connections(route_info.passenger)
+        return complete_route(route_info) if connections.empty?
+        connections.each do |connection|
           connection.line.board route_info.passenger, route_info.options
         end
       end
 
-      private
+      protected
+
+      def complete_route(route_info)
+        if passed.satisfied?(route_info.passenger) || failed.satisfied?(route_info.passenger)
+          log route_info
+          changed
+          notify_observers route_info
+        end
+        Ellington.logger.info "\n" if Ellington.logger
+      end
+
+      def required_connections(passenger)
+        connections.select do |connection|
+          connection.required?(passenger)
+        end
+      end
 
       def log(route_info)
         return unless Ellington.logger
