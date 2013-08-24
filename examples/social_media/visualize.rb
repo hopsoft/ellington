@@ -1,3 +1,6 @@
+# A simple script that illustrates how to generate graphs
+# to visualize an Ellington route.
+
 require "fileutils"
 require_relative "loader"
 
@@ -5,19 +8,17 @@ path = File.expand_path("../visualizations", __FILE__)
 FileUtils.mkdir_p path
 FileUtils.rm_rf File.join(path, "*.svg")
 
-File.open(File.join(path, "route_basic.svg"), "w") do |file|
-  file.write Ellington::Visualizer.new(Blast).graph_route_basic
-end
+viz = Ellington::Visualizer.new(Blast)
 
-File.open(File.join(path, "route.svg"), "w") do |file|
-  file.write Ellington::Visualizer.new(Blast).graph_route
-end
+file_path = File.join(path, "route_basic.svg")
+File.open(file_path, "w") { |f| f.write viz.graph_route_basic }
 
-File.open(File.join(path, "lines_basic.svg"), "w") do |file|
-  file.write Ellington::Visualizer.new(Blast).graph_lines_basic
-end
+file_path = File.join(path, "route.svg")
+File.open(file_path, "w") { |f| f.write viz.graph_route }
 
-File.open(File.join(path, "lines.svg"), "w") do |file|
-  file.write Ellington::Visualizer.new(Blast).graph_lines
-end
+file_path = File.join(path, "lines_basic.svg")
+File.open(file_path, "w") { |f| f.write viz.graph_lines_basic }
+
+file_path = File.join(path, "lines.svg")
+File.open(file_path, "w") { |f| f.write viz.graph_lines }
 

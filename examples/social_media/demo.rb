@@ -7,8 +7,8 @@ end
 #Ellington.logger = Logger.new($stdout)
 
 route = Blast.new
-observer = RouteObserver.new(route)
-conductor = BlastConductor.new(route)
+RouteObserver.new(route)
+conductor = Conductor.new(route)
 conductor.start
 conductor.wait
 

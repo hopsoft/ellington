@@ -1,7 +1,10 @@
+# A conductor for the Blast route.
+# Conductors find passengers elligible to ride the route and then
+# get them started on their journey.
+
 require_relative "user"
 
-# A conductor for the Blast route.
-class BlastConductor < Ellington::Conductor
+class Conductor < Ellington::Conductor
 
   def gather_passengers
     sleep 1 # mock latency

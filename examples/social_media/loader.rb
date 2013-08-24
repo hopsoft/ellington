@@ -1,3 +1,5 @@
+# A script to load all dependencies.
+
 require_relative "../../lib/ellington"
 
 %w(stations lines routes).each do |dir|

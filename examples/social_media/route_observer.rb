@@ -1,3 +1,7 @@
+# An observer that is notified when a passenger completes a route.
+# This implementation graphs the entire route for each passenger showing what
+# path the passenger actually took through the various lines and stations.
+
 require "fileutils"
 
 class RouteObserver
@@ -8,13 +12,13 @@ class RouteObserver
     @route = route
     @visualizer = Ellington::Visualizer.new(route.class)
     @path = File.expand_path("../visualizations/passengers", __FILE__)
+    rm_rf @path
     mkdir_p @path
-    rm_rf File.join(@path, "*")
     route.add_observer self, :route_completed
   end
 
   def route_completed(route_info)
-    #Thread.new do
+    Thread.new do
       path = File.join(@path, route_info.passenger.id)
       mkdir_p path
 
@@ -33,6 +37,6 @@ class RouteObserver
       File.open(File.join(path, "lines.svg"), "w") do |file|
         file.write visualizer.graph_lines(route_info.passenger)
       end
-    #end
+    end
   end
 end
