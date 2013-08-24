@@ -72,28 +72,17 @@ module Ellington
         line.stations.each do |station|
           station_node = Node.new(station, line_cluster.viz.add_nodes(station.class.name))
           line_cluster << station_node
-
-          if !(line.goal & station.states.keys).empty?
-            station_node.viz["color"] = NODE_COLOR_LINE_GOAL
-            station_node.viz["fillcolor"] = NODE_COLOR_LINE_GOAL
-          end
-
-          if !(route.goal & station.states.keys).empty?
-            station_node.viz["color"] = NODE_COLOR_ROUTE_GOAL
-            station_node.viz["fillcolor"] = NODE_COLOR_ROUTE_GOAL
-          end
-
-          if passenger && !(passenger.state_history & station.states.keys).empty?
-            station_node.viz["color"] = NODE_COLOR_PASSENGER_HIT
-            station_node.viz["penwidth"] = NODE_PENWIDTH_PASSENGER_HIT
-          end
+          states = station.states.keys
+          style_node_for_line_goal(station_node, line, *states)
+          style_node_for_route_goal(station_node, route, *states)
+          style_node_for_passenger(station_node, passenger, *states)
         end
 
         line_cluster.each_with_index.each do |node, node_index|
           next_node = line_cluster[node_index + 1]
           if next_node
-            station = node.base
-            next_station = next_node.base
+            #station = node.base
+            #next_station = next_node.base
             edge = line_cluster.viz.add_edges(node.viz, next_node.viz)
             if passenger
               if color_name(node.viz["color"]) == NODE_COLOR_PASSENGER_HIT &&
@@ -124,18 +113,9 @@ module Ellington
 
         line.states.keys.each do |state|
           state_node = Node.new(state, line_cluster.viz.add_nodes(state))
-          if line.goal.include?(state)
-            state_node.viz["color"] = NODE_COLOR_LINE_GOAL
-            state_node.viz["fillcolor"] = NODE_FILLCOLOR_LINE_GOAL
-          end
-          if route.goal.include?(state)
-            state_node.viz["color"] = NODE_COLOR_ROUTE_GOAL
-            state_node.viz["fillcolor"] = NODE_FILLCOLOR_ROUTE_GOAL
-          end
-          if passenger && passenger.state_history_includes?(state)
-            state_node.viz["color"] = NODE_COLOR_PASSENGER_HIT
-            state_node.viz["penwidth"] = NODE_PENWIDTH_PASSENGER_HIT
-          end
+          style_node_for_line_goal(state_node, line, state)
+          style_node_for_route_goal(state_node, route, state)
+          style_node_for_passenger(state_node, passenger, state)
           line_cluster << state_node
         end
 
@@ -176,24 +156,9 @@ module Ellington
           state_node = Node.new(state, line_cluster.viz.add_nodes("#{line.class.name}#{state}", "label" => state))
           line_cluster << state_node
           states = line.stations.map{ |s| "#{state} #{s.name}" }
-
-          if !(line.goal & states).empty?
-            state_node.viz["color"] = NODE_COLOR_LINE_GOAL
-            state_node.viz["fillcolor"] = NODE_COLOR_LINE_GOAL
-          end
-
-          if !(route.goal & states).empty?
-            state_node.viz["color"] = NODE_COLOR_ROUTE_GOAL
-            state_node.viz["fillcolor"] = NODE_COLOR_ROUTE_GOAL
-          end
-
-          if passenger
-            if !passenger_hit && !(passenger.state_history & line.send("#{state.downcase}ed")).empty?
-              passenger_hit = true
-              state_node.viz["color"] = NODE_COLOR_PASSENGER_HIT
-              state_node.viz["penwidth"] = NODE_PENWIDTH_PASSENGER_HIT
-            end
-          end
+          style_node_for_line_goal(state_node, line, *states)
+          style_node_for_route_goal(state_node, route, *states)
+          passenger_hit ||= style_node_for_passenger(state_node, passenger, *line.send("#{state.downcase}ed"))
         end
       end
 
@@ -262,18 +227,9 @@ module Ellington
 
         line.states.keys.each do |state|
           state_node = Node.new(state, line_cluster.viz.add_nodes(state))
-          if line.goal.include?(state)
-            state_node.viz["color"] = NODE_COLOR_LINE_GOAL
-            state_node.viz["fillcolor"] = NODE_FILLCOLOR_LINE_GOAL
-          end
-          if route.goal.include?(state)
-            state_node.viz["color"] = NODE_COLOR_ROUTE_GOAL
-            state_node.viz["fillcolor"] = NODE_FILLCOLOR_ROUTE_GOAL
-          end
-          if passenger && passenger.state_history_includes?(state)
-            state_node.viz["color"] = NODE_COLOR_PASSENGER_HIT
-            state_node.viz["penwidth"] = NODE_PENWIDTH_PASSENGER_HIT
-          end
+          style_node_for_line_goal(state_node, line, state)
+          style_node_for_route_goal(state_node, route, state)
+          style_node_for_passenger(state_node, passenger, state)
           line_cluster << state_node
         end
       end
@@ -326,7 +282,35 @@ module Ellington
       g.viz.output(format => String)
     end
 
-    private
+    protected
+
+    def style_node_for_line_goal(node, line, *states)
+      if !(line.goal & states).empty?
+        node.viz["color"] = NODE_COLOR_LINE_GOAL
+        node.viz["fillcolor"] = NODE_COLOR_LINE_GOAL
+        return true
+      end
+      false
+    end
+
+    def style_node_for_route_goal(node, route, *states)
+      if !(route.goal & states).empty?
+        node.viz["color"] = NODE_COLOR_ROUTE_GOAL
+        node.viz["fillcolor"] = NODE_COLOR_ROUTE_GOAL
+        return true
+      end
+      false
+    end
+
+    def style_node_for_passenger(node, passenger, *states)
+      return false if passenger.nil?
+      if !(passenger.state_history & states).empty?
+        node.viz["color"] = NODE_COLOR_PASSENGER_HIT
+        node.viz["penwidth"] = NODE_PENWIDTH_PASSENGER_HIT
+        return true
+      end
+      false
+    end
 
     def color_name(graphviz_color)
       graphviz_color.to_s.gsub("\"", "")
