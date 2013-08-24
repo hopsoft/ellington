@@ -285,31 +285,25 @@ module Ellington
     protected
 
     def style_node_for_line_goal(node, line, *states)
-      if !(line.goal & states).empty?
-        node.viz["color"] = NODE_COLOR_LINE_GOAL
-        node.viz["fillcolor"] = NODE_COLOR_LINE_GOAL
-        return true
-      end
-      false
+      return false if (line.goal & states).empty?
+      node.viz["color"] = NODE_COLOR_LINE_GOAL
+      node.viz["fillcolor"] = NODE_COLOR_LINE_GOAL
+      true
     end
 
     def style_node_for_route_goal(node, route, *states)
-      if !(route.goal & states).empty?
-        node.viz["color"] = NODE_COLOR_ROUTE_GOAL
-        node.viz["fillcolor"] = NODE_COLOR_ROUTE_GOAL
-        return true
-      end
-      false
+      return false if (route.goal & states).empty?
+      node.viz["color"] = NODE_COLOR_ROUTE_GOAL
+      node.viz["fillcolor"] = NODE_COLOR_ROUTE_GOAL
+      true
     end
 
     def style_node_for_passenger(node, passenger, *states)
       return false if passenger.nil?
-      if !(passenger.state_history & states).empty?
-        node.viz["color"] = NODE_COLOR_PASSENGER_HIT
-        node.viz["penwidth"] = NODE_PENWIDTH_PASSENGER_HIT
-        return true
-      end
-      false
+      return false if (passenger.state_history & states).empty?
+      node.viz["color"] = NODE_COLOR_PASSENGER_HIT
+      node.viz["penwidth"] = NODE_PENWIDTH_PASSENGER_HIT
+      true
     end
 
     def color_name(graphviz_color)
