@@ -43,14 +43,6 @@ module Ellington
         (@subclasses ||= []) << subclass
       end
 
-      def generate_graphs(dir, options={})
-        options[:format] ||= :svg
-        FileUtils.mkdir_p(dir)
-        @subclasses.each do |subclass|
-          Ellington::Visualizer.new(subclass.new, dir, options[:format]).graph_all
-        end
-      end
-
       def initialized?
         @initialized
       end

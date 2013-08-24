@@ -28,11 +28,10 @@ module Ellington
       end
     end
 
-    attr_reader :route, :dir, :format
+    attr_reader :route, :format
 
-    def initialize(route, dir, format=:svg)
+    def initialize(route, format=:svg)
       @route = route
-      @dir = dir
       @format = format
     end
 
@@ -58,13 +57,6 @@ module Ellington
     CLUSTER_COLOR = "gray70"
     CLUSTER_FILLCOLOR = "gray70"
     CLUSTER_PENCOLOR = "gray50"
-
-    def graph_all(passenger=nil)
-      graph_route_basic passenger
-      graph_route passenger
-      graph_lines_basic passenger
-      graph_lines passenger
-    end
 
     def graph_lines_basic(passenger=nil)
       g = Node.new(nil, GraphViz.new("GraphLinesBasic"))
@@ -103,7 +95,7 @@ module Ellington
             station = node.base
             next_station = next_node.base
             edge = line_cluster.viz.add_edges(node.viz, next_node.viz)
-            if passenger 
+            if passenger
               if color_name(node.viz["color"]) == NODE_COLOR_PASSENGER_HIT &&
                 color_name(next_node.viz["color"]) == NODE_COLOR_PASSENGER_HIT
                 edge["color"] = EDGE_COLOR_PASSENGER_HIT
@@ -116,8 +108,7 @@ module Ellington
         end
       end
 
-      file_name = "#{route.name.downcase.gsub("::", "_")}-lines-basic.#{format}"
-      g.viz.output(format => File.join(dir, file_name))
+      g.viz.output(format => String)
     end
 
     def graph_lines(passenger=nil)
@@ -153,7 +144,7 @@ module Ellington
           (transitions || []).each do |transition|
             b = line_cluster.find(transition)
             edge = line_cluster.viz.add_edges(a.viz, b.viz)
-            if passenger 
+            if passenger
               if passenger.state_history_includes?(state, transition)
                 edge["color"] = EDGE_COLOR_PASSENGER_HIT
                 edge["penwidth"] = EDGE_PENWIDTH_PASSENGER_HIT
@@ -165,8 +156,7 @@ module Ellington
         end
       end
 
-      file_name = "#{route.name.downcase.gsub("::", "_")}-lines.#{format}"
-      g.viz.output(format => File.join(dir, file_name))
+      g.viz.output(format => String)
     end
 
     def graph_route_basic(passenger=nil)
@@ -255,8 +245,7 @@ module Ellington
         end
       end
 
-      file_name = "#{route.name.downcase.gsub("::", "_")}-route-basic.#{format}"
-      g.viz.output(format => File.join(dir, file_name))
+      g.viz.output(format => String)
     end
 
     def graph_route(passenger=nil)
@@ -293,8 +282,8 @@ module Ellington
       rendered_edges = {}
 
       if passenger
-        passenger_nodes = g.reduce([]) do |memo, line_cluster| 
-          line_cluster.children.each do |node| 
+        passenger_nodes = g.reduce([]) do |memo, line_cluster|
+          line_cluster.children.each do |node|
             if node.viz["color"].to_s.gsub(/\W/, "") == NODE_COLOR_PASSENGER_HIT
               memo << node
             end
@@ -334,8 +323,7 @@ module Ellington
         end
       end
 
-      file_name = "#{route.name.downcase.gsub("::", "_")}-route.#{format}"
-      g.viz.output(format => File.join(dir, file_name))
+      g.viz.output(format => String)
     end
 
     private
