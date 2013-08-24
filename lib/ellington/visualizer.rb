@@ -76,8 +76,8 @@ module Ellington
         line.stations.each do |station|
           states = station.states.keys
           station_node = line_cluster.add(Node.new(station, line_cluster.viz.add_nodes(station.class.name)))
-          style_node_for_line_goal(station_node, line, *states)
-          style_node_for_route_goal(station_node, route, *states)
+          style_node_for_line(station_node, line, *states)
+          style_node_for_route(station_node, route, *states)
           style_node_for_passenger(station_node, passenger, *states)
         end
 
@@ -115,8 +115,8 @@ module Ellington
 
         line.states.keys.each do |state|
           state_node = line_cluster.add(Node.new(state, line_cluster.viz.add_nodes(state)))
-          style_node_for_line_goal(state_node, line, state)
-          style_node_for_route_goal(state_node, route, state)
+          style_node_for_line(state_node, line, state)
+          style_node_for_route(state_node, route, state)
           style_node_for_passenger(state_node, passenger, state)
         end
 
@@ -155,8 +155,8 @@ module Ellington
         %w{PASS FAIL ERROR}.each do |state|
           state_node = line_cluster.add(Node.new(state, line_cluster.viz.add_nodes("#{line.class.name}#{state}", "label" => state)))
           states = line.stations.map{ |s| "#{state} #{s.name}" }
-          style_node_for_line_goal(state_node, line, *states)
-          style_node_for_route_goal(state_node, route, *states)
+          style_node_for_line(state_node, line, *states)
+          style_node_for_route(state_node, route, *states)
           passenger_hit ||= style_node_for_passenger(state_node, passenger, *line.send("#{state.downcase}ed"))
         end
       end
@@ -225,8 +225,8 @@ module Ellington
 
         line.states.keys.each do |state|
           state_node = line_cluster.add(Node.new(state, line_cluster.viz.add_nodes(state)))
-          style_node_for_line_goal(state_node, line, state)
-          style_node_for_route_goal(state_node, route, state)
+          style_node_for_line(state_node, line, state)
+          style_node_for_route(state_node, route, state)
           style_node_for_passenger(state_node, passenger, state)
         end
       end
@@ -281,18 +281,20 @@ module Ellington
 
     protected
 
-    def style_node_for_line_goal(node, line, *states)
-      return false if (line.goal & states).empty?
-      node.viz["color"] = NODE_COLOR_LINE_GOAL
-      node.viz["fillcolor"] = NODE_COLOR_LINE_GOAL
+    def style_node(node, color)
+      node.viz["color"] = color
+      node.viz["fillcolor"] = color
       true
     end
 
-    def style_node_for_route_goal(node, route, *states)
+    def style_node_for_line(node, line, *states)
+      return false if (line.goal & states).empty?
+      style_node node, NODE_COLOR_LINE_GOAL
+    end
+
+    def style_node_for_route(node, route, *states)
       return false if (route.goal & states).empty?
-      node.viz["color"] = NODE_COLOR_ROUTE_GOAL
-      node.viz["fillcolor"] = NODE_COLOR_ROUTE_GOAL
-      true
+      style_node node, NODE_COLOR_ROUTE_GOAL
     end
 
     def style_node_for_passenger(node, passenger, *states)
