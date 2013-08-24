@@ -18,3 +18,4 @@ tmp
 *.pdf
 .DS_Store
 *.swp
+**/visualizations/passengers

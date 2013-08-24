@@ -1,6 +1,9 @@
+require "fileutils"
 require_relative "loader"
 
 path = File.expand_path("../visualizations", __FILE__)
+FileUtils.mkdir_p path
+FileUtils.rm_rf File.join(path, "*.svg")
 
 File.open(File.join(path, "route_basic.svg"), "w") do |file|
   file.write Ellington::Visualizer.new(Blast).graph_route_basic
