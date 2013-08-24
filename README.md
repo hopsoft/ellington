@@ -29,7 +29,7 @@ We've found that using consistent and cohesive physical metaphors helps people r
 
 ## Lexicon
 
-- **[Conductor](https://github.com/hopsoft/ellington/wiki/Conductor)** - A supervisor responsible for gathering `passengers` and putting them on a `route`.
+- **[Conductor](https://github.com/hopsoft/ellington/wiki/Conductor)** - A supervisor responsible for putting `passengers` on a `route`.
 - **[Passenger](https://github.com/hopsoft/ellington/wiki/Passenger)** - The stateful context that will be riding the virtual subway.
 - **[Route](https://github.com/hopsoft/ellington/wiki/Route)** - A collection of `lines` and their `connections`.
 - **[Line](https://github.com/hopsoft/ellington/wiki/Line)** - A linear track that moves the `passenger` from point A to point B.

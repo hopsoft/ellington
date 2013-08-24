@@ -17,21 +17,26 @@ Ellington.logger = Yell.new do |logger|
   logger.adapter STDOUT, :level => [:info], :format => "%m"
 end
 
-class MathTrickConductor < Ellington::Conductor
+route = MathTrick.new
+conductor = Ellington::Conductor.new(route)
 
-  def gather_passengers
-    sleep 1 # wait a bit between batches
-    (0..10).map do
-      passenger = Ellington::Passenger.new(rand(1000), route)
-      passenger.current_state = route.initial_state
-      passenger.lock
-      passenger
-    end
+while true
+  sleep 1 # mock latency
+
+  (0..10).map do
+    # a number will serve as passenger
+    number = rand(1000)
+
+    # turn the number into a passenger
+    # this is akin to putting a travel suit on
+    passenger = Ellington::Passenger.new(number, route)
+
+    # prepare the passenger for travel
+    passenger.current_state = route.initial_state
+    passenger.lock
+
+    # put the passenger on the train
+    conductor.conduct passenger
   end
-
 end
-
-conductor = MathTrickConductor.new(MathTrick.new)
-conductor.start
-conductor.wait
 

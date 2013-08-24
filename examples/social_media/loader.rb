@@ -25,5 +25,5 @@ end
   blast
 }.each { |file| require file }
 
-require_relative "conductor"
-require_relative "route_observer"
+require_relative "blast_observer"
+require_relative "user"
