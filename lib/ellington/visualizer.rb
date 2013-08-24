@@ -15,6 +15,11 @@ module Ellington
         super children
       end
 
+      def add(node)
+        self << node
+        node
+      end
+
       def name
         viz.id
       end
@@ -64,15 +69,13 @@ module Ellington
       g.viz["label"] = "#{route.name} Lines - basic"
 
       route.lines.each_with_index do |line, index|
-        line_cluster = Node.new(line, g.viz.add_graph("cluster#{index}"))
+        line_cluster = g.add(Node.new(line, g.viz.add_graph("cluster#{index}")))
         set_cluster_defaults line_cluster.viz
         line_cluster.viz["label"] = line.class.name
-        g << line_cluster
 
         line.stations.each do |station|
-          station_node = Node.new(station, line_cluster.viz.add_nodes(station.class.name))
-          line_cluster << station_node
           states = station.states.keys
+          station_node = line_cluster.add(Node.new(station, line_cluster.viz.add_nodes(station.class.name)))
           style_node_for_line_goal(station_node, line, *states)
           style_node_for_route_goal(station_node, route, *states)
           style_node_for_passenger(station_node, passenger, *states)
@@ -106,17 +109,15 @@ module Ellington
       g.viz["label"] = "#{route.name} Lines"
 
       route.lines.each_with_index do |line, index|
-        line_cluster = Node.new(line, g.viz.add_graph("cluster#{index}"))
+        line_cluster = g.add(Node.new(line, g.viz.add_graph("cluster#{index}")))
         set_cluster_defaults line_cluster.viz
         line_cluster.viz["label"] = line.class.name
-        g << line_cluster
 
         line.states.keys.each do |state|
-          state_node = Node.new(state, line_cluster.viz.add_nodes(state))
+          state_node = line_cluster.add(Node.new(state, line_cluster.viz.add_nodes(state)))
           style_node_for_line_goal(state_node, line, state)
           style_node_for_route_goal(state_node, route, state)
           style_node_for_passenger(state_node, passenger, state)
-          line_cluster << state_node
         end
 
         line.states.each do |state, transitions|
@@ -146,15 +147,13 @@ module Ellington
       g.viz["label"] = "#{route.name} Route - basic"
 
       route.lines.each_with_index do |line, index|
-        line_cluster = Node.new(line, g.viz.add_graph("cluster#{index}"))
+        line_cluster = g.add(Node.new(line, g.viz.add_graph("cluster#{index}")))
         set_cluster_defaults line_cluster.viz
         line_cluster.viz["label"] = line.class.name
-        g << line_cluster
 
         passenger_hit = false
         %w{PASS FAIL ERROR}.each do |state|
-          state_node = Node.new(state, line_cluster.viz.add_nodes("#{line.class.name}#{state}", "label" => state))
-          line_cluster << state_node
+          state_node = line_cluster.add(Node.new(state, line_cluster.viz.add_nodes("#{line.class.name}#{state}", "label" => state)))
           states = line.stations.map{ |s| "#{state} #{s.name}" }
           style_node_for_line_goal(state_node, line, *states)
           style_node_for_route_goal(state_node, route, *states)
@@ -220,17 +219,15 @@ module Ellington
       g.viz["ranksep"] = 0.8
 
       route.lines.each_with_index do |line, index|
-        line_cluster = Node.new(line, g.viz.add_graph("cluster#{index}"))
+        line_cluster = g.add(Node.new(line, g.viz.add_graph("cluster#{index}")))
         set_cluster_defaults line_cluster.viz
         line_cluster.viz["label"] = line.class.name
-        g << line_cluster
 
         line.states.keys.each do |state|
-          state_node = Node.new(state, line_cluster.viz.add_nodes(state))
+          state_node = line_cluster.add(Node.new(state, line_cluster.viz.add_nodes(state)))
           style_node_for_line_goal(state_node, line, state)
           style_node_for_route_goal(state_node, route, state)
           style_node_for_passenger(state_node, passenger, state)
-          line_cluster << state_node
         end
       end
 
