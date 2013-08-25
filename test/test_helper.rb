@@ -11,6 +11,6 @@ SimpleCov.start do
 end
 Coveralls.wear!
 
-require_relative "example"
 require_relative "../lib/ellington"
+require_relative "example"
 
