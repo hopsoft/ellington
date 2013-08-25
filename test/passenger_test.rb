@@ -8,6 +8,17 @@ class PassengerTest < MicroTest::Test
     @passenger = Ellington::Passenger.new(@number, @route)
   end
 
+  test "construct with ticket option" do
+    ticket = Ellington::Ticket.new
+    passenger = Ellington::Passenger.new(@number, @route, :ticket => ticket)
+    assert passenger.ticket == ticket
+  end
+
+  test "construct with state_history option" do
+    passenger = Ellington::Passenger.new(@number, @route, :state_history => [:foo, :bar])
+    assert passenger.state_history == [:foo, :bar]
+  end
+
   test "lock" do
     @passenger.lock
     assert @passenger.locked?

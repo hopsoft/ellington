@@ -89,6 +89,11 @@ class StationTest < MicroTest::Test
     assert !@station.can_engage?(@passenger)
   end
 
+  test "can_engage? returns false if the passed state exists in state_history" do
+    @passenger.current_state = @station.passed
+    assert !@station.can_engage?(@passenger)
+  end
+
   test "engage" do
     @passenger.current_state = @route.initial_state
     @station.engage(@passenger, nil)

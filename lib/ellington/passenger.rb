@@ -4,13 +4,13 @@ module Ellington
   class Passenger < SimpleDelegator
     include Observable
     attr_accessor :context, :ticket
-    attr_reader :route
+    attr_reader :route, :state_history
 
-    def initialize(context, route, ticket=nil)
-      ticket ||= Ellington::Ticket.new
+    def initialize(context, route, options={})
       @context = context
       @route = route
-      @ticket = ticket
+      @ticket = options[:ticket] || Ellington::Ticket.new
+      @state_history = options[:state_history] || []
       super context
     end
 
@@ -39,10 +39,6 @@ module Ellington
       @current_state = value
     end
 
-    def state_history
-      @state_history ||= []
-    end
-
     def state_history_includes?(*states)
       (state_history & states).length == states.length
     end
@@ -61,7 +57,7 @@ module Ellington
       old_state = current_state
 
       if context.respond_to?(:transition_to)
-        return_value = context.transition_to(new_state) 
+        return_value = context.transition_to(new_state)
       else
         self.current_state = new_state
       end
