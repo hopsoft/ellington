@@ -273,7 +273,7 @@ module Ellington
       line.states.keys.each do |state|
         node = cluster.add(Node.new(state, cluster.viz.add_nodes(state)))
         style_node_for_line(node, line, state)
-        style_node_for_route(node, line.route, state)
+        style_node_for_route(node, route, state)
         style_node_for_passenger(node, passenger, state)
       end
     end
