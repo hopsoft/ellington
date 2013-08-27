@@ -13,7 +13,7 @@ module Ellington
     end
 
     def conduct(passenger)
-      return unless verify(passenger) && passenger.locked?
+      return unless verify(passenger)
       route.lines.first.board passenger
     end
   end

@@ -7,7 +7,6 @@ class ConductorTest < MicroTest::Test
     @conductor = Ellington::Conductor.new(@route)
     @passenger = Ellington::Passenger.new(NumberWithHistory.new(0), @route)
     @passenger.current_state = @route.initial_state
-    @passenger.lock
   end
 
   test "verify" do
@@ -23,12 +22,6 @@ class ConductorTest < MicroTest::Test
     def @conductor.verify(passenger)
       false
     end
-    @conductor.conduct(@passenger)
-    assert @passenger.current_state == @route.initial_state
-  end
-
-  test "escort prevented when passenger is not locked" do
-    @passenger.unlock
     @conductor.conduct(@passenger)
     assert @passenger.current_state == @route.initial_state
   end

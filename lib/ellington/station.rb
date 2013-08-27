@@ -47,7 +47,6 @@ module Ellington
     end
 
     def can_engage?(passenger, options={})
-      return false unless passenger.locked?
       return false unless route.states.can_transition?(passenger.current_state => states.keys)
       return false if passenger.state_history_includes?(passed)
       true

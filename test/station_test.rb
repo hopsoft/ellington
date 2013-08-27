@@ -8,7 +8,6 @@ class StationTest < MicroTest::Test
     @station = @line.stations.first
     @passenger = Ellington::Passenger.new(NumberWithHistory.new(0), @route)
     @passenger.current_state = @route.initial_state
-    @passenger.lock
   end
 
   test "name" do

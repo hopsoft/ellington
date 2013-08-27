@@ -19,41 +19,15 @@ class PassengerTest < MicroTest::Test
     assert passenger.state_history == [:foo, :bar]
   end
 
-  test "lock" do
-    @passenger.lock
-    assert @passenger.locked?
-  end
-
-  test "unlock" do
-    @passenger.lock
-    @passenger.unlock
-    assert !@passenger.locked?
-  end
-
-  test "transition_to fails when unlocked" do
-    error = nil
-    begin
-      @passenger.current_state = @route.initial_state
-      @passenger.transition_to @route.lines.first.states.keys.first
-    rescue Ellington::InvalidStateTransition => e
-      error = e
-    end
-    assert !error.nil?
-    assert error.message == "Cannot transition an unlocked Ellington::Passenger's state"
-  end
-
   test "transition_to valid state" do
-    @passenger.lock
     @passenger.current_state = @route.initial_state
     @passenger.transition_to @route.lines.first.states.keys.first
-    @passenger.unlock
     assert @passenger.current_state == @route.lines.first.states.keys.first
   end
 
   test "transition_to invalid state" do
     error = nil
     begin
-      @passenger.lock
       @passenger.current_state = :error
       @passenger.transition_to :happy
     rescue Ellington::InvalidStateTransition => e
@@ -71,10 +45,8 @@ class PassengerTest < MicroTest::Test
     end
 
     @passenger.add_observer(watcher)
-    @passenger.lock
     @passenger.current_state = @route.initial_state
     @passenger.transition_to @route.lines.first.states.keys.first
-    @passenger.unlock
 
     assert watcher.info.passenger == @passenger
     assert watcher.info.old_state == "PRE BasicMath"
@@ -82,11 +54,9 @@ class PassengerTest < MicroTest::Test
   end
 
   test "state_history" do
-    @passenger.lock
     @passenger.current_state = @route.initial_state
     @passenger.transition_to @route.lines[0].states.keys.first
     @passenger.transition_to @route.lines[2].states.keys.first
-    @passenger.unlock
     assert @passenger.state_history == ["PASS Addition Add10", "PASS Multiplication MultiplyBy10"]
   end
 

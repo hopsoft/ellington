@@ -33,7 +33,6 @@ while true
 
     # prepare the passenger for travel
     passenger.current_state = route.initial_state
-    passenger.lock
 
     # put the passenger on the train
     conductor.conduct passenger

@@ -24,7 +24,6 @@ while true
 
     # Prepare the passenger for riding.
     passenger.current_state = route.initial_state
-    passenger.lock
 
     conductor.conduct passenger
   end
