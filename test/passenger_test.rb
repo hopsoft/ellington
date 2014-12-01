@@ -1,6 +1,6 @@
 require_relative "test_helper"
 
-class PassengerTest < MicroTest::Test
+class PassengerTest < PryTest::Test
 
   before do
     @route = BasicMath.new
@@ -38,9 +38,9 @@ class PassengerTest < MicroTest::Test
   end
 
   test "observers are notified on transition" do
-    watcher = MicroMock.make.new
+    watcher = Spoof.make.new
     watcher.attrs(:info)
-    watcher.def(:update) do |info|
+    watcher.method(:update) do |info|
       self.info = info
     end
 

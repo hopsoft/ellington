@@ -1,7 +1,7 @@
 require_relative "test_helper"
 require "logger"
 
-class LoggerTest < MicroTest::Test
+class LoggerTest < PryTest::Test
 
   before do
     @orig_logger = Ellington.logger

@@ -1,7 +1,7 @@
 require_relative "test_helper"
 require "digest"
 
-class TicketTest < MicroTest::Test
+class TicketTest < PryTest::Test
 
   before do
     @route = BasicMath.new

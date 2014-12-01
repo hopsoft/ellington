@@ -1,6 +1,6 @@
 require_relative "test_helper"
 
-class UniqueTypeArrayTest < MicroTest::Test
+class UniqueTypeArrayTest < PryTest::Test
 
   before do
     @list = Ellington::UniqueTypeArray.new

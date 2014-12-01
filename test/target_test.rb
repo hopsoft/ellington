@@ -1,6 +1,6 @@
 require_relative "test_helper"
 
-class TargetTest < MicroTest::Test
+class TargetTest < PryTest::Test
 
   before do
     @number = NumberWithHistory.new(0)

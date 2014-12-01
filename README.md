@@ -1,10 +1,11 @@
-# Ellington
+[![Lines of Code](http://img.shields.io/badge/lines_of_code-932-brightgreen.svg?style=flat)](http://blog.codinghorror.com/the-best-code-is-no-code-at-all/)
+[![Code Status](http://img.shields.io/codeclimate/github/hopsoft/ellington.svg?style=flat)](https://codeclimate.com/github/hopsoft/ellington)
+[![Dependency Status](http://img.shields.io/gemnasium/hopsoft/ellington.svg?style=flat)](https://gemnasium.com/hopsoft/ellington)
+[![Build Status](http://img.shields.io/travis/hopsoft/ellington.svg?style=flat)](https://travis-ci.org/hopsoft/ellington)
+[![Coverage Status](https://img.shields.io/coveralls/hopsoft/ellington.svg?style=flat)](https://coveralls.io/r/hopsoft/ellington?branch=master)
+[![Downloads](http://img.shields.io/gem/dt/ellington.svg?style=flat)](http://rubygems.org/gems/ellington)
 
-[![Build Status](https://travis-ci.org/hopsoft/ellington.png)](https://travis-ci.org/hopsoft/ellington)
-[![Dependency Status](https://gemnasium.com/hopsoft/ellington.png)](https://gemnasium.com/hopsoft/ellington)
-[![Code Climate](https://codeclimate.com/github/hopsoft/ellington.png)](https://codeclimate.com/github/hopsoft/ellington)
-[![Coverage Status](https://coveralls.io/repos/hopsoft/ellington/badge.png?branch=master)](https://coveralls.io/r/hopsoft/ellington?branch=master)
-![Pair with me on this project](https://s3.amazonaws.com/hopsoftllc/github-images/pair-with-me-badge.png)
+# Ellington
 
 Named after [Duke Ellington](http://www.dukeellington.com/) whose signature tune was ["Take the 'A' Train"](http://en.wikipedia.org/wiki/Take_the_%22A%22_Train).
 The song was written about [New York City's A train](http://en.wikipedia.org/wiki/A_%28New_York_City_Subway_service%29).
@@ -13,7 +14,7 @@ The song was written about [New York City's A train](http://en.wikipedia.org/wik
 
 #### Ellington is an architecture for modeling complex business processes.
 
-Ellington is a collection of simple concepts designed to bring discipline, organization, and modularity to a project.
+Ellington brings discipline, organization, and modularity to a project.
 
 The nomenclature is taken from [New York's subway system](http://en.wikipedia.org/wiki/New_York_City_Subway).
 We've found that using consistent and cohesive physical metaphors helps people reason more clearly about the complexities of software.

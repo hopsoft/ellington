@@ -1,6 +1,6 @@
 require_relative "test_helper"
 
-class StationTest < MicroTest::Test
+class StationTest < PryTest::Test
 
   before do
     @route = BasicMath.new
@@ -100,9 +100,9 @@ class StationTest < MicroTest::Test
   end
 
   test "observers are notified after a station completes" do
-    observer = MicroMock.make.new
+    observer = Spoof.make.new
     observer.attr :callbacks, []
-    observer.def :update do |info|
+    observer.method :update do |info|
       callbacks << info
     end
     @station.add_observer observer

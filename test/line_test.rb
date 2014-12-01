@@ -1,6 +1,6 @@
 require_relative "test_helper"
 
-class LineTest < MicroTest::Test
+class LineTest < PryTest::Test
 
   before do
     @route = BasicMath.new
