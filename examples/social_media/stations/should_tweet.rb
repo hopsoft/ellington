@@ -1,9 +1,10 @@
 class ShouldTweet < Ellington::Station
 
   def engage(user)
-    # TODO: Apply business rules to determine if a tweet should be sent.
-    # For example, no tweets about Justin Beiber should ever be made if the user is over 13.
-    MockStationHelper.new(self).mock_engage(user)
+    # Add some fakery so it feels like its working.
+    i = rand(100)
+    raise "Number is 0" if i == 0
+    i > 5
   end
 
 end

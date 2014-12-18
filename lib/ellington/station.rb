@@ -56,11 +56,24 @@ module Ellington
       raise Ellington::NotImplementedError
     end
 
+    def engage_and_transition(passenger)
+      begin
+        if !!engage(passenger)
+          pass_passenger passenger
+        else
+          fail_passenger passenger
+        end
+      rescue StandardError => e
+        Ellington.logger.error "Failure while engaging passenger! #{e}" if Ellington.logger
+        error_passenger passenger
+      end
+    end
+
     def call(passenger, _=nil)
       if can_engage?(passenger)
         attendant = Ellington::Attendant.new(self)
         passenger.add_observer attendant
-        engage passenger
+        engage_and_transition passenger
         passenger.delete_observer attendant
         raise Ellington::AttendantDisapproves unless attendant.approve?
         changed
