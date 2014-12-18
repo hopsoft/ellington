@@ -33,11 +33,12 @@ module Ellington
       end
     end
 
-    attr_reader :route, :format
+    attr_reader :route, :format, :short_names
 
-    def initialize(route, format=:svg)
+    def initialize(route, format: :svg, short_names: true)
       @route = route
       @format = format
+      @short_names = short_names
     end
 
     FONTNAME = "Helvetica"
@@ -63,19 +64,31 @@ module Ellington
     CLUSTER_FILLCOLOR = "gray70"
     CLUSTER_PENCOLOR = "gray50"
 
+    def class_label(obj)
+      klass = obj
+      klass = klass.class unless klass.is_a?(Class)
+      return klass.name unless short_names
+      klass.name.split("::").last
+    end
+
+    def state_label(state)
+      return state unless short_names
+      state.split(" ").map { |part| part.split("::").last }.join(" | ")
+    end
+
     def graph_lines_basic(passenger=nil)
       g = Node.new(nil, GraphViz.new("GraphLinesBasic"))
       set_graph_defaults g.viz
-      g.viz["label"] = "#{route.name} Lines - basic"
+      g.viz[:label] = "#{class_label(route)} Lines - basic"
 
       route.lines.each_with_index do |line, index|
         line_cluster = g.add(Node.new(line, g.viz.add_graph("cluster#{index}")))
         set_cluster_defaults line_cluster.viz
-        line_cluster.viz["label"] = line.class.name
+        line_cluster.viz[:label] = class_label(line)
 
         line.stations.each do |station|
           states = station.states.keys
-          station_node = line_cluster.add(Node.new(station, line_cluster.viz.add_nodes(station.class.name)))
+          station_node = line_cluster.add(Node.new(station, line_cluster.viz.add_nodes(class_label(station))))
           style_node_for_line(station_node, line, *states)
           style_node_for_route(station_node, route, *states)
           style_node_for_passenger(station_node, passenger, *states)
@@ -88,8 +101,8 @@ module Ellington
             #next_station = next_node.base
             edge = line_cluster.viz.add_edges(node.viz, next_node.viz)
             if passenger
-              if color_name(node.viz["color"]) == NODE_COLOR_PASSENGER_HIT &&
-                color_name(next_node.viz["color"]) == NODE_COLOR_PASSENGER_HIT
+              if color_name(node.viz[:color]) == NODE_COLOR_PASSENGER_HIT &&
+                color_name(next_node.viz[:color]) == NODE_COLOR_PASSENGER_HIT
                 edge["color"] = EDGE_COLOR_PASSENGER_HIT
                 edge["penwidth"] = EDGE_PENWIDTH_PASSENGER_HIT
               else
@@ -106,12 +119,12 @@ module Ellington
     def graph_lines(passenger=nil)
       g = Node.new(nil, GraphViz.new("GraphLines"))
       set_graph_defaults g.viz
-      g.viz["label"] = "#{route.name} Lines"
+      g.viz[:label] = "#{class_label(route)} Lines"
 
       route.lines.each_with_index do |line, index|
         line_cluster = g.add(Node.new(line, g.viz.add_graph("cluster#{index}")))
         set_cluster_defaults line_cluster.viz
-        line_cluster.viz["label"] = line.class.name
+        line_cluster.viz[:label] = class_label(line)
         add_state_nodes_for_line line_cluster, line, passenger
 
         line.states.each do |state, transitions|
@@ -137,18 +150,18 @@ module Ellington
     def graph_route_basic(passenger=nil)
       g = Node.new(nil, GraphViz.new("GraphRouteBasic"))
       set_graph_defaults g.viz
-      g.viz["ranksep"] = 1
-      g.viz["label"] = "#{route.name} Route - basic"
+      g.viz[:ranksep] = 1
+      g.viz[:label] = "#{class_label(route)} Route - basic"
 
       route.lines.each_with_index do |line, index|
         line_cluster = g.add(Node.new(line, g.viz.add_graph("cluster#{index}")))
         set_cluster_defaults line_cluster.viz
-        line_cluster.viz["label"] = line.class.name
+        line_cluster.viz[:label] = class_label(line)
 
         passenger_hit = false
         %w{PASS FAIL ERROR}.each do |state|
           state_node = line_cluster.add(Node.new(state, line_cluster.viz.add_nodes("#{line.class.name}#{state}", "label" => state)))
-          states = line.stations.map{ |s| "#{state} #{s.name}" }
+          states = line.stations.map{ |s| "#{state} #{class_label(s)}" }
           style_node_for_line(state_node, line, *states)
           style_node_for_route(state_node, route, *states)
           passenger_hit ||= style_node_for_passenger(state_node, passenger, *line.send("#{state.downcase}ed"))
@@ -183,11 +196,11 @@ module Ellington
         if connection.type == :if_all
           combos.each do |state, nodes|
             node_name = nodes.map{ |n| n.base.class.name }.join + state
-            node_label = nodes.map{ |n| "#{n.base.class.name} #{state}"}.join("\n")
-            viz = g.viz.add_nodes(node_name, "label" => node_label)
-            viz["style"] = NODE_STYLE_VIRTUAL
-            viz["color"] = NODE_COLOR_VIRTUAL
-            viz["fontcolor"] = NODE_FONTCOLOR_VIRTUAL
+            node_label = nodes.map{ |n| state_label(state) }.join("\n")
+            viz = g.viz.add_nodes(node_name, :label => node_label)
+            viz[:style] = NODE_STYLE_VIRTUAL
+            viz[:color] = NODE_COLOR_VIRTUAL
+            viz[:fontcolor] = NODE_FONTCOLOR_VIRTUAL
 
             nodes.each do |node|
               from_viz = node.viz.get_node("#{node.base.class.name}#{state}")
@@ -209,23 +222,23 @@ module Ellington
     def graph_route(passenger=nil)
       g = Node.new(nil, GraphViz.new("GraphRoute"))
       set_graph_defaults g.viz
-      g.viz["label"] = "#{route.name} Lines"
-      g.viz["ranksep"] = 0.8
+      g.viz[:label] = "#{class_label(route)} Lines"
+      g.viz[:ranksep] = 0.8
 
       route.lines.each_with_index do |line, index|
         line_cluster = g.add(Node.new(line, g.viz.add_graph("cluster#{index}")))
         set_cluster_defaults line_cluster.viz
-        line_cluster.viz["label"] = line.class.name
+        line_cluster.viz[:label] = class_label(line)
         add_state_nodes_for_line line_cluster, line, passenger
       end
 
-      viz = g.viz.add_nodes(route.initial_state)
+      viz = g.viz.add_nodes(route.initial_state, :label => state_label(route.initial_state))
       rendered_edges = {}
 
       if passenger
         passenger_nodes = g.reduce([]) do |memo, line_cluster|
           line_cluster.children.each do |node|
-            if node.viz["color"].to_s.gsub(/\W/, "") == NODE_COLOR_PASSENGER_HIT
+            if node.viz[:color].to_s.gsub(/\W/, "") == NODE_COLOR_PASSENGER_HIT
               memo << node
             end
           end
@@ -271,7 +284,7 @@ module Ellington
 
     def add_state_nodes_for_line(cluster, line, passenger)
       line.states.keys.each do |state|
-        node = cluster.add(Node.new(state, cluster.viz.add_nodes(state)))
+        node = cluster.add(Node.new(state, cluster.viz.add_nodes(state, :label => state_label(state))))
         style_node_for_line(node, line, state)
         style_node_for_route(node, route, state)
         style_node_for_passenger(node, passenger, state)
@@ -279,8 +292,8 @@ module Ellington
     end
 
     def style_node(node, color)
-      node.viz["color"] = color
-      node.viz["fillcolor"] = color
+      node.viz[:color] = color
+      node.viz[:fillcolor] = color
       true
     end
 
@@ -297,8 +310,8 @@ module Ellington
     def style_node_for_passenger(node, passenger, *states)
       return false if passenger.nil?
       return false if (passenger.state_history & states).empty?
-      node.viz["color"] = NODE_COLOR_PASSENGER_HIT
-      node.viz["penwidth"] = NODE_PENWIDTH_PASSENGER_HIT
+      node.viz[:color] = NODE_COLOR_PASSENGER_HIT
+      node.viz[:penwidth] = NODE_PENWIDTH_PASSENGER_HIT
       true
     end
 
