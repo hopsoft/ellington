@@ -19,7 +19,7 @@ end
 
 # stations -----------------------------------------------------------------
 class Add10 < Ellington::Station
-  def engage(number, options)
+  def engage(number)
     raise if rand(100) == 0
     if rand(100) > 5
       number.calc :+, 10
@@ -33,7 +33,7 @@ class Add10 < Ellington::Station
 end
 
 class Add100 < Ellington::Station
-  def engage(number, options)
+  def engage(number)
     raise if rand(100) == 0
     if rand(100) > 5
       number.calc :+, 100
@@ -47,7 +47,7 @@ class Add100 < Ellington::Station
 end
 
 class Add1000 < Ellington::Station
-  def engage(number, options)
+  def engage(number)
     raise if rand(100) == 0
     if rand(100) > 5
       number.calc :+, 1000
@@ -61,7 +61,7 @@ class Add1000 < Ellington::Station
 end
 
 class MultiplyBy10 < Ellington::Station
-  def engage(number, options)
+  def engage(number)
     raise if rand(100) == 0
     if rand(100) > 5
       number.calc :*, 10
@@ -75,7 +75,7 @@ class MultiplyBy10 < Ellington::Station
 end
 
 class MultiplyBy100 < Ellington::Station
-  def engage(number, options)
+  def engage(number)
     raise if rand(100) == 0
     if rand(100) > 5
       number.calc :*, 100
@@ -89,7 +89,7 @@ class MultiplyBy100 < Ellington::Station
 end
 
 class MultiplyBy1000 < Ellington::Station
-  def engage(number, options)
+  def engage(number)
     raise if rand(100) == 0
     if rand(100) > 5
       number.calc :*, 1000
@@ -103,7 +103,7 @@ class MultiplyBy1000 < Ellington::Station
 end
 
 class DivideBy10 < Ellington::Station
-  def engage(number, options)
+  def engage(number)
     raise if rand(100) == 0
     if rand(100) > 5
       number.calc :/, 10.0
@@ -117,7 +117,7 @@ class DivideBy10 < Ellington::Station
 end
 
 class DivideBy100 < Ellington::Station
-  def engage(number, options)
+  def engage(number)
     raise if rand(100) == 0
     if rand(100) > 5
       number.calc :/, 100.0
@@ -131,7 +131,7 @@ class DivideBy100 < Ellington::Station
 end
 
 class DivideBy1000 < Ellington::Station
-  def engage(number, options)
+  def engage(number)
     raise if rand(100) == 0
     if rand(100) > 5
       number.calc :/, 1000.0

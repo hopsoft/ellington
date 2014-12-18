@@ -47,8 +47,8 @@ module Ellington
         @initialized
       end
 
-      def board(passenger, options={})
-        lines.first.board passenger, options
+      def board(passenger)
+        lines.first.board passenger
       end
 
       def lines
@@ -111,7 +111,7 @@ module Ellington
         connections = required_connections(route_info.passenger)
         return complete_route(route_info) if connections.empty?
         connections.each do |connection|
-          connection.line.board route_info.passenger, route_info.options
+          connection.line.board route_info.passenger
         end
       end
 

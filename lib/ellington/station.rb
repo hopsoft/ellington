@@ -46,25 +46,25 @@ module Ellington
       end
     end
 
-    def can_engage?(passenger, options={})
+    def can_engage?(passenger)
       return false unless route.states.can_transition?(passenger.current_state => states.keys)
       return false if passenger.state_history_includes?(passed)
       true
     end
 
-    def engage(passenger, options={})
+    def engage(passenger)
       raise Ellington::NotImplementedError
     end
 
-    def call(passenger, options={})
+    def call(passenger, _=nil)
       if can_engage?(passenger)
         attendant = Ellington::Attendant.new(self)
         passenger.add_observer attendant
-        engage passenger, options
+        engage passenger
         passenger.delete_observer attendant
         raise Ellington::AttendantDisapproves unless attendant.approve?
         changed
-        notify_observers Ellington::StationInfo.new(self, passenger, attendant.passenger_transitions.first, options)
+        notify_observers Ellington::StationInfo.new(self, passenger, attendant.passenger_transitions.first)
       end
 
       passenger

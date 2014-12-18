@@ -46,8 +46,8 @@ module Ellington
       stations.first.initial_states
     end
 
-    def board(passenger, options={})
-      formula.run passenger, options
+    def board(passenger)
+      formula.run passenger
     end
 
     def boarded?(passenger)

@@ -95,7 +95,7 @@ class StationTest < PryTest::Test
 
   test "engage" do
     @passenger.current_state = @route.initial_state
-    @station.engage(@passenger, nil)
+    @station.engage @passenger
     assert @passenger.current_state != @route.initial_state
   end
 

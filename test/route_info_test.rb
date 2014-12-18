@@ -8,9 +8,8 @@ class RouteInfoTest < PryTest::Test
     @station = @line.stations.first
     @passenger = Ellington::Passenger.new(NumberWithHistory.new(0), @route)
     @passenger.current_state = @route.lines.last.passed.first
-    @options = { :foo => :bar }
     @transition_info = Ellington::TransitionInfo.new(@passenger, @route.initial_state, @station.passed)
-    @station_info = Ellington::StationInfo.new(@station, @passenger, @transition_info, @options)
+    @station_info = Ellington::StationInfo.new(@station, @passenger, @transition_info)
     @line_info = Ellington::LineInfo.new(@line, @station_info)
     @route_info = Ellington::RouteInfo.new(@route, @line_info)
   end
@@ -41,10 +40,6 @@ class RouteInfoTest < PryTest::Test
 
   test "transition" do
     assert @route_info.transition == @transition_info
-  end
-
-  test "options" do
-    assert @route_info.options == @options
   end
 
   test "station_full_name" do

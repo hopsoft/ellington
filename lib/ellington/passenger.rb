@@ -6,11 +6,11 @@ module Ellington
     attr_accessor :context, :ticket
     attr_reader :route, :state_history
 
-    def initialize(context, route, options={})
+    def initialize(context, route, ticket: Ellington::Ticket.new, state_history: [])
       @context = context
       @route = route
-      @ticket = options[:ticket] || Ellington::Ticket.new
-      @state_history = options[:state_history] || []
+      @ticket = ticket
+      @state_history = state_history
       super context
     end
 
