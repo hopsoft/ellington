@@ -1,4 +1,4 @@
-[![Lines of Code](http://img.shields.io/badge/lines_of_code-932-brightgreen.svg?style=flat)](http://blog.codinghorror.com/the-best-code-is-no-code-at-all/)
+[![Lines of Code](http://img.shields.io/badge/lines_of_code-946-brightgreen.svg?style=flat)](http://blog.codinghorror.com/the-best-code-is-no-code-at-all/)
 [![Code Status](http://img.shields.io/codeclimate/github/hopsoft/ellington.svg?style=flat)](https://codeclimate.com/github/hopsoft/ellington)
 [![Dependency Status](http://img.shields.io/gemnasium/hopsoft/ellington.svg?style=flat)](https://gemnasium.com/hopsoft/ellington)
 [![Build Status](http://img.shields.io/travis/hopsoft/ellington.svg?style=flat)](https://travis-ci.org/hopsoft/ellington)
@@ -6,6 +6,15 @@
 [![Downloads](http://img.shields.io/gem/dt/ellington.svg?style=flat)](http://rubygems.org/gems/ellington)
 
 # Ellington
+
+---
+
+## The wiki docs are out of date!
+
+You'll have to review the examples & code itself for now.
+I'll be working to bring the wiki docs current soon.
+
+---
 
 Named after [Duke Ellington](http://www.dukeellington.com/) whose signature tune was ["Take the 'A' Train"](http://en.wikipedia.org/wiki/Take_the_%22A%22_Train).
 The song was written about [New York City's A train](http://en.wikipedia.org/wiki/A_%28New_York_City_Subway_service%29).
