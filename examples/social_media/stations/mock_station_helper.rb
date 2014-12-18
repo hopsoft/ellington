@@ -5,7 +5,7 @@ class MockStationHelper
     @station = station
   end
 
-  def mock_engage(user, options)
+  def mock_engage(user)
     # Add some fakery so it feels like its working.
     begin
       raise if rand(100) == 0
