@@ -94,21 +94,21 @@ module Ellington
           return complete_line(line_info)
       end
 
-      log line_info, :station_completed => true
+      log line_info.station_completed_message # TODO: add *passenger_attrs
     end
 
     protected
 
     def complete_line(line_info)
-      log line_info, :station_completed => true
-      log line_info, :line_completed => true
+      log line_info.station_completed_message # TODO: add *passenger_attrs
+      log line_info.line_completed_message # TODO: add *passenger_attrs
       changed
       notify_observers line_info
     end
 
-    def log(line_info, options={})
+    def log(message)
       return unless Ellington.logger
-      Ellington.logger.info line_info.log_message(options)
+      Ellington.logger.info message
     end
 
   end

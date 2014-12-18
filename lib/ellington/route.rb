@@ -92,18 +92,17 @@ module Ellington
         @connections ||= Ellington::ConnectionList.new
       end
 
-      def connect_to(line, options)
-        type = options.keys.first
-        states = options[type]
-        connections << Ellington::Connection.new(line, type, states)
+      def connect_to(line, if_any: [], if_all: [])
+        connections << Ellington::Connection.new(line, :if_any, if_any) unless if_any.empty?
+        connections << Ellington::Connection.new(line, :if_all, if_all) unless if_all.empty?
       end
 
-      def log_options(options={})
-        @log_options ||= begin
-          options[:passenger] ||= []
-          options[:options] ||= []
-          options
-        end
+      def passenger_attrs_to_log
+        @passenger_attrs_to_log ||= []
+      end
+
+      def set_passenger_attrs_to_log(*attrs)
+        @passenger_attrs_to_log = attrs
       end
 
       def line_completed(line_info)
@@ -119,7 +118,7 @@ module Ellington
 
       def complete_route(route_info)
         if passed.satisfied?(route_info.passenger) || failed.satisfied?(route_info.passenger)
-          log route_info
+          log route_info.route_completed_message
           changed
           notify_observers route_info
         end
@@ -131,9 +130,9 @@ module Ellington
         end
       end
 
-      def log(route_info)
+      def log(message)
         return unless Ellington.logger
-        Ellington.logger.info route_info.log_message
+        Ellington.logger.info message
       end
 
     end

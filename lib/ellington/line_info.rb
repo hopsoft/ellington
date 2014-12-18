@@ -14,25 +14,29 @@ module Ellington
       @station_full_name ||= "#{line.route.name} #{line.class.name} #{station.class.name}"
     end
 
-    def log_message(options={})
+    def station_completed_message
       message = []
-      if options[:line_completed]
-        message << "[LINE COMPLETED]"
-        message << "[#{line.state(passenger)}]"
-        message << "[#{line.name}]"
-      end
-      if options[:station_completed]
-        message << "[STATION COMPLETED]"
-        message << "[#{station.state(passenger)}]"
-        message << "[#{station_full_name}]"
-      end
-      line.route.log_options[:passenger].each do |attr|
-        message << "[#{attr}:#{passenger.send(attr)}]"
-      end
-      line.route.log_options[:options].each do |attr|
-        message << "[#{attr}:#{self.options[attr]}]"
-      end
+      message << "[STATION COMPLETED]"
+      message << "[#{station.state(passenger)}]"
+      message << "[#{station_full_name}]"
+      message.concat passenger_message
       message.join " "
     end
+
+    def line_completed_message
+      message = []
+      message << "[LINE COMPLETED]"
+      message << "[#{line.state(passenger)}]"
+      message << "[#{line.name}]"
+      message.concat passenger_message
+      message.join " "
+    end
+
+    def passenger_message
+      line.route.passenger_attrs_to_log.map do |attr|
+        "[#{attr}:#{passenger.send(attr)}]"
+      end
+    end
+
   end
 end

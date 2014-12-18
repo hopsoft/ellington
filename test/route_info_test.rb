@@ -46,13 +46,13 @@ class RouteInfoTest < PryTest::Test
     assert @route_info.station_full_name == "BasicMath Addition Add10"
   end
 
-  test "log_message route pass" do
-    assert @route_info.log_message == "[ROUTE COMPLETED] [PASS] [BasicMath] [original_value:0] [current_value:0]"
+  test "route_completed_message route pass" do
+    assert @route_info.route_completed_message == "[ROUTE COMPLETED] [PASS] [BasicMath] [original_value:0] [current_value:0]"
   end
 
-  test "log_message route fail" do
+  test "route_completed_message route fail" do
     @passenger.current_state = @station.failed
-    assert @route_info.log_message == "[ROUTE COMPLETED] [FAIL] [BasicMath] [original_value:0] [current_value:0]"
+    assert @route_info.route_completed_message == "[ROUTE COMPLETED] [FAIL] [BasicMath] [original_value:0] [current_value:0]"
   end
 
 end

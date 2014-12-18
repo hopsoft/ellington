@@ -10,18 +10,19 @@ module Ellington
       super line_info
     end
 
-    def log_message(options={})
+    def route_completed_message
       message = []
       message << "[ROUTE COMPLETED]"
       message << "[#{route.state(passenger)}]"
       message << "[#{route.name}]"
-      route.log_options[:passenger].each do |attr|
-        message << "[#{attr}:#{passenger.send(attr)}]"
-      end
-      route.log_options[:options].each do |attr|
-        message << "[#{attr}:#{self.options[attr]}]"
-      end
+      message.concat passenger_message
       message.join " "
+    end
+
+    def passenger_message
+      route.passenger_attrs_to_log.map do |attr|
+        "[#{attr}:#{passenger.send(attr)}]"
+      end
     end
   end
 end
