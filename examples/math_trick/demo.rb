@@ -14,15 +14,17 @@ require "logger"
 require_relative "loader"
 
 Ellington.logger = Logger.new(STDOUT)
-route            = MathTrick.new
-conductor        = Ellington::Conductor.new(route)
+route = MathTrick.new
+conductor = Ellington::Conductor.new(route)
+
+NumberWrapper = Struct.new(:value, :first_reverse, :first_subtract, :second_reverse, :result)
 
 while true
   sleep 1 # mock latency
 
   (0..10).map do
-    # a number will serve as passenger
-    number = rand(1000)
+    # a wrapped number will serve as passenger
+    number = NumberWrapper.new(rand(1000))
 
     # turn the number into a passenger
     # this is akin to putting a travel suit on

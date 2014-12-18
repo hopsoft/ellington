@@ -1,15 +1,15 @@
 class AddStation < Ellington::Station
 
-  def engage(number, options={})
+  def engage(wrapped_number)
     begin
-      result = options[:result] = options[:first_subtract] + options[:second_reverse]
-      if result == 1089
-        pass_passenger number
+      wrapped_number.result = wrapped_number.first_subtract + wrapped_number.second_reverse
+      if wrapped_number.result == 1089
+        pass_passenger wrapped_number
       else
-        fail_passenger number
+        fail_passenger wrapped_number
       end
-    rescue Exception
-      error_passenger number
+    rescue
+      error_passenger wrapped_number
     end
   end
 

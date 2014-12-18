@@ -1,11 +1,11 @@
 class SubtractStation < Ellington::Station
 
-  def engage(number, options={})
+  def engage(wrapped_number)
     begin
-      options[:first_subtract] = number - options[:first_reverse]
-      pass_passenger number
-    rescue Exception
-      error_passenger number
+      wrapped_number.first_subtract = wrapped_number.value - wrapped_number.first_reverse
+      pass_passenger wrapped_number
+    rescue
+      error_passenger wrapped_number
     end
   end
 

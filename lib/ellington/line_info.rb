@@ -33,8 +33,10 @@ module Ellington
     end
 
     def passenger_message
-      line.route.passenger_attrs_to_log.map do |attr|
-        "[#{attr}:#{passenger.send(attr)}]"
+      line.route.passenger_attrs_to_log.reduce([]) do |memo, attr|
+        value = passenger.send(attr) rescue nil
+        memo << "[#{attr}:#{value}]" unless value.nil?
+        memo
       end
     end
 

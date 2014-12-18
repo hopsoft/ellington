@@ -1,11 +1,11 @@
 class FirstReverseStation < Ellington::Station
 
-  def engage(number, options={})
+  def engage(wrapped_number)
     begin
-      options[:first_reverse] = number.to_s.reverse.to_i
-      pass_passenger number
-    rescue Exception => e
-      error_passenger number
+      wrapped_number.first_reverse = wrapped_number.value.to_s.reverse.to_i
+      pass_passenger wrapped_number
+    rescue
+      error_passenger wrapped_number
     end
   end
 
