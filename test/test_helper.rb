@@ -8,6 +8,7 @@ SimpleCov.formatter = Coveralls::SimpleCov::Formatter
 SimpleCov.command_name "pry-test"
 SimpleCov.start do
   add_filter "/test/"
+  add_filter "/examples/"
 end
 
 require_relative "../lib/ellington"
