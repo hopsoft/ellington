@@ -95,9 +95,6 @@ module Ellington
       end
 
       log line_info, :station_completed => true
-      if line_info.passenger.current_state == line_info.station.errored
-        Ellington.logger.info "\n" if Ellington.logger
-      end
     end
 
     protected

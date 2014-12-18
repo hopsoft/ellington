@@ -123,7 +123,6 @@ module Ellington
           changed
           notify_observers route_info
         end
-        Ellington.logger.info "\n" if Ellington.logger
       end
 
       def required_connections(passenger)

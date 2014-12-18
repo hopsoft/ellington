@@ -1,12 +1,6 @@
 require "logger"
 require_relative "../lib/ellington"
 
-#require "yell"
-#Ellington.logger = Yell.new do |logger|
-#  logger.adapter STDOUT, :level => [:info], :format => "%m"
-#end
-#Ellington.logger = Logger.new($stdout)
-
 class NumberWithHistory
   attr_reader :original_value, :current_value, :history
   def initialize(value)

@@ -9,16 +9,13 @@
 # You will get a result of 1089
 # credit: http://www.basic-mathematics.com/number-trick-with-1089.html
 
-require "yell"
 require "securerandom"
+require "logger"
 require_relative "loader"
 
-Ellington.logger = Yell.new do |logger|
-  logger.adapter STDOUT, :level => [:info], :format => "%m"
-end
-
-route = MathTrick.new
-conductor = Ellington::Conductor.new(route)
+Ellington.logger = Logger.new(STDOUT)
+route            = MathTrick.new
+conductor        = Ellington::Conductor.new(route)
 
 while true
   sleep 1 # mock latency

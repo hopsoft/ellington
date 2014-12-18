@@ -1,11 +1,7 @@
-require "yell"
+require "logger"
 require_relative "loader"
 
-Ellington.logger = Yell.new do |logger|
-  logger.adapter STDOUT, :level => [:info], :format => "%m"
-end
-#Ellington.logger = Logger.new($stdout)
-
+Ellington.logger = Logger.new(STDOUT)
 route = Blast.new
 route.add_observer BlastObserver.new, :route_completed
 conductor = Ellington::Conductor.new(route)
