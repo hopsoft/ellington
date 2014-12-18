@@ -16,7 +16,7 @@ while true
     user = User.new
 
     # Wrap the passenger.
-    passenger = Ellington::Passenger.new(user, route)
+    passenger = Ellington::Passenger.new(user, route: route)
 
     # Prepare the passenger for riding.
     passenger.current_state = route.initial_state

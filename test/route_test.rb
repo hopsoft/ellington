@@ -4,7 +4,7 @@ class RouteTest < PryTest::Test
 
   before do
     @route = BasicMath.new
-    @passenger = Ellington::Passenger.new(NumberWithHistory.new(0), @route)
+    @passenger = Ellington::Passenger.new(NumberWithHistory.new(0), route: @route)
   end
 
   test "must declare lines" do

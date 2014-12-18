@@ -6,7 +6,7 @@ class AttendantTest < PryTest::Test
     route = BasicMath.new
     line = route.lines.first
     @station = line.stations.first
-    @passenger = Ellington::Passenger.new(NumberWithHistory.new(0), route)
+    @passenger = Ellington::Passenger.new(NumberWithHistory.new(0), route: route)
     @passenger.current_state = route.initial_state
     @attendant = Ellington::Attendant.new(@station)
     @passenger.add_observer @attendant

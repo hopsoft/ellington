@@ -28,7 +28,7 @@ while true
 
     # turn the number into a passenger
     # this is akin to putting a travel suit on
-    passenger = Ellington::Passenger.new(number, route)
+    passenger = Ellington::Passenger.new(number, route: route)
 
     # prepare the passenger for travel
     passenger.current_state = route.initial_state

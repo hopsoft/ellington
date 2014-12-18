@@ -10,7 +10,7 @@ class TicketTest < PryTest::Test
       :debit_id => "b834fb69-2eb3-4e57-b313-16b863e91f74",
       :credit_id => "9a670fce-4826-4a90-aaf7-a58738a4ce5b"
     )
-    @passenger = Ellington::Passenger.new(0, @route, :ticket => @ticket)
+    @passenger = Ellington::Passenger.new(0, route: @route, :ticket => @ticket)
   end
 
   test "basic ticket" do

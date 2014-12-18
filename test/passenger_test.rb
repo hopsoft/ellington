@@ -5,17 +5,17 @@ class PassengerTest < PryTest::Test
   before do
     @route = BasicMath.new
     @number = NumberWithHistory.new(0)
-    @passenger = Ellington::Passenger.new(@number, @route)
+    @passenger = Ellington::Passenger.new(@number, route: @route)
   end
 
   test "construct with ticket option" do
     ticket = Ellington::Ticket.new
-    passenger = Ellington::Passenger.new(@number, @route, :ticket => ticket)
+    passenger = Ellington::Passenger.new(@number, route: @route, :ticket => ticket)
     assert passenger.ticket == ticket
   end
 
   test "construct with state_history option" do
-    passenger = Ellington::Passenger.new(@number, @route, :state_history => [:foo, :bar])
+    passenger = Ellington::Passenger.new(@number, route: @route, :state_history => [:foo, :bar])
     assert passenger.state_history == [:foo, :bar]
   end
 
