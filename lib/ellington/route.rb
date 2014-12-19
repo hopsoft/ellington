@@ -92,9 +92,8 @@ module Ellington
         @connections ||= Ellington::ConnectionList.new
       end
 
-      def connect_to(line, if_any: [], if_all: [])
-        connections << Ellington::Connection.new(line, :if_any, if_any) unless if_any.empty?
-        connections << Ellington::Connection.new(line, :if_all, if_all) unless if_all.empty?
+      def connect(line, after: [], strict: false)
+        connections << Ellington::Connection.new(line, *after, strict: false)
       end
 
       def passenger_attrs_to_log

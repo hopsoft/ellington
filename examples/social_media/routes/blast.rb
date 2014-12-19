@@ -1,11 +1,11 @@
 class Blast < Ellington::Route
 
   facebook = lines.add(Facebook.new) # entry line since its the first added
-  twitter = lines.add(Twitter.new)
-  billing = lines.add(Billing.new)
+  twitter  = lines.add(Twitter.new)
+  billing  = lines.add(Billing.new)
 
-  connect_to twitter, :if_any => [facebook.passed, facebook.failed, facebook.errored]
-  connect_to billing, :if_all => [facebook.passed, twitter.passed]
+  connect twitter, after: [facebook.passed, facebook.failed, facebook.errored]
+  connect billing, after: [facebook.passed, twitter.passed], strict: true
 
   goal billing.passed
 

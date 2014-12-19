@@ -1,25 +1,17 @@
 module Ellington
   class Connection
-    attr_reader :line, :type, :states
+    attr_reader :line, :states, :strict
 
-    def initialize(line, type, *states)
+    def initialize(line, *states, strict: false)
       @line = line
-      @type = type
       @states = Ellington::Target.new(*states)
+      @strict = strict
     end
 
     def required?(passenger)
       return false if line.boarded?(passenger)
-
-      if type == :if_any
-        return states.satisfied?(passenger) 
-      end
-
-      if type == :if_all
-        return (passenger.state_history & states).length == states.length
-      end
-
-      false
+      return (passenger.state_history & states).length == states.length if strict
+      states.satisfied?(passenger)
     end
 
   end

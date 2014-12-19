@@ -5,7 +5,7 @@ class ConnectionTest < PryTest::Test
   before do
     @route = BasicMath.new
     @line = @route.lines.first
-    @connection = Ellington::Connection.new(@route.lines[1], :if_currently, @line.passed)
+    @connection = Ellington::Connection.new(@route.lines[1], @line.passed)
   end
 
   test "line" do
