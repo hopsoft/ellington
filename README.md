@@ -7,8 +7,6 @@
 
 # Ellington
 
----
-
 ### Important
 
 __The wiki docs are out of date!__
