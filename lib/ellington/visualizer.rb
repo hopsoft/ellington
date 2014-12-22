@@ -108,20 +108,7 @@ module Ellington
           end
         end
 
-        if connection.type == :if_any
-          combos.each do |state, nodes|
-            nodes.each do |node|
-              from_line = node.base
-              g.viz.add_edges(
-                node.viz.get_node("#{from_line.class.name}#{state}"),
-                to_node.viz.get_node("#{to_line.class.name}PASS"),
-                "lhead" => to_node.viz.id
-              )
-            end
-          end
-        end
-
-        if connection.type == :if_all
+        if connection.strict
           combos.each do |state, nodes|
             node_name = nodes.map{ |n| n.base.class.name }.join + state
             node_label = nodes.map{ |n| state_label(state) }.join("\n")
@@ -131,6 +118,17 @@ module Ellington
               to_node.viz.get_node("#{connection.line.class.name}#{state}"),
               "lhead" => to_node.viz.id
             )
+          end
+        else
+          combos.each do |state, nodes|
+            nodes.each do |node|
+              from_line = node.base
+              g.viz.add_edges(
+                node.viz.get_node("#{from_line.class.name}#{state}"),
+                to_node.viz.get_node("#{to_line.class.name}PASS"),
+                "lhead" => to_node.viz.id
+              )
+            end
           end
         end
       end
