@@ -10,17 +10,15 @@ while true
   sleep 1 # mock latency
 
   (0..10).map do
-    # Find users that should ride the route.
+    # Find users that should ride the route
     # In a typical app, we might select users from the database
-    # or pull them off of a message queue.
+    # or pull them off of a message queue
     user = User.new
 
-    # Wrap the passenger.
-    passenger = Ellington::Passenger.new(user, route: route)
+    # prepare a passenger
+    passenger = route.create_passenger(user)
 
-    # Prepare the passenger for riding.
-    passenger.current_state = route.initial_state
-
+    # put the passenger on the train
     conductor.conduct passenger
   end
 end

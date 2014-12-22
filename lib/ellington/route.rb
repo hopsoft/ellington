@@ -2,6 +2,7 @@ require "delegate"
 require "fileutils"
 require "observer"
 require_relative "has_targets"
+require_relative "passenger"
 
 module Ellington
   class Route < SimpleDelegator
@@ -32,6 +33,12 @@ module Ellington
           station.add_observer line, :station_completed
         end
       end
+    end
+
+    def create_passenger(context, ticket: Ellington::Ticket.new, state_history: [])
+      passenger = Passenger.new(context, route: self, ticket: ticket, state_history: state_history)
+      passenger.current_state = initial_state
+      passenger
     end
 
     class << self

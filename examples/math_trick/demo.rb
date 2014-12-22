@@ -26,12 +26,8 @@ while true
     # a wrapped number will serve as passenger
     number = NumberWrapper.new(rand(1000))
 
-    # turn the number into a passenger
-    # this is akin to putting a travel suit on
-    passenger = Ellington::Passenger.new(number, route: route)
-
-    # prepare the passenger for travel
-    passenger.current_state = route.initial_state
+    # turn the wrapped number into a passenger
+    passenger = route.create_passenger(number)
 
     # put the passenger on the train
     conductor.conduct passenger
