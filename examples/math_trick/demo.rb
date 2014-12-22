@@ -26,11 +26,8 @@ while true
     # a wrapped number will serve as passenger
     number = NumberWrapper.new(rand(1000))
 
-    # turn the wrapped number into a passenger
-    passenger = route.create_passenger(number)
-
     # put the passenger on the train
-    conductor.conduct passenger
+    conductor.conduct number
   end
 end
 
