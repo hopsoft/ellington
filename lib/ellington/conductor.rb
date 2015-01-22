@@ -16,8 +16,9 @@ module Ellington
     end
 
     def conduct(passenger)
-      if !passenger.is_a?(Passenger)
-        passenger = Passenger.new(passenger, ticket: Ellington::Ticket.new, state_history: [])
+      if !passenger.is_a?(Ellington::Passenger)
+        ticket = Ellington::Ticket.new
+        passenger = Ellington::Passenger.new(passenger, ticket: ticket, state_history: [])
       end
       passenger.current_state = route.initial_state
       return unless verify(passenger)
