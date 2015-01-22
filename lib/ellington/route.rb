@@ -35,12 +35,6 @@ module Ellington
       end
     end
 
-    def create_passenger(context, ticket: Ellington::Ticket.new, state_history: [])
-      passenger = Passenger.new(context, route: self, ticket: ticket, state_history: state_history)
-      passenger.current_state = initial_state
-      passenger
-    end
-
     class << self
       include Observable
       include HasTargets

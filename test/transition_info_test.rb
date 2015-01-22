@@ -6,7 +6,7 @@ class TransitionInfoTest < PryTest::Test
     @route = BasicMath.new
     @line = @route.lines.first
     @station = @line.stations.first
-    @passenger = Ellington::Passenger.new(NumberWithHistory.new(0), route: @route)
+    @passenger = Ellington::Passenger.new(NumberWithHistory.new(0))
     @transition_info = Ellington::TransitionInfo.new(@passenger, @route.initial_state, @station.passed)
   end
 

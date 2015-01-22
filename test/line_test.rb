@@ -5,7 +5,7 @@ class LineTest < PryTest::Test
   before do
     @route = BasicMath.new
     @line = @route.lines.first
-    @passenger = Ellington::Passenger.new(NumberWithHistory.new(0), route: @route)
+    @passenger = Ellington::Passenger.new(NumberWithHistory.new(0))
   end
 
   test "must declare stations" do

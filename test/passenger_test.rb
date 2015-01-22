@@ -5,23 +5,23 @@ class PassengerTest < PryTest::Test
   before do
     @route = BasicMath.new
     @number = NumberWithHistory.new(0)
-    @passenger = Ellington::Passenger.new(@number, route: @route)
+    @passenger = Ellington::Passenger.new(@number)
   end
 
   test "construct with ticket option" do
     ticket = Ellington::Ticket.new
-    passenger = Ellington::Passenger.new(@number, route: @route, :ticket => ticket)
+    passenger = Ellington::Passenger.new(@number, :ticket => ticket)
     assert passenger.ticket == ticket
   end
 
   test "construct with state_history option" do
-    passenger = Ellington::Passenger.new(@number, route: @route, :state_history => [:foo, :bar])
+    passenger = Ellington::Passenger.new(@number, :state_history => [:foo, :bar])
     assert passenger.state_history == [:foo, :bar]
   end
 
   test "transition_to valid state" do
     @passenger.current_state = @route.initial_state
-    @passenger.transition_to @route.lines.first.states.keys.first
+    @passenger.transition_to @route.lines.first.states.keys.first, state_jacket: @route.states
     assert @passenger.current_state == @route.lines.first.states.keys.first
   end
 
@@ -29,7 +29,7 @@ class PassengerTest < PryTest::Test
     error = nil
     begin
       @passenger.current_state = :error
-      @passenger.transition_to :happy
+      @passenger.transition_to :happy, state_jacket: @route.states
     rescue Ellington::InvalidStateTransition => e
       error = e
     end
@@ -46,7 +46,7 @@ class PassengerTest < PryTest::Test
 
     @passenger.add_observer(watcher)
     @passenger.current_state = @route.initial_state
-    @passenger.transition_to @route.lines.first.states.keys.first
+    @passenger.transition_to @route.lines.first.states.keys.first, state_jacket: @route.states
 
     assert watcher.info.passenger == @passenger
     assert watcher.info.old_state == "PRE BasicMath"
@@ -55,8 +55,8 @@ class PassengerTest < PryTest::Test
 
   test "state_history" do
     @passenger.current_state = @route.initial_state
-    @passenger.transition_to @route.lines[0].states.keys.first
-    @passenger.transition_to @route.lines[2].states.keys.first
+    @passenger.transition_to @route.lines[0].states.keys.first, state_jacket: @route.states
+    @passenger.transition_to @route.lines[2].states.keys.first, state_jacket: @route.states
     assert @passenger.state_history == ["PASS Addition Add10", "PASS Multiplication MultiplyBy10"]
   end
 

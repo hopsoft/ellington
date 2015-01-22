@@ -5,7 +5,7 @@ class ConductorTest < PryTest::Test
   before do
     @route = BasicMath.new
     @conductor = Ellington::Conductor.new(@route)
-    @passenger = Ellington::Passenger.new(NumberWithHistory.new(0), route: @route)
+    @passenger = Ellington::Passenger.new(NumberWithHistory.new(0))
     @passenger.current_state = @route.initial_state
   end
 

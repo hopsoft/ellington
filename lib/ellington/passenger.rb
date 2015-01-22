@@ -4,11 +4,10 @@ module Ellington
   class Passenger < SimpleDelegator
     include Observable
     attr_accessor :context, :ticket
-    attr_reader :route, :state_history
+    attr_reader :state_history
 
-    def initialize(context, route: route, ticket: Ellington::Ticket.new, state_history: [])
+    def initialize(context, ticket: Ellington::Ticket.new, state_history: [])
       @context = context
-      @route = route
       @ticket = ticket
       @state_history = state_history
       super context
@@ -28,8 +27,8 @@ module Ellington
       (state_history & states).length == states.length
     end
 
-    def transition_to(new_state)
-      if !route.states.can_transition?(current_state => new_state)
+    def transition_to(new_state, state_jacket: nil)
+      if !state_jacket.can_transition?(current_state => new_state)
         message = "Cannot transition #{self.class.name} from:#{current_state} to:#{new_state}"
         raise Ellington::InvalidStateTransition.new(message)
       end
@@ -37,7 +36,7 @@ module Ellington
       old_state = current_state
 
       if context.respond_to?(:transition_to)
-        return_value = context.transition_to(new_state)
+        return_value = context.transition_to(new_state, state_jacket: state_jacket)
       else
         self.current_state = new_state
       end

@@ -15,11 +15,8 @@ while true
     # or pull them off of a message queue
     user = User.new
 
-    # prepare a passenger
-    passenger = route.create_passenger(user)
-
     # put the passenger on the train
-    conductor.conduct passenger
+    conductor.conduct user
   end
 end
 

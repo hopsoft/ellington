@@ -84,15 +84,15 @@ module Ellington
     end
 
     def pass_passenger(passenger)
-      passenger.transition_to passed
+      passenger.transition_to passed, state_jacket: route.states
     end
 
     def fail_passenger(passenger)
-      passenger.transition_to failed
+      passenger.transition_to failed, state_jacket: route.states
     end
 
     def error_passenger(passenger)
-      passenger.transition_to errored
+      passenger.transition_to errored, state_jacket: route.states
     end
 
     def state(passenger)

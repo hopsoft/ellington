@@ -25,6 +25,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "pry-test"
   gem.add_development_dependency "pry-stack_explorer"
   gem.add_development_dependency "pry-rescue"
+  gem.add_development_dependency "pry-byebug"
   gem.add_development_dependency "spoof"
   gem.add_development_dependency "simplecov"
   gem.add_development_dependency "coveralls"
